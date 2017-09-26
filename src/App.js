@@ -1,21 +1,53 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './index.css';
 
-class App extends Component {
+import Welcome from './components/Welcome'
+import Calendar from './components/Calendar'
+import Notes from './components/Notes'
+import Todo from './components/Todo'
+
+export default class App extends Component {
+  constructor() {
+    super()
+
+    this.state = {
+      openedMenuItem: "welcome"
+    }
+  }
+
+  handleMenuItemClick(openedMenuItem) {
+    this.setState({openedMenuItem})
+  }
+
   render() {
+    const {openedMenuItem} = this.state
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <ul>
+          <li onClick={() => this.handleMenuItemClick("welcome")}>
+            Home
+          </li>
+          <li onClick={() => this.handleMenuItemClick("calendar")}>
+            Calendar
+          </li>
+          <li onClick={() => this.handleMenuItemClick("todo")}>
+            Todo
+          </li>
+          <li onClick={() => this.handleMenuItemClick("notes")}>
+            Notes
+          </li>
+        </ul>
+        {{
+          "calendar":
+          <Calendar/>,
+          "todo":
+          <Todo/>,
+          "notes":
+          <Notes/>,
+          "welcome":
+          <Welcome/>
+        }[openedMenuItem]}
       </div>
-    );
+    )
   }
 }
-
-export default App;
