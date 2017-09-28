@@ -23,20 +23,24 @@ export default class App extends Component {
     const {openedMenuItem} = this.state
     return (
       <div className="App">
-        <ul>
-          <li onClick={() => this.handleMenuItemClick("welcome")}>
-            Home
-          </li>
-          <li onClick={() => this.handleMenuItemClick("calendar")}>
-            Calendar
-          </li>
-          <li onClick={() => this.handleMenuItemClick("todo")}>
-            Todo
-          </li>
-          <li onClick={() => this.handleMenuItemClick("notes")}>
-            Notes
-          </li>
-        </ul>
+        <header>
+          <nav>
+            <ul>
+              <li onClick={() => this.handleMenuItemClick("welcome")}>
+                Home
+              </li>
+              <li onClick={() => this.handleMenuItemClick("calendar")}>
+                Calendar
+              </li>
+              <li onClick={() => this.handleMenuItemClick("todo")}>
+                Todo
+              </li>
+              <li onClick={() => this.handleMenuItemClick("notes")}>
+                Notes
+              </li>
+            </ul>
+          </nav>
+        </header>
         {{
           "calendar":
           <Calendar/>,
