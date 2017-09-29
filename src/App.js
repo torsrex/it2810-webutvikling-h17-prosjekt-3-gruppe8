@@ -1,7 +1,13 @@
 import React from 'react';
+<<<<<<< HEAD
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import './main.css';
 import {NavItem, Nav, Navbar, Jumbotron, Grid} from 'react-bootstrap';
+=======
+import {BrowserRouter as Router, Route} from 'react-router-dom'
+import './index.css';
+import {NavItem, Nav, Navbar, Grid} from 'react-bootstrap';
+>>>>>>> :art: Fixed console warnings
 import {LinkContainer} from 'react-router-bootstrap'
 import 'bootstrap/less/bootstrap.less'
 
@@ -17,7 +23,7 @@ const App = () => (
     <div>
 
       <Navbar inverse collapseOnSelect>
-        <Nav right eventKey={1}>
+        <Nav>
         <LinkContainer to="/">
         <NavItem eventKey={2}>
           Home

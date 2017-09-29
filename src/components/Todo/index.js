@@ -3,7 +3,6 @@ import React, {Component} from 'react'
 import TodosList from './todos-list'
 import CreateTodo from './create-todo'
 import {stringifyObject, parseObject} from '../../utils'
-import {ButtonGroup} from 'react-bootstrap'
 
 const todos = [
   {

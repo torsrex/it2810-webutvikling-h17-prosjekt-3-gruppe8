@@ -25,45 +25,43 @@ export default class TodosListItem extends Component {
     if (this.state.isEditing) {
 
       return (
-        <td>
+        <div>
           <form onSubmit={this.onSaveClick.bind(this)}>
             <input type="text" defaultValue={task} ref="editInput"/>
           </form>
-        </td>
+        </div>
       )
     }
 
     return (
-      <td style={taskStyle} onClick={this.props.toggleTask.bind(this, task)}>
+      <div style={taskStyle} onClick={this.props.toggleTask.bind(this, task)}>
         {task}
-      </td>
+      </div>
     )
   }
 
   renderActionsSection() {
     if (this.state.isEditing) {
       return (
-        <td>
+        <div>
           <button onClick={this.onSaveClick.bind(this)}>Save</button>
           <button onClick={this.onCancelClick.bind(this)}>Cancel</button>
-        </td>
+        </div>
       )
     }
     return (
-      <td>
+      <div>
         <button onClick={this.onEditClick.bind(this)}>Edit</button>
         <button onClick={this.props.deleteTask.bind(this, this.props.task)}>Delete</button>
-      </td>
+      </div>
     )
   }
   render() {
     return (
-      <thead>
-        <tr>
+    <div>
           {this.renderTaskSection()}
           {this.renderActionsSection()}
-        </tr>
-      </thead>
+    </div>
     )
   }
   onEditClick() {
