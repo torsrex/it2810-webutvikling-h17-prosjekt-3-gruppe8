@@ -1,3 +1,4 @@
+/*
 body {
   margin: 0;
   padding: 0;
@@ -22,7 +23,7 @@ ul {
   margin: 0;
   list-style-type: none
 }
-
+*/
 #calendar-wrapper {
   flex-grow: 1;
   display: flex;
@@ -204,4 +205,13 @@ ul {
 }
 .weekend-title {
     background-color: #d85050!important
+}
+
+/*Todo styling*/
+.todo-wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

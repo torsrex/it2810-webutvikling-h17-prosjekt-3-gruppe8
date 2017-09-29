@@ -16,6 +16,9 @@ export default class TodosListItem extends Component {
       color: isComplete
         ? 'green'
         : 'red',
+      textDecorationLine: isComplete
+      ? 'line-through' :
+      '',
       cursor: 'pointer'
     }
 
