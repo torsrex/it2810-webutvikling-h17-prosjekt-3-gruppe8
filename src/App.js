@@ -1,39 +1,56 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
 import './main.css';
-import {NavItem, Nav, Navbar} from 'react-bootstrap';
+import {NavItem, Nav, Navbar, Jumbotron, Grid} from 'react-bootstrap';
+import {LinkContainer} from 'react-router-bootstrap'
+import 'bootstrap/less/bootstrap.less'
 
 import Welcome from './components/Welcome'
 import Calendar from './components/Calendar'
 import Notes from './components/Notes'
 import Todo from './components/Todo'
 
+
+
 const App = () => (
   <Router>
     <div>
-      <Navbar>
-        <Nav className="navbar">
-          <NavItem eventKey={1}>
-            <Link to="/">Home</Link>
-          </NavItem>
-          <NavItem eventKey={2}>
-            <Link to="/todo">Todo</Link>
-          </NavItem>
+
+      <Navbar inverse collapseOnSelect>
+        <Nav right eventKey={1}>
+        <LinkContainer to="/">
+        <NavItem eventKey={2}>
+          Home
+        </NavItem>
+      </LinkContainer>
+        <LinkContainer to="/todo">
           <NavItem eventKey={3}>
-            <Link to="/notes">Notes</Link>
+            Todo
           </NavItem>
+        </LinkContainer>
+        <LinkContainer to="/notes">
           <NavItem eventKey={4}>
-            <Link to="/calendar">Calendar</Link>
+          Notes
           </NavItem>
+        </LinkContainer>
+        <LinkContainer to="/calendar">
+          <NavItem eventKey={4}>
+            Calendar
+          </NavItem>
+        </LinkContainer>
         </Nav>
       </Navbar>
-
-      <hr/>
 
       <Route exact path="/" component={Welcome}/>
       <Route path="/todo" component={Todo}/>
       <Route path="/notes" component={Notes}/>
       <Route path="/calendar" component={Calendar}/>
+
+    <Grid>
+      <footer>
+        Best personal manager
+      </footer>
+  </Grid>
     </div>
   </Router>
 )
