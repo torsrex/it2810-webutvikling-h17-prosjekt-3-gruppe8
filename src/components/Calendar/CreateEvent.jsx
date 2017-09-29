@@ -1,10 +1,7 @@
 import React, { Component } from 'react'
+import {parseObject, parseDate, generateId,stringifyObject} from "../../utils"
 
 
-const stringifyObject = o => JSON.stringify(o)
-const parseObject = o => JSON.parse(o)
-const parseDate = date => new Date(date).toISOString().slice(0,10)
-const generateId = () => Math.random().toString(36)
 const today = new Date().getTime()
 const emptyNewEvent =  {
   content: "",
@@ -42,7 +39,7 @@ export default class CreateEvent extends Component {
   componentWillMount() {
     parseObject(localStorage.getItem('events')) === null && localStorage.setItem('events', stringifyObject({}))
   }
-  
+
   handleClick(e) {
     e.preventDefault()
     let {newEvent, events} = this.state
