@@ -1,34 +1,71 @@
-/*
-body {
+/*body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
 }
-.App {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-nav ul {
-  display: flex;
-  justify-content: space-evenly;
-  padding: 1em 0;
-  background-color: #ededed
+
+button {
+  cursor: pointer
 }
 
+select {
+  padding: 4px
+}
+option {
+  color: white;
+  font-size: 1.2em;
+  text-indent: 6px
+}*/
 
 ul {
   padding: 0;
   margin: 0;
   list-style-type: none
 }
-*/
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.create-event {
+  border: 1px solid grey;
+  border-radius: 1em;
+  position: relative;
+  /*position: fixed;*/
+  /*transform: translateY(-50%);*/
+  top: 50%;
+  left: 2.5%;
+  background-color: #ededed;
+  box-shadow: 0 0 10px black;
+  z-index: 1;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 2em 3em
+}
+
+.close-create-event {
+  top: 12px;
+  right: 12px;
+  position: absolute;
+}
+.create-event>div{
+  margin: 1em 0
+}
+
+.create-event button {
+
+  margin: 0 .5em
+}
 #calendar-wrapper {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-
 }
 
 #month-wrapper {
@@ -155,32 +192,64 @@ ul {
   top: 32px;
   background-color: green
 }
+.purple {
+  top: 40px;
+  background-color: purple
+}
 
+.big-day {
+  position: relative;
+  z-index: 1000;
+  width: 50%;
+  left: 25%;
+  min-height: 120px;
+  box-shadow: 0 0 10px;
+  border-radius: 1em;
+  padding: 2em;
+  background-color: #ededed
+}
+.big-day-header {
+  display: flex;
+}
+.big-day-event {
+  display: flex;
+  margin: .5em 0;
+  justify-content: space-between;
+  align-items: center;
+}
+.big-day-event span {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%
+}
+.big-day-event p {
+  margin-bottom: 0
+}
 
-@media (orientation: landscape) {
+@media (orientation: landscape) and (min-width: 768px) {
     .days-title li:after {
         color: #fafafa
     }
     .days-title li:first-child:after {
-        content: "andag"
+        content: "onday"
     }
     .days-title li:nth-child(2):after {
-        content: "rsdag"
+        content: "esday"
     }
     .days-title li:nth-child(3):after {
-        content: "nsdag"
+        content: "ednesday"
     }
     .days-title li:nth-child(4):after {
-        content: "rsdag"
+        content: "ursday"
     }
     .days-title li:nth-child(5):after {
-        content: "redag"
+        content: "riday"
     }
     .days-title li:nth-child(6):after {
-        content: "ørdag"
+        content: "turday"
     }
     .days-title li:last-child:after {
-        content: "øndag"
+        content: "nday"
     }
 }
 
@@ -206,6 +275,7 @@ ul {
 .weekend-title {
     background-color: #d85050!important
 }
+
 
 /*Todo styling*/
 .todo-wrapper {
