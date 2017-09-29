@@ -1,14 +1,13 @@
 import React from 'react'
 
-const Day = ({calendarEvents, day, month , isPlaceholder, isToday, handleDayClick}) => {
-  let dayEvents = []
+const Day = ({dayEvents, day, month , isPlaceholder, isToday, openBigDay}) => {
+  let dayEventsList = []
   let dayTitle = []
-  // console.log(calendarEvents);
-  if (calendarEvents) {
-    Object.entries(calendarEvents).forEach(calendarEvent => {
+  if (dayEvents) {
+    Object.entries(dayEvents).forEach(calendarEvent => {
       const [key, value] = calendarEvent
       const {content, from, to, color} = value
-      dayEvents.push(
+      dayEventsList.push(
         <li key={key} className={`day-event ${color} ${from && to ? "from-to" : from ? "from" : to && "to"}`}/>
       )
       dayTitle.push(content)
@@ -16,9 +15,9 @@ const Day = ({calendarEvents, day, month , isPlaceholder, isToday, handleDayClic
   }
 
   const handleClick = () => {
-    handleDayClick({
+    openBigDay({
       date: {day,month},
-      dayCalendarEvents: Object.keys(calendarEvents)
+      dayEvents
     })
   }
 
@@ -30,7 +29,7 @@ const Day = ({calendarEvents, day, month , isPlaceholder, isToday, handleDayClic
       <p>{day}</p>
       {!isPlaceholder &&
         <ul className="day-events-list">
-          {dayEvents}
+          {dayEventsList}
         </ul>
       }
     </li>

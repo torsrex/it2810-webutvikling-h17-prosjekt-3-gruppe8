@@ -1,26 +1,18 @@
 import React, { Component } from 'react'
 import Month from './Month'
 import CreateEvent from './CreateEvent'
-// import DayBig from './DayBig'
-// import RoomLegend from './RoomLegend'
-//
-// const RoomLegends = ({i}) => {
-//   return(
-//     <div className="room-legend">
-//       <ul>
-//         {Array(i).fill().map((x,i) => <RoomLegend key={i} id={i+1}/>)}
-//       </ul>
-//       <h5>Színjelölés(szobaszám)</h5>
-//     </div>
-//   )
-// }
+import BigDay from './BigDay'
+import {parseObject, stringifyObject} from '../../utils'
 
-const parseObject = o => JSON.parse(o)
+const events = localStorage.getItem('events') ? parseObject(localStorage.getItem('events')) : {}
+const bigDay = {
+  isBigDay: false,
+  date: {},
+  bigDayEvents: {}
+}
 
 const initialState = {
-  isDayBig: false,
-  date: {},
-  dayCalendarEvents: {}
+  events, bigDay
 }
 
 export default class Calendar extends Component {
@@ -29,45 +21,75 @@ export default class Calendar extends Component {
     this.state = initialState
   }
 
-  handleDayClick(dayData){
+  openBigDay(dayData){
     const {date, dayEvents} = dayData
-    const dayCalendarEvents = Object.assign({}, this.props.dayCalendarEvents)
-    Object.keys(dayCalendarEvents).forEach( key => {
-      !dayEvents.includes(key) && delete dayCalendarEvents[key]
-    })
-    this.setState({
-      isDayBig: true,
-      date,
-      dayCalendarEvents
-    })
+    if (Object.keys(dayEvents).length !== 0) {
+      this.setState(prevState => ({
+        events: prevState.events,
+        bigDay: {
+          isBigDay: true,
+          date,
+          bigDayEvents: dayEvents
+        }
+      }))
+    }
   }
 
   closeBigDay(){
-    this.setState(initialState)
+    this.setState(prevState => ({
+      events: prevState.events,
+      bigDay
+    }))
   }
 
-  render() {
-    console.log(localStorage.getItem("events"));
+  createEvent(newEvent) {
+    const key = Object.keys(newEvent)[0]
+    const value = newEvent[key]
+    let {events} = this.state
+    console.log(events);
+    events[key] = value
+    console.log(events);
+    this.setState(prevState => ({
+      bigDay: prevState.bigDay,
+      events
+    }))
+    localStorage.setItem('events', stringifyObject(events))
+  }
 
-    const {isDayBig, date} = this.state
+  deleteEvent(e) {
+    const eventKey = e.target.getAttribute("data-key")
+    const {events} = this.state
+    delete events[eventKey]
+    if (Object.keys(events).length === 0) {
+      this.setState({events: {}})
+      localStorage.setItem('events', stringifyObject({}))
+    } else {
+      this.setState({events})
+      localStorage.setItem('events', stringifyObject(events))
+    }
+  }
+
+
+  render() {
+    const {bigDay: {isBigDay, date, bigDayEvents}, events} = this.state
     return (
       <div id="calendar-wrapper">
-        <CreateEvent>
-        </CreateEvent>
+        <CreateEvent
+          createEvent={event => this.createEvent(event)}
+        />
         <Month
-          handleDayClick={day => this.handleDayClick(day)}
-          calendarEvents={parseObject(localStorage.getItem('events'))}
+          openBigDay={day => this.openBigDay(day)}
+          events={events}
         />
 
-        {/* {isDayBig &&
-          <DayBig
+        {isBigDay &&
+          <BigDay
             closeBigDay={() => this.closeBigDay()}
             date={date}
-            calendarEvents={this.state.dayCalendarEvents}
+            events={bigDayEvents}
+            deleteEvent={eventKey => this.deleteEvent(eventKey)}
           />
-        } */}
-
-        {/* <RoomLegends i={6}/> */}
+        }
       </div>
     )
   }

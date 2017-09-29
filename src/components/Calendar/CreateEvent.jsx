@@ -1,85 +1,77 @@
 import React, { Component } from 'react'
-import {parseObject, parseDate, generateId,stringifyObject} from "../../utils"
-
+import {parseDate, generateId} from "../../utils"
 
 const today = new Date().getTime()
-const emptyNewEvent =  {
+const emptyEvent =  {
   content: "",
   from: today,
   to: today,
   color: "red"
 }
+
 export default class CreateEvent extends Component {
   constructor() {
     super()
     this.state = {
-      newEvent: emptyNewEvent,
-      events: parseObject(localStorage.getItem('events'))
+      event: emptyEvent
     }
   }
 
   handleInputChange(e, type) {
+    console.log(this.state.event);
     let {value} = e.target
-    const {from} = this.state.newEvent
+    const {from, to} = this.state.event
     if (type === "from" || type === "to") {
       value = new Date(value).getTime()
     }
-    if (type === "to" && value <= from) {
-      alert("Til dato må være større enn fra dato.")
+    if ((type === "to" && value <= from) || (type === "from" && value >= to)) {
+      alert("Event start time must be before event end time.")
     } else {
       this.setState(prevState => ({
-        newEvent: {
-          ...prevState.newEvent,
+        event: {
+          ...prevState.event,
           [type]: value
         }
       }))
     }
   }
 
-  componentWillMount() {
-    parseObject(localStorage.getItem('events')) === null && localStorage.setItem('events', stringifyObject({}))
-  }
 
   handleClick(e) {
     e.preventDefault()
-    let {newEvent, events} = this.state
-    events = Object.assign(
-      {[generateId()]: newEvent},
-      parseObject(localStorage.getItem('events'))
-    )
-
-    if (newEvent.content !== "") {
-      this.setState({
-        newEvent: emptyNewEvent,
-        events
-      })
-      localStorage.setItem('events', stringifyObject(events))
-
+    const {event} = this.state
+    const newEvent = {[generateId()]: event}
+    if (event.content !== "") {
+      this.props.createEvent(newEvent)
+      this.setState({event: emptyEvent})
     } else {
-      alert('Tom input!')
+      alert("Empty content!")
     }
   }
 
   render() {
-    const {newEvent} = this.state
-    const {content, from, to} = newEvent
+    const {event} = this.state
+    const {content, from, to} = event
+    const colors = ["red", "orange", "green", "blue", "brown", "purple"].map(color =>
+      <option key={color} className={color} value={color}>{color}</option>
+    )
+
     return(
-      <div>
+      <div className="create-event">
+        <button type="button" className="close-create-event close" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <input className="form-control" placeholder="Description..." value={content} type="text" onChange={(e, type) => this.handleInputChange(e, "content")}/>
         <div>
-          <div>
-            <input value={content} type="text" onChange={(e, type) => this.handleInputChange(e, "content")}/>
-            <input value={parseDate(from)} type="date" onChange={(e, type) => this.handleInputChange(e, "from")}/>
-            <input value={parseDate(to)} type="date" onChange={(e, type) => this.handleInputChange(e, "to")}/>
-            <select onClick={(e, type) => this.handleInputChange(e, "color")}>
-              <option value="red">Rødt</option>
-              <option value="orange">Oransj</option>
-              <option value="green">Grønn</option>
-              <option value="blue">Blå</option>
-              <option value="brown">Brun</option>
-            </select>
-          </div>
-          <button onClick={e => this.handleClick(e)}>Legg til event</button>
-          <button onClick={() => localStorage.setItem('events', '{}')}>Tømm localStorage</button>
+          <input value={parseDate(from)} type="date" onChange={(e, type) => this.handleInputChange(e, "from")}/>
+          <input value={parseDate(to)} type="date" onChange={(e, type) => this.handleInputChange(e, "to")}/>
+          <select onClick={(e, type) => this.handleInputChange(e, "color")}>
+            {colors}
+          </select>
+        </div>
+        <div>
+          <button className="btn btn-primary btn-sm" onClick={e => this.handleClick(e)}>Add event</button>
+          <button className="btn btn-danger btn-sm" onClick={() => localStorage.setItem('events', '{}')}>Empty localStorage</button>
         </div>
       </div>
     )

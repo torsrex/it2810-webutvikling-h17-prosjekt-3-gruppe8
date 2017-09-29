@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Day from './Day'
 import Header from './Header'
+import {week, parseDate} from '../../utils'
 
 const fullDate = new Date()
 const year = fullDate.getFullYear()
@@ -93,7 +94,7 @@ export default class Month extends Component {
 
   render() {
     let days = []
-    const {handleDayClick} = this.props
+    const {openBigDay, events} = this.props
     const {date, today} = this.state
     const {fullDate, year, month, daysInMonth} = date
     // Pushing the first day in the month to appropriate place.
@@ -103,7 +104,7 @@ export default class Month extends Component {
           key={i+100}
           day={new Date(year, month, -i+1).getDate()}
           isPlaceholder
-          handleDayClick={handleDayClick}
+          openBigDay={openBigDay}
         />
       )
     }
@@ -111,19 +112,18 @@ export default class Month extends Component {
     // Generating the month.
     for (let i = 1; i <= daysInMonth; i++) {
       const isToday = i === today.getDate() && today.toDateString() === fullDate.toDateString()
-      let calendarEvents = {}
+      let dayEvents = {}
 
-      Object.keys(this.props.calendarEvents).forEach(key => {
-        const value = this.props.calendarEvents[key]
-        const {from, to, content, color} = value
-        const date = (...date) => new Date(...date).toISOString().slice(0,10)
-        const day = date(year, month, i)
+      Object.keys(events).forEach(key => {
+        const event = events[key]
+        const {from, to, content, color} = event
+        const day = parseDate(year, month, i)
         // HACK: Shift calendarEvent one day to left
-        const dayFrom = date(from-86400000)
-        const dayTo = date(to-86400000)
+        const dayFrom = parseDate(from-86400000)
+        const dayTo = parseDate(to-86400000)
 
         if (day >= dayFrom && day <= dayTo) {
-          let calendarEvent = calendarEvents[key] = {content, color}
+          let calendarEvent = dayEvents[key] = {content, color}
           if (day === dayFrom)  {
             Object.assign(calendarEvent, {from: true})
           }
@@ -133,14 +133,14 @@ export default class Month extends Component {
         }
       })
 
-      days.push(<Day {...{key: i, day: i, isToday, month, handleDayClick, calendarEvents}}/>)
+      days.push(<Day {...{key: i, day: i, isToday, month, openBigDay, dayEvents}}/>)
     }
 
     // Pushing the next months' first days to the end of the months so it is always 42 days on the page.
     for (var i = days.length; i < 42; i++) {
       days.push(
         <Day key={i+200} day={i-daysInMonth-placeholderLengthBefore+1}
-          {...{handleDayClick}}
+          {...{openBigDay}}
           isPlaceholder
         />
       )
@@ -154,7 +154,7 @@ export default class Month extends Component {
           }}
           changeDate={direction => this.changeDate(direction)}
         />
-        <Weekdays days={["M","Ti","O","To","F","L","S"]}/>
+        <Weekdays days={week}/>
         <Days days={days}/>
       </div>
     )
