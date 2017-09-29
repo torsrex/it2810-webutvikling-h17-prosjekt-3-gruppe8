@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 import TodosList from './todos-list'
 import CreateTodo from './create-todo'
 import {stringifyObject, parseObject} from '../../utils'
+import {Grid} from 'react-bootstrap'
 
 const todos = [
   {
@@ -35,9 +36,11 @@ export default class Todo extends Component {
   render() {
     return (
       <div className="centered">
+        <Grid fluid>
         <h1>Todos</h1>
         <CreateTodo todos={this.state.todos} createTask={this.createTask.bind(this)}/>
         <TodosList todos={this.state.todos} createTask={this.createTask.bind(this)} toggleTask={this.toggleTask.bind(this)} saveTask={this.saveTask.bind(this)} deleteTask={this.deleteTask.bind(this)}/>
+      </Grid>
       </div>
     )
   }

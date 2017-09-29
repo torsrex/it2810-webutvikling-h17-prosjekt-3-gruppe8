@@ -1,4 +1,5 @@
 import React, {Component} from 'react'
+import {Grid, Row, Col} from 'react-bootstrap'
 
 export default class TodosListItem extends Component {
   constructor(props) {
@@ -44,23 +45,31 @@ export default class TodosListItem extends Component {
     if (this.state.isEditing) {
       return (
         <div>
-          <button onClick={this.onSaveClick.bind(this)}>Save</button>
-          <button onClick={this.onCancelClick.bind(this)}>Cancel</button>
+          <span onClick={this.onSaveClick.bind(this)} className="glyphicon glyphicon-ok"></span>
+          <span onClick={this.onCancelClick.bind(this)} className="glyphicon glyphicon-remove"></span>
         </div>
       )
     }
     return (
       <div>
-        <button onClick={this.onEditClick.bind(this)}>Edit</button>
-        <button onClick={this.props.deleteTask.bind(this, this.props.task)}>Delete</button>
+        <span onClick={this.onEditClick.bind(this)} className="glyphicon glyphicon-edit"></span>
+        <span onClick={this.props.deleteTask.bind(this, this.props.task)}  className="glyphicon glyphicon-trash"></span>
       </div>
     )
   }
   render() {
     return (
     <div>
+      <Grid fluid>
+        <Row>
+          <Col md={10} xs={9}>
           {this.renderTaskSection()}
+        </Col>
+        <Col>
           {this.renderActionsSection()}
+        </Col>
+        </Row>
+        </Grid>
     </div>
     )
   }

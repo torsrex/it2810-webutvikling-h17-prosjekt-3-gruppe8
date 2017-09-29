@@ -18,8 +18,6 @@ export default class CreateTodo extends Component {
   }
   render() {
     return (
-
-
       <form onSubmit={this.handleCreate.bind(this)}>
         <FormGroup>
           <FormControl type="text" placeholder="What do I need to do" inputRef={(ref) => {this.input = ref}}/>

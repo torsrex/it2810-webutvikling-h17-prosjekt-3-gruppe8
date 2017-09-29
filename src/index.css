@@ -201,3 +201,6 @@ body {
   align-items: center;
   justify-content: center;
 }
+.todoListSection{
+  background-color: #f2f2f2;
+}
