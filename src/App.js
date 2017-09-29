@@ -11,12 +11,17 @@ import Todo from './components/Todo'
 const App = () => (
   <Router>
     <div>
-      <ul>
-        <li><Link to="/">Home</Link></li>
-        <li><Link to="/todo">Todo</Link></li>
-        <li><Link to="/notes">Notes</Link></li>
-        <li><Link to="/calendar">Calendar</Link></li>
-      </ul>
+      <header>
+        <nav>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/todo">Todo</Link></li>
+            <li><Link to="/notes">Notes</Link></li>
+            <li><Link to="/calendar">Calendar</Link></li>
+          </ul>
+
+        </nav>
+      </header>
 
       <hr/>
 
