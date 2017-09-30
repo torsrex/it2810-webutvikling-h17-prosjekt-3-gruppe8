@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
-import './index.css';
+import './main.css';
 import {NavItem, Nav, Navbar} from 'react-bootstrap';
 
 import Welcome from './components/Welcome'
