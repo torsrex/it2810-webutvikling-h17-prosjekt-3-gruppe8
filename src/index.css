@@ -1,28 +1,12 @@
-/*body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
-}
-
-button {
-  cursor: pointer
-}
-
-select {
-  padding: 4px
-}
-option {
-  color: white;
-  font-size: 1.2em;
-  text-indent: 6px
-}*/
-
 ul {
   padding: 0;
   margin: 0;
   list-style-type: none
 }
 
+nav {
+  margin-bottom: 0 !important
+}
 .App {
   min-height: 100vh;
   display: flex;
@@ -30,29 +14,51 @@ ul {
   justify-content: space-between;
 }
 
-.create-event {
-  border: 1px solid grey;
-  border-radius: 1em;
-  position: relative;
-  /*position: fixed;*/
-  /*transform: translateY(-50%);*/
-  top: 50%;
-  left: 2.5%;
-  background-color: #ededed;
-  box-shadow: 0 0 10px black;
+
+.toggle-create-event-btn {
+  position: fixed;
+  border-radius: 50%;
+  width: 44px;
+  height: 44px;
   z-index: 1;
-  width: 80%;
+  bottom: 0;
+  right: 0;
+  margin: 1.5em
+}
+.create-event {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 100vw;
+  max-width: 640px;
+  max-height: 480px;
+  height: 100vh;
+  z-index: 1000;
+  background-color: #ededed;
   display: flex;
-  justify-content: center;
   flex-direction: column;
   align-items: center;
-  padding: 2em 3em
+  justify-content: space-evenly;
+  padding: 2em;
+  box-shadow: 0 0 20px rgba(0,0,0,.5);
+  border-radius: 1em
 }
-
+.create-event-dates {
+  display: flex;
+}
+.create-event-dates input {
+  margin: 0 .2em
+}
+.create-event-color-select {
+  align-self: stretch;
+  padding: .5em
+}
 .close-create-event {
-  top: 12px;
-  right: 12px;
-  position: absolute;
+  top: 1em;
+  font-size: 1.5em;
+  right: 1em;
+  position: fixed;
 }
 .create-event>div{
   margin: 1em 0
@@ -66,23 +72,22 @@ ul {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  max-width: 1280px;
+  margin: 0 auto;
 }
 
+.calendar-header, .calendar-header>div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 #month-wrapper {
     display: flex;
     flex-grow: 1;
     flex-direction: column;
     position: relative;
 }
-#month-wrapper h3 {
-    margin-left: 0;
-    text-align: center
-}
-#month-wrapper h3 p {
-    color: #482c29;
-    margin: .1em;
-    font-size: 1em;
-}
+
 #month-wrapper>ul>li {
     border-right: 1px solid #333;
     border-bottom: 1px solid #333
@@ -92,7 +97,7 @@ ul {
     display: flex
 }
 .days-title li {
-    background-color: #1f1511;
+    background-color: black;
     width: 14.28571%;
     height: 64px;
     justify-content: center;
@@ -112,25 +117,22 @@ ul {
     background-color: #d4d4d4
 }
 .days>li p {
-    line-height: 1;
-    padding: 2px 0 0 2px;
-    color: #482c29;
-    margin: 0
-}
+    padding: 6px 0 0 6px;
+  }
 .day {
     transition: background-color .5s;
     cursor: pointer
 }
 
-.day:hover,
-.today {
-    background-color: #fafafa!important
+.day:hover, .today {
+    background-color: #fafafa !important
 }
 .today p {
     font-weight: 700;
-    color: #d85050!important;
+    color: #d85050 !important;
     text-decoration: underline
 }
+
 .placeholder {
     opacity: .3;
     pointer-events: none;
@@ -155,7 +157,8 @@ ul {
     border-bottom-right-radius: 6px
 }
 .from-to {
-    margin-left: 25%!important
+    margin-left: 25%!important;
+    width: 50% !important
 }
 
 
@@ -198,11 +201,14 @@ ul {
 }
 
 .big-day {
-  position: relative;
+  position: fixed;
   z-index: 1000;
-  width: 50%;
-  left: 25%;
-  min-height: 120px;
+  width: 100vw;
+  max-width: 720px;
+  max-height: 480px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   box-shadow: 0 0 10px;
   border-radius: 1em;
   padding: 2em;
@@ -224,6 +230,11 @@ ul {
 }
 .big-day-event p {
   margin-bottom: 0
+}
+.close-big-day {
+  position: fixed;
+  top: .5em;
+  right: .5em;
 }
 
 @media (orientation: landscape) and (min-width: 768px) {

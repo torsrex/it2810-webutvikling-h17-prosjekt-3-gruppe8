@@ -18,7 +18,6 @@ export default class CreateEvent extends Component {
   }
 
   handleInputChange(e, type) {
-    console.log(this.state.event);
     let {value} = e.target
     const {from, to} = this.state.event
     if (type === "from" || type === "to") {
@@ -51,6 +50,7 @@ export default class CreateEvent extends Component {
 
   render() {
     const {event} = this.state
+    const {closeCreateEvent} = this.props
     const {content, from, to} = event
     const colors = ["red", "orange", "green", "blue", "brown", "purple"].map(color =>
       <option key={color} className={color} value={color}>{color}</option>
@@ -58,17 +58,17 @@ export default class CreateEvent extends Component {
 
     return(
       <div className="create-event">
-        <button type="button" className="close-create-event close" aria-label="Close">
+        <button type="button" onClick={() => closeCreateEvent()} className="close-create-event close" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
         <input className="form-control" placeholder="Description..." value={content} type="text" onChange={(e, type) => this.handleInputChange(e, "content")}/>
-        <div>
+        <div className="create-event-dates">
           <input value={parseDate(from)} type="date" onChange={(e, type) => this.handleInputChange(e, "from")}/>
           <input value={parseDate(to)} type="date" onChange={(e, type) => this.handleInputChange(e, "to")}/>
-          <select onClick={(e, type) => this.handleInputChange(e, "color")}>
-            {colors}
-          </select>
         </div>
+        <select className="create-event-color-select" onClick={(e, type) => this.handleInputChange(e, "color")}>
+          {colors}
+        </select>
         <div>
           <button className="btn btn-primary btn-sm" onClick={e => this.handleClick(e)}>Add event</button>
           <button className="btn btn-danger btn-sm" onClick={() => localStorage.setItem('events', '{}')}>Empty localStorage</button>
