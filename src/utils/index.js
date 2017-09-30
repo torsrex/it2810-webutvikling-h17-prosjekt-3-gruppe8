@@ -5,18 +5,26 @@ export const stringifyObject = o => JSON.stringify(o)
 export const parseObject = o => JSON.parse(o)
 
 // Parse UNIX timestamp to format YYYY-MM-DD
-export const parseDate = (...date) => new Date(...date).toISOString().slice(0,10)
+export const parseDate = (...date) => {
+  // The try-catch check is for avoding impossible date inputs, like September 31.
+  try {
+    return new Date(...date).toISOString().slice(0,10)
+  } catch (e) {
+    // If impossible date occurs, return today instead.
+    return new Date().toISOString().slice(0,10)
+  }
+}
 
 // Generates a unique String ID
-export const generateId = () => Math.random().toString(36)
+export const generateId = () => Date.now().toString(36) + Math.random().toString(36)
 
 
 // Month names
 export const months = [
-    "January", "February", "March",
-    "April", "May", "June",
-    "July", "August", "September",
-    "October", "November", "December"
+  "January", "February", "March",
+  "April", "May", "June",
+  "July", "August", "September",
+  "October", "November", "December"
 ]
 
 // Day names

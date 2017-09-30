@@ -1,8 +1,9 @@
 import React from 'react'
 import {months} from '../../utils'
+
 const DayBig = ({events, date:{month, day}, closeBigDay, deleteEvent}) => {
 
-
+  // Close big day on pressing ESC key.
   document.addEventListener("keydown", (e)=> {
       e.keyCode === 27 && closeBigDay()
   })
@@ -13,7 +14,7 @@ const DayBig = ({events, date:{month, day}, closeBigDay, deleteEvent}) => {
         <div>{months[month]}</div>
         <div>{day}</div>
       </div>
-      <span className="close" onClick={() => closeBigDay()}>✗</span>
+      <span className="close-big-day close" onClick={() => closeBigDay()}>&times;</span>
       <ul>
         {Object.keys(events).map(key => {
           const {content, color} = events[key]
