@@ -14,7 +14,7 @@ export default class TodosList extends Component {
   render() {
     return (
       <div>
-          {this.renderItems()}
+        {this.renderItems()}
       </div>
     )
   }

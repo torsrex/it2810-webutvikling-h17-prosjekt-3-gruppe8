@@ -20,10 +20,12 @@ export default class CreateTodo extends Component {
     return (
       <form onSubmit={this.handleCreate.bind(this)}>
         <FormGroup>
-          <FormControl type="text" placeholder="What do I need to do" inputRef={(ref) => {this.input = ref}}/>
-        <Button block>Create</Button>
-        {this.renderError()}
-      </FormGroup>
+          <FormControl type="text" placeholder="What do I need to do" inputRef={(ref) => {
+            this.input = ref
+          }}/>
+          <Button block>Create</Button>
+          {this.renderError()}
+        </FormGroup>
       </form>
     )
   }

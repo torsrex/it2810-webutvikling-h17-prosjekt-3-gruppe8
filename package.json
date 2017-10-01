@@ -6,7 +6,11 @@
     "bootstrap": "^3.3.7",
     "loadash": "^1.0.0",
     "lodash": "^4.17.4",
+<<<<<<< HEAD
     "node-sass-chokidar": "^0.0.3",
+=======
+    "node-sass-chokidar": "0.0.3",
+>>>>>>> :lipstick: :snowflake: Changed visual look of todoList
     "npm-run-all": "^4.1.1",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.3",

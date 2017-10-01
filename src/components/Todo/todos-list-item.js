@@ -1,5 +1,14 @@
 import React, {Component} from 'react'
-import {Grid, Row, Col} from 'react-bootstrap'
+import {
+  Row,
+  Col,
+  FormGroup,
+  FormControl,
+  Well,
+  OverlayTrigger,
+  Tooltip,
+  Button
+} from 'react-bootstrap'
 
 export default class TodosListItem extends Component {
   constructor(props) {
@@ -18,8 +27,8 @@ export default class TodosListItem extends Component {
         ? 'green'
         : 'red',
       textDecorationLine: isComplete
-      ? 'line-through' :
-      '',
+        ? 'line-through'
+        : '',
       cursor: 'pointer'
     }
 
@@ -28,15 +37,22 @@ export default class TodosListItem extends Component {
       return (
         <div>
           <form onSubmit={this.onSaveClick.bind(this)}>
-            <input type="text" defaultValue={task} ref="editInput"/>
+            <FormGroup>
+              <FormControl type="text" defaultValue={task} inputRef={(ref) => {
+                this.input = ref
+              }}/>
+
+            </FormGroup>
           </form>
         </div>
       )
     }
 
     return (
-      <div style={taskStyle} onClick={this.props.toggleTask.bind(this, task)}>
-        {task}
+      <div className="renderTaskSection" style={taskStyle} onClick={this.props.toggleTask.bind(this, task)}>
+        <Well bsSize="sm">
+          {task}
+        </Well>
       </div>
     )
   }
@@ -45,32 +61,44 @@ export default class TodosListItem extends Component {
     if (this.state.isEditing) {
       return (
         <div>
-          <span onClick={this.onSaveClick.bind(this)} className="glyphicon glyphicon-ok"></span>
-          <span onClick={this.onCancelClick.bind(this)} className="glyphicon glyphicon-remove"></span>
+          <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Save todo</strong> < /Tooltip>}>
+            <Button bsStyle="success">
+              <span onClick={this.onSaveClick.bind(this)} className="glyphicon glyphicon-ok"></span>
+            </Button>
+          </OverlayTrigger>
+          <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Cancel edit</strong> < /Tooltip>}>
+            <Button bsStyle="danger">
+              <span onClick={this.onCancelClick.bind(this)} className="glyphicon glyphicon-remove"></span>
+            </Button>
+          </OverlayTrigger>
         </div>
       )
     }
     return (
       <div>
-        <span onClick={this.onEditClick.bind(this)} className="glyphicon glyphicon-edit"></span>
-        <span onClick={this.props.deleteTask.bind(this, this.props.task)}  className="glyphicon glyphicon-trash"></span>
+        <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Edit</strong> < /Tooltip>}>
+          <Button bsStyle="info">
+            <span onClick={this.onEditClick.bind(this)} className="glyphicon glyphicon-edit move"></span>
+          </Button>
+        </OverlayTrigger>
+        <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Delete</strong> < /Tooltip>}>
+          <Button bsStyle="danger">
+            <span onClick={this.props.deleteTask.bind(this, this.props.task)} className="glyphicon glyphicon-trash deleteTask"></span>
+          </Button>
+        </OverlayTrigger>
       </div>
     )
   }
   render() {
     return (
-    <div>
-      <Grid fluid>
-        <Row>
-          <Col md={10} xs={9}>
+      <Row>
+        <Col md={11} xs={10}>
           {this.renderTaskSection()}
         </Col>
         <Col>
           {this.renderActionsSection()}
         </Col>
-        </Row>
-        </Grid>
-    </div>
+      </Row>
     )
   }
   onEditClick() {
@@ -83,7 +111,7 @@ export default class TodosListItem extends Component {
     event.preventDefault()
 
     const oldTask = this.props.task
-    const newTask = this.refs.editInput.value
+    const newTask = this.input.value
 
     this.props.saveTask(oldTask, newTask)
     this.setState({isEditing: false})
