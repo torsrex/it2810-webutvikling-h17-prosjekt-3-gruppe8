@@ -2,7 +2,6 @@ import _ from 'lodash'
 import React, {Component} from 'react'
 import TodosList from './todos-list'
 import CreateTodo from './create-todo'
-import {stringifyObject, parseObject} from '../../utils'
 
 const todos = [
   {
@@ -18,59 +17,58 @@ export default class Todo extends Component {
 
   constructor(props) {
     super(props)
-    const cachedTasks = localStorage.getItem('todos')
-    if (cachedTasks) {
-      this.state = {
-        todos: parseObject(cachedTasks)
-      }
-    } else {
-      this.state = {
-        todos: todos
+		const cachedTasks = localStorage.getItem('todos')
+		console.log(cachedTasks)
+		if (cachedTasks){
+			this.state = {todos: JSON.parse(cachedTasks)}
+		}else{
+			this.state = {
+				todos: todos
 
-      }
+		}
     }
 
   }
 
   render() {
     return (
-      <div className="todo-wrapper">
+      <div>
         <h1>Todos</h1>
         <CreateTodo todos={this.state.todos} createTask={this.createTask.bind(this)}/>
         <TodosList todos={this.state.todos} createTask={this.createTask.bind(this)} toggleTask={this.toggleTask.bind(this)} saveTask={this.saveTask.bind(this)} deleteTask={this.deleteTask.bind(this)}/>
       </div>
     )
   }
-  updateLocalStore() {
-    localStorage.setItem('todos', stringifyObject(this.state.todos))
+	updateLocalStore(){
+		localStorage.setItem('todos', JSON.stringify(this.state.todos))
 
-  }
+	}
 
   toggleTask(task) {
     const foundTodo = _.find(this.state.todos, todo => todo.task === task)
     foundTodo.isComplete = !foundTodo.isComplete
     this.setState({todos: this.state.todos})
-    this.updateLocalStore()
+		this.updateLocalStore()
 
   }
 
   createTask(task) {
     this.state.todos.push({task, isComplete: false})
     this.setState(({todos: this.state.todos}))
-    this.updateLocalStore()
-  }
+		this.updateLocalStore()
+		}
 
   saveTask(oldTask, newTask) {
     const foundTodo = _.find(this.state.todos, todo => todo.task === oldTask)
     foundTodo.task = newTask
     this.setState({todos: this.state.todos})
-    this.updateLocalStore()
+		this.updateLocalStore()
   }
 
   deleteTask(taskToDelete) {
     _.remove(this.state.todos, todo => todo.task === taskToDelete)
     this.setState({todos: this.state.todos})
-    this.updateLocalStore()
+		this.updateLocalStore()
 
   }
 
