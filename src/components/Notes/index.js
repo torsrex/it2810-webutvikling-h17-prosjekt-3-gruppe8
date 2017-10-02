@@ -1,6 +1,7 @@
 import _ from 'lodash'
-import React, {Component} from 'react'
-import CreateNote from './create-note.js'
+import React, {Component} from 'react'  //"obligatory component import"
+import NoteList from './note-list'      //Import file
+import CreateNote from './create-note'  //Import file
 
 //Default content
 const notes = [
@@ -24,25 +25,23 @@ export default class Notes extends Component {
 
 
   render() {
+
     return(
-        <div>
+        <div className="notes-wrapper">
           <h1>Notes</h1>
           <CreateNote notes={this.state.notes} createTask={this.createTask.bind(this)}/>
+          <NoteList notes={this.state.notes} createTask={this.createTask.bind(this)}/>
           <div className="notesView">
           </div>
         </div>
     )
   }
 
-  updateLocalStore() {
-    //localStorage.setItem('notes', stringifyObject(this.state.notes))
-  }
-
   createTask(noteTxt) {
     this.state.notes.push({noteTxt})
     this.setState(({notes: this.state.notes}))
+    console.log(this.state.notes)
     //this.updateLocalStore()
+
   }
-
-
 }
