@@ -9,11 +9,12 @@ export default class CreateNote extends Component{
     }
   }
 
-  //Render the form for creating the new note.
+  //Render the form. Create new note
   render() {
     return(
-      <form onSubmit={this.handleCreate.bind(this)}>
-        <textarea id="addNoteTxtArea" placeholder="Add a note here" rows="6" cols="70" ref="createInput" />
+      //Renders the submit form for creating list items
+      <form onSubmit={this.handleCreate.bind(this)} className="noteForm alignCenter ">
+        <textarea id="addNoteTxtArea" placeholder="Add a note" rows="6" cols="70" ref="createInput" />
         <button>Add note</button>
       </form>
     )

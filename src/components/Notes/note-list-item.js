@@ -1,21 +1,19 @@
 import React, {Component} from 'react'
 
 export default class NoteListItem extends Component{
-  constructor(props){
-    super(props)
-  }
 
   renderItems(){
     return (
-      <div className="singleNote">
-        <p>{this.props.noteTxt}</p>
-      </div>
+      <p>{this.props.noteTxt}</p>
+      //render button for removing list item here
+      //render button for editing list item here
     )
   }
 
   render() {
     return(
-      <div>
+      //Renders each individual list item in a div
+      <div className="singleNote alignCenter">
         {this.renderItems()}
       </div>
     )
