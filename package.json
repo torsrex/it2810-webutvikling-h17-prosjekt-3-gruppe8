@@ -6,19 +6,14 @@
     "bootstrap": "^3.3.7",
     "loadash": "^1.0.0",
     "lodash": "^4.17.4",
-<<<<<<< HEAD
-    "node-sass-chokidar": "^0.0.3",
-=======
     "node-sass-chokidar": "0.0.3",
->>>>>>> :lipstick: :snowflake: Changed visual look of todoList
     "npm-run-all": "^4.1.1",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.3",
     "react-dom": "^15.6.1",
     "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.13",
-    "uuid": "^3.1.0"
+    "react-scripts": "1.0.13"
   },
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src/sass src/sass/main.sass src/main.css",
