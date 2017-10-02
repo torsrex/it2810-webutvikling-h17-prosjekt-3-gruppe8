@@ -20,7 +20,7 @@ export default class TodosListItem extends Component {
 
   renderTaskSection() {
 
-    const {task, isComplete} = this.props
+    const {id, task, isComplete} = this.props
 
     const taskStyle = {
       color: isComplete
@@ -49,7 +49,7 @@ export default class TodosListItem extends Component {
     }
 
     return (
-      <div className="renderTaskSection" style={taskStyle} onClick={() => this.props.toggleTask(task)}>
+      <div className="renderTaskSection" style={taskStyle} onClick={() => this.props.toggleTask(id)}>
         <Well bsSize="sm">
           {task}
         </Well>
@@ -83,7 +83,7 @@ export default class TodosListItem extends Component {
         </OverlayTrigger>
         <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Delete</strong> < /Tooltip>}>
           <Button bsStyle="danger">
-            <span onClick={(i) => this.props.deleteTask(this.props.task)} className="glyphicon glyphicon-trash deleteTask"></span>
+            <span onClick={(i) => this.props.deleteTask(this.props.id)} className="glyphicon glyphicon-trash deleteTask"></span>
           </Button>
         </OverlayTrigger>
       </div>
@@ -110,10 +110,10 @@ export default class TodosListItem extends Component {
   onSaveClick(event) {
     event.preventDefault()
 
-    const oldTask = this.props.task
+    const oldTaskId = this.props.id
     const newTask = this.input.value
 
-    this.props.saveTask(oldTask, newTask)
+    this.props.saveTask(oldTaskId, newTask)
     this.setState({isEditing: false})
 
   }

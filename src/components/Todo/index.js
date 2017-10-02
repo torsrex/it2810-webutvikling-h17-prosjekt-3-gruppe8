@@ -45,7 +45,7 @@ export default class Todo extends Component {
 
             <h1>Todos</h1>
             <CreateTodo todos={this.state.todos} createTask={(i) => this.createTask(i)}/>
-            <TodosList todos={this.state.todos} toggleTask={(i) => this.toggleTask(i)} saveTask={(i,v) => this.saveTask(i, v)} deleteTask={(i) => this.deleteTask(i)}/>
+            <TodosList todos={this.state.todos} toggleTask={(i) => this.toggleTask(i)} saveTask={(i, v) => this.saveTask(i, v)} deleteTask={(i) => this.deleteTask(i)}/>
           </Row>
         </Grid>
       </div>
@@ -56,8 +56,8 @@ export default class Todo extends Component {
 
   }
 
-  toggleTask(task) {
-    const foundTodo = _.find(this.state.todos, todo => todo.task === task)
+  toggleTask(id) {
+    const foundTodo = _.find(this.state.todos, todo => todo.id === id)
     foundTodo.isComplete = !foundTodo.isComplete
     this.setState({todos: this.state.todos})
     this.updateLocalStore()
@@ -70,15 +70,15 @@ export default class Todo extends Component {
     this.updateLocalStore()
   }
 
-  saveTask(oldTask, newTask) {
-    const foundTodo = _.find(this.state.todos, todo => todo.task === oldTask)
+  saveTask(oldTaskId, newTask) {
+    const foundTodo = _.find(this.state.todos, todo => todo.id === oldTaskId)
     foundTodo.task = newTask
     this.setState({todos: this.state.todos})
     this.updateLocalStore()
   }
 
-  deleteTask(taskToDelete) {
-    _.remove(this.state.todos, todo => todo.task === taskToDelete)
+  deleteTask(taskToDeleteId) {
+    _.remove(this.state.todos, todo => todo.id === taskToDeleteId)
     this.setState({todos: this.state.todos})
     this.updateLocalStore()
 
