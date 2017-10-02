@@ -44,8 +44,8 @@ export default class Todo extends Component {
             <Col md={6}></Col>
 
             <h1>Todos</h1>
-            <CreateTodo todos={this.state.todos} createTask={this.createTask.bind(this)}/>
-            <TodosList todos={this.state.todos} createTask={this.createTask.bind(this)} toggleTask={this.toggleTask.bind(this)} saveTask={this.saveTask.bind(this)} deleteTask={this.deleteTask.bind(this)}/>
+            <CreateTodo todos={this.state.todos} createTask={(i) => this.createTask(i)}/>
+            <TodosList todos={this.state.todos} toggleTask={(i) => this.toggleTask(i)} saveTask={(i,v) => this.saveTask(i, v)} deleteTask={(i) => this.deleteTask(i)}/>
           </Row>
         </Grid>
       </div>
@@ -65,7 +65,7 @@ export default class Todo extends Component {
   }
 
   createTask(task) {
-    this.state.todos.push({'id':uuid.v4(), task, isComplete: false})
+    this.state.todos.push({'id': uuid.v4(), task, isComplete: false})
     this.setState(({todos: this.state.todos}))
     this.updateLocalStore()
   }
