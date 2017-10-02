@@ -1,0 +1,206 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+}
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#calendar-wrapper {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+
+}
+
+#month-wrapper {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    position: relative;
+}
+#month-wrapper h3 {
+    margin-left: 0;
+    text-align: center
+}
+#month-wrapper h3 p {
+    color: #482c29;
+    margin: .1em;
+    font-size: 1em;
+}
+#month-wrapper>ul>li {
+    border-right: 1px solid #333;
+    border-bottom: 1px solid #333
+}
+.days-title,
+.days-title li {
+    display: flex
+}
+.days-title li {
+    background-color: #1f1511;
+    width: 14.28571%;
+    height: 64px;
+    justify-content: center;
+    align-items: center
+}
+.days-title li span {
+    color: #fafafa
+}
+.days {
+  height: 0;
+  flex-grow: 1;
+  display: grid;
+  grid-template-rows: repeat(6, 12.3vmin);
+  grid-template-columns: repeat(7, auto)
+}
+.days>li {
+    background-color: #d4d4d4
+}
+.days>li p {
+    line-height: 1;
+    padding: 2px 0 0 2px;
+    color: #482c29;
+    margin: 0
+}
+.day {
+    transition: background-color .5s;
+    cursor: pointer
+}
+
+.day:hover,
+.today {
+    background-color: #fafafa!important
+}
+.today p {
+    font-weight: 700;
+    color: #d85050!important;
+    text-decoration: underline
+}
+.placeholder {
+    opacity: .3;
+    pointer-events: none;
+}
+
+
+
+.from,
+.from-to,
+.to {
+    width: 25% !important
+}
+.from,
+.from-to {
+    margin-left: 75%!important;
+    border-top-left-radius: 6px;
+    border-bottom-left-radius: 6px
+}
+.from-to,
+.to {
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px
+}
+.from-to {
+    margin-left: 25%!important
+}
+
+
+
+.day-events-list {
+  position: relative;
+}
+
+.day-event {
+  position: absolute;
+  height: 6px;
+  width: 100%;
+}
+
+
+
+.red {
+  top: 0;
+  background-color: red
+}
+.orange {
+  top: 8px;
+  background-color: orange
+}
+.blue {
+  top: 16px;
+  background-color: blue
+}
+.brown {
+  top: 24px;
+  background-color: brown
+}
+.green {
+  top: 32px;
+  background-color: green
+}
+
+
+@media (orientation: landscape) {
+    .days-title li:after {
+        color: #fafafa
+    }
+    .days-title li:first-child:after {
+        content: "andag"
+    }
+    .days-title li:nth-child(2):after {
+        content: "rsdag"
+    }
+    .days-title li:nth-child(3):after {
+        content: "nsdag"
+    }
+    .days-title li:nth-child(4):after {
+        content: "rsdag"
+    }
+    .days-title li:nth-child(5):after {
+        content: "redag"
+    }
+    .days-title li:nth-child(6):after {
+        content: "ørdag"
+    }
+    .days-title li:last-child:after {
+        content: "øndag"
+    }
+}
+
+#calendar-wrapper {
+    position: relative
+}
+
+.today-month {
+    grid-area: today;
+    justify-self: start
+}
+.prev-month {
+    grid-area: prev;
+    justify-self: end
+}
+.next-month {
+    grid-area: next;
+    justify-self: start
+}
+.calendar-header {
+  display: flex;
+}
+.weekend-title {
+    background-color: #d85050!important
+}
+
+/*Todo styling*/
+.centered {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.todoListSection{
+  background-color: #f2f2f2;
+}

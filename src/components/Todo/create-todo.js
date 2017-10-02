@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import React, {Component} from 'react'
+import {FormGroup, FormControl, Button} from 'react-bootstrap'
 
 export default class CreateTodo extends Component {
   constructor(props) {
@@ -17,10 +18,14 @@ export default class CreateTodo extends Component {
   }
   render() {
     return (
-      <form onSubmit={this.handleCreate.bind(this)}>
-        <input type="text" placeholder="What do I need to do" ref="createInput"/>
-        <button>Create</button>
-        {this.renderError()}
+      <form onSubmit={(i) => this.handleCreate(i)}>
+        <FormGroup>
+          <FormControl type="text" placeholder="What do I need to do" inputRef={(ref) => {
+            this.input = ref
+          }}/>
+          <Button block type="submit">Create</Button>
+          {this.renderError()}
+        </FormGroup>
       </form>
     )
   }
@@ -28,7 +33,7 @@ export default class CreateTodo extends Component {
   handleCreate(event) {
     event.preventDefault()
 
-    const createInput = this.refs.createInput
+    const createInput = this.input
     const task = String.prototype.trim.call(createInput.value)
     const validateInput = this.validateInput(task)
     if (validateInput) {
@@ -38,7 +43,7 @@ export default class CreateTodo extends Component {
     //TODO: Fix not save on many whitespaces
     this.setState({error: null})
     this.props.createTask(task)
-    this.refs.createInput.value = ''
+    this.input.value = ''
   }
   validateInput(task) {
     if (!task) {

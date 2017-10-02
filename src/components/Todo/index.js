@@ -3,12 +3,16 @@ import React, {Component} from 'react'
 import TodosList from './todos-list'
 import CreateTodo from './create-todo'
 import {stringifyObject, parseObject} from '../../utils'
+import {Grid, Row, Col} from 'react-bootstrap'
+import uuid from 'uuid'
 
 const todos = [
   {
+    id: uuid.v4(),
     task: 'First task is here',
     isComplete: true
   }, {
+    id: uuid.v4(),
     task: 'Second task is here',
     isComplete: false
   }
@@ -35,9 +39,15 @@ export default class Todo extends Component {
   render() {
     return (
       <div className="todo-wrapper">
-        <h1>Todos</h1>
-        <CreateTodo todos={this.state.todos} createTask={this.createTask.bind(this)}/>
-        <TodosList todos={this.state.todos} createTask={this.createTask.bind(this)} toggleTask={this.toggleTask.bind(this)} saveTask={this.saveTask.bind(this)} deleteTask={this.deleteTask.bind(this)}/>
+        <Grid>
+          <Row>
+            <Col md={6}></Col>
+
+            <h1>Todos</h1>
+            <CreateTodo todos={this.state.todos} createTask={(i) => this.createTask(i)}/>
+            <TodosList todos={this.state.todos} toggleTask={(i) => this.toggleTask(i)} saveTask={(i, v) => this.saveTask(i, v)} deleteTask={(i) => this.deleteTask(i)}/>
+          </Row>
+        </Grid>
       </div>
     )
   }
@@ -46,8 +56,8 @@ export default class Todo extends Component {
 
   }
 
-  toggleTask(task) {
-    const foundTodo = _.find(this.state.todos, todo => todo.task === task)
+  toggleTask(id) {
+    const foundTodo = _.find(this.state.todos, todo => todo.id === id)
     foundTodo.isComplete = !foundTodo.isComplete
     this.setState({todos: this.state.todos})
     this.updateLocalStore()
@@ -55,20 +65,20 @@ export default class Todo extends Component {
   }
 
   createTask(task) {
-    this.state.todos.push({task, isComplete: false})
+    this.state.todos.push({'id': uuid.v4(), task, isComplete: false})
     this.setState(({todos: this.state.todos}))
     this.updateLocalStore()
   }
 
-  saveTask(oldTask, newTask) {
-    const foundTodo = _.find(this.state.todos, todo => todo.task === oldTask)
+  saveTask(oldTaskId, newTask) {
+    const foundTodo = _.find(this.state.todos, todo => todo.id === oldTaskId)
     foundTodo.task = newTask
     this.setState({todos: this.state.todos})
     this.updateLocalStore()
   }
 
-  deleteTask(taskToDelete) {
-    _.remove(this.state.todos, todo => todo.task === taskToDelete)
+  deleteTask(taskToDeleteId) {
+    _.remove(this.state.todos, todo => todo.id === taskToDeleteId)
     this.setState({todos: this.state.todos})
     this.updateLocalStore()
 
