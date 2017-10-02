@@ -28,7 +28,6 @@ export default class Notes extends Component {
 
     return(
         <div className="notes-wrapper">
-          <h1>Notes</h1>
           <CreateNote notes={this.state.notes} createTask={this.createTask.bind(this)}/>
           <NoteList notes={this.state.notes} createTask={this.createTask.bind(this)}/>
           <div className="notesView">

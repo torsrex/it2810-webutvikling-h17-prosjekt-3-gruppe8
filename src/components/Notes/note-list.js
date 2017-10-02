@@ -13,7 +13,6 @@ export default class NoteList extends Component {
   render() {
     return(
       <div>
-        <h3>Note list</h3>
         {this.renderItems()}
       </div>
     )
