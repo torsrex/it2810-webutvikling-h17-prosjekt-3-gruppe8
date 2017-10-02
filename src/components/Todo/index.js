@@ -4,12 +4,15 @@ import TodosList from './todos-list'
 import CreateTodo from './create-todo'
 import {stringifyObject, parseObject} from '../../utils'
 import {Grid, Row, Col} from 'react-bootstrap'
+import uuid from 'uuid'
 
 const todos = [
   {
+    id: uuid.v4(),
     task: 'First task is here',
     isComplete: true
   }, {
+    id: uuid.v4(),
     task: 'Second task is here',
     isComplete: false
   }
@@ -62,7 +65,7 @@ export default class Todo extends Component {
   }
 
   createTask(task) {
-    this.state.todos.push({task, isComplete: false})
+    this.state.todos.push({'id':uuid.v4(), task, isComplete: false})
     this.setState(({todos: this.state.todos}))
     this.updateLocalStore()
   }
