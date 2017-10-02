@@ -27,11 +27,11 @@ export default class Notes extends Component {
   render() {
 
     return(
+      //Renders the header
         <div className="notes-wrapper">
+          <h1 className="centerH">Notes</h1>
           <CreateNote notes={this.state.notes} createTask={this.createTask.bind(this)}/>
           <NoteList notes={this.state.notes} createTask={this.createTask.bind(this)}/>
-          <div className="notesView">
-          </div>
         </div>
     )
   }

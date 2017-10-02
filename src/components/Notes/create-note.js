@@ -12,7 +12,8 @@ export default class CreateNote extends Component{
   //Render the form. Create new note
   render() {
     return(
-      <form onSubmit={this.handleCreate.bind(this)} style={{display:"flex", justifyContent:"center"}}>
+      //Renders the submit form for creating list items
+      <form onSubmit={this.handleCreate.bind(this)} className="noteForm alignCenter ">
         <textarea id="addNoteTxtArea" placeholder="Add a note" rows="6" cols="70" ref="createInput" />
         <button>Add note</button>
       </form>

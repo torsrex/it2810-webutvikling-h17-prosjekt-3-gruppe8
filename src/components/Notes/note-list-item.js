@@ -5,12 +5,15 @@ export default class NoteListItem extends Component{
   renderItems(){
     return (
       <p>{this.props.noteTxt}</p>
+      //render button for removing list item here
+      //render button for editing list item here
     )
   }
 
   render() {
     return(
-      <div className="singleNote" style={{display:"flex", justifyContent:"center"}}>
+      //Renders each individual list item in a div
+      <div className="singleNote alignCenter">
         {this.renderItems()}
       </div>
     )
