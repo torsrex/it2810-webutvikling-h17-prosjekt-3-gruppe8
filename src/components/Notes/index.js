@@ -32,7 +32,7 @@ export default class Notes extends Component {
         <div className="notes-wrapper">
           <h1 className="centerH">Notes</h1>
           <CreateNote notes={this.state.notes} createTask={this.createTask.bind(this)}/>
-          <NoteList notes={this.state.notes} createTask={this.createTask.bind(this)}/>
+          <NoteList notes={this.state.notes} createTask={this.createTask.bind(this)} deleteTask={this.deleteTask.bind(this)}/>
         </div>
     )
   }
@@ -43,6 +43,11 @@ export default class Notes extends Component {
     this.setState(({notes: this.state.notes}))
     console.log(this.state.notes)
     //this.updateLocalStore()
+  }
 
+  deleteTask(taskToDelete){
+    //Removes the state with title "taskToDelete" from notes, then updates the state. 
+    _.remove(this.state.notes, note => note.noteTitle === taskToDelete)
+    this.setState({notes: this.state.notes})
   }
 }
