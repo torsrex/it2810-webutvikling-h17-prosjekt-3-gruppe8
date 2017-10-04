@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import TodosList from './todos-list'
 import CreateTodo from './create-todo'
 import {stringifyObject, parseObject} from '../../utils'
-import {Grid, Row, Col} from 'react-bootstrap'
+import {Grid, Row} from 'react-bootstrap'
 import uuid from 'uuid'
 
 const todos = [
@@ -38,16 +38,21 @@ export default class Todo extends Component {
 
   render() {
     return (
-      <div className="todo-wrapper">
-        <Grid>
-          <Row>
-            <Col md={6}></Col>
+      <div>
 
-            <h1>Todos</h1>
+            <Row>
+            <Grid>
+              <h1>Todos</h1>
+
             <CreateTodo todos={this.state.todos} createTask={(i) => this.createTask(i)}/>
-            <TodosList todos={this.state.todos} toggleTask={(i) => this.toggleTask(i)} saveTask={(i, v) => this.saveTask(i, v)} deleteTask={(i) => this.deleteTask(i)}/>
+          </Grid>
           </Row>
-        </Grid>
+          <Row>
+            <Grid>
+
+            <TodosList todos={this.state.todos} toggleTask={(i) => this.toggleTask(i)} saveTask={(i, v) => this.saveTask(i, v)} deleteTask={(i) => this.deleteTask(i)}/>
+          </Grid>
+          </Row>
       </div>
     )
   }

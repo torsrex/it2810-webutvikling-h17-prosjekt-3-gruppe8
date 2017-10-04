@@ -1,4 +1,3 @@
-import _ from 'lodash'
 import React, {Component} from 'react'  //"obligatory component import"
 import NoteList from './note-list'      //Import file
 import CreateNote from './create-note'  //Import file
