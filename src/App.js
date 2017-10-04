@@ -9,6 +9,7 @@ import Welcome from './components/Welcome'
 import Calendar from './components/Calendar'
 import Notes from './components/Notes'
 import Todo from './components/Todo'
+import Contacts from './components/Contacts'
 
 const App = () => (
   <Router>
@@ -35,6 +36,11 @@ const App = () => (
               Calendar
             </NavItem>
           </LinkContainer>
+          <LinkContainer to="/contacts">
+            <NavItem eventKey={4}>
+              Contacts
+            </NavItem>
+          </LinkContainer>
         </Nav>
       </Navbar>
 
@@ -42,6 +48,7 @@ const App = () => (
       <Route path="/todo" component={Todo}/>
       <Route path="/notes" component={Notes}/>
       <Route path="/calendar" component={Calendar}/>
+      <Route path="/contacts" component={Contacts}/>
 
       <Grid>
         <footer>
