@@ -1,3 +1,4 @@
+import _ from 'lodash'
 import React, {Component} from 'react'  //"obligatory component import"
 import NoteList from './note-list'      //Import file
 import CreateNote from './create-note'  //Import file
@@ -46,7 +47,7 @@ export default class Notes extends Component {
   }
 
   deleteTask(taskToDelete){
-    //Removes the state with title "taskToDelete" from notes, then updates the state. 
+    //Removes the state with title "taskToDelete" from notes, then updates the state.
     _.remove(this.state.notes, note => note.noteTitle === taskToDelete)
     this.setState({notes: this.state.notes})
   }
