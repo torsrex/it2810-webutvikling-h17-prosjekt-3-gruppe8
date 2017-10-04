@@ -4,18 +4,23 @@ export default class NoteListItem extends Component{
 
   renderItems(){
     return (
-      <p>{this.props.noteTxt}</p>
-      //render button for removing list item here
-      //render button for editing list item here
+      <div className="singleNote alignCenter">
+        <div className="noteHeader">
+          <button className="tinysize"/>
+          <h4 className="alignCenter fillWidth">{this.props.noteTitle}</h4>
+          <button className="tinysize"/>
+        </div>
+
+        <p className="noteText">{this.props.noteTxt}</p>
+
+      </div>
     )
   }
 
   render() {
     return(
       //Renders each individual list item in a div
-      <div className="singleNote alignCenter">
-        {this.renderItems()}
-      </div>
+      this.renderItems()
     )
   }
 
