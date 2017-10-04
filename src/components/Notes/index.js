@@ -6,8 +6,10 @@ import CreateNote from './create-note'  //Import file
 //Default content
 const notes = [
   {
+    noteTitle: '1st note:',
     noteTxt: 'First note is here'
   }, {
+    noteTitle: '2nd note:',
     noteTxt: 'Second note is here'
   }
 ]
@@ -36,8 +38,9 @@ export default class Notes extends Component {
     )
   }
 
-  createTask(noteTxt) {
-    this.state.notes.push({noteTxt})
+  createTask(noteTitle, noteTxt) {
+
+    this.state.notes.push({noteTitle, noteTxt})
     this.setState(({notes: this.state.notes}))
     console.log(this.state.notes)
     //this.updateLocalStore()
