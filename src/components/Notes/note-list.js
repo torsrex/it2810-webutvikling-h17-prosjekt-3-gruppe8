@@ -6,7 +6,7 @@ export default class NoteList extends Component {
 
   renderItems() {
     const props = _.omit(this.props, 'notes') //Removes notes from props
-    return _.map(this.props.notes, (note, index) => <NoteListItem key={index} {...note} {...props}/>)
+    return _.map(this.props.notes, (note, id) => <NoteListItem key={id} {...note} {...props}/>)
   }
 
   render() {
