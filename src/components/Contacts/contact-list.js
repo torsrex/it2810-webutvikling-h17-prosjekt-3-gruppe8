@@ -13,7 +13,7 @@ export default class ContactList extends Component {
 
   render() {
     return (
-      <div>
+      <div className="componentWrapper ">
         {this.renderItems()}
       </div>
     )

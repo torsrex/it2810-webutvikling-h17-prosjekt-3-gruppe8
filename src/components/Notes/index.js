@@ -15,12 +15,20 @@ const notes = [
     noteTxt: 'First note is here'
   }, {
     id: uuid.v4(),
-    noteTitle: '2nd note:',
+    noteTitle: '2st note:',
     noteTxt: 'Second note is here'
-  }, {
+  },{
     id: uuid.v4(),
     noteTitle: '3rd note:',
-    noteTxt: 'this is the third note'
+    noteTxt: 'Third note is hereeeeeeee'
+  },{
+    id: uuid.v4(),
+    noteTitle: '4th note:',
+    noteTxt: 'Fourth note is here Fourth note is here'
+  }, {
+    id: uuid.v4(),
+    noteTitle: '5thrd note:',
+    noteTxt: 'this is a note. this is a note. this is a note. this is a note. this is a note. this is a note. '
   }
 ]
 
@@ -41,17 +49,16 @@ export default class Notes extends Component {
   }
 
   render() {
-
     return(
       //Renders the header
-        <div className="notes-wrapper">
-          <div className="componentMainDiv">
-            <CreateNote notes={this.state.notes} createTask={(i,j) => this.createTask(i,j)}/>
-          </div>
-          <div className="componentMainDiv noteListMainDiv">
-            <NoteList notes={this.state.notes} deleteTask={(i) => this.deleteTask(i)} saveNote={(id,state) => this.saveNote(id,state)}/>
-          </div>
+      <div>
+        <div className="componentMainDiv">
+          <CreateNote notes={this.state.notes} createTask={(i,j) => this.createTask(i,j)}/>
         </div>
+        <div className="componentMainDiv contentMainDiv">
+          <NoteList notes={this.state.notes} deleteTask={(i) => this.deleteTask(i)} saveNote={(id,state) => this.saveNote(id,state)}/>
+        </div>
+      </div>
     )
   }
   updateLocalStore() {

@@ -91,8 +91,8 @@ export default class TodosListItem extends Component {
   }
   render() {
     return (
-      <Row>
-        <Col md={11} xs={10}>
+      <Row className="fillWidth">
+        <Col md={10} xs={10}>
           {this.renderTaskSection()}
         </Col>
         <Col>

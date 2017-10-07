@@ -13,7 +13,7 @@ export default class TodosList extends Component {
 
   render() {
     return (
-      <div>
+      <div className="componentWrapper todoList">
         {this.renderItems()}
       </div>
     )

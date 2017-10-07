@@ -92,7 +92,7 @@ export default class ContactListItem extends Component {
   }
   render() {
     return (
-      <Row>
+      <Row className="fillWidth">
         <Col md={11} xs={10}>
           {this.renderContactSection()}
         </Col>

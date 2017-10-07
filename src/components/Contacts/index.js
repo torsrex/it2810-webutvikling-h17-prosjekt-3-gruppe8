@@ -41,20 +41,12 @@ export default class Contacts extends Component {
   render() {
     return (
       <div>
-
-          <Row>
-          <Grid>
-            <h1>Contacts</h1>
-
-            <CreateContact contacts={this.state.contacts} createContact={(i, j, k) => this.createContact(i, j, k)}/>
-          </Grid>
-          </Row>
-          <Row>
-            <Grid>
-
-            <ContactList contacts={this.state.contacts} saveContact={(i, j, k, l) => this.saveContact(i, j, k, l)} deleteContact={(i) => this.deleteContact(i)}/>
-          </Grid>
-          </Row>
+        <div className="componentMainDiv">
+          <CreateContact contacts={this.state.contacts} createContact={(i, j, k) => this.createContact(i, j, k)}/>
+        </div>
+        <div className="componentMainDiv contentMainDiv">
+          <ContactList contacts={this.state.contacts} saveContact={(i, j, k, l) => this.saveContact(i, j, k, l)} deleteContact={(i) => this.deleteContact(i)}/>
+        </div>
       </div>
     )
   }

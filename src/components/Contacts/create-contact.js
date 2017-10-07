@@ -13,26 +13,29 @@ export default class CreateContact extends Component {
     if (!this.state.error) {
       return null
     }
-    return <div>
+    return <div className="centerText redText">
       {this.state.error}</div>
   }
   render() {
     return (
-      <form onSubmit={(i) => this.handleCreate(i)}>
-        <FormGroup>
-          <FormControl type="text" placeholder="Name" inputRef={(ref) => {
-            this.inputName = ref
-          }}/>
-          <FormControl type="text" placeholder="E-mail" inputRef={(ref) => {
-              this.inputEmail = ref
-          }}/>
-          <FormControl type="text" placeholder="Phone number" inputRef={(ref) => {
-              this.inputNumber = ref
-          }}/>
-          <Button block type="submit">Create</Button>
-          {this.renderError()}
-        </FormGroup>
-      </form>
+      <div className="componentWrapper flexColumn">
+        <h1 className="centerText">Contacts</h1>
+        <form className="staticForm" onSubmit={(i) => this.handleCreate(i)}>
+          <FormGroup>
+            <FormControl type="text" placeholder="Name" inputRef={(ref) => {
+              this.inputName = ref
+            }}/>
+            <FormControl type="text" placeholder="E-mail" inputRef={(ref) => {
+                this.inputEmail = ref
+            }}/>
+            <FormControl type="text" placeholder="Phone number" inputRef={(ref) => {
+                this.inputNumber = ref
+            }}/>
+            <Button block type="submit">Create</Button>
+            {this.renderError()}
+          </FormGroup>
+        </form>
+      </div>
     )
   }
 
