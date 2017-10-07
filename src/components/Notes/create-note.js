@@ -13,6 +13,7 @@ export default class CreateNote extends Component{
     return(
       //Renders the submit form for creating list items
       <div className="componentWrapper flexColumn">
+      <h1 className="centerText">Notes</h1>
         <form onSubmit={this.handleCreate.bind(this)} className="noteForm">
           <input id="addNoteTitleTxtArea" placeholder="Add title" ref="createTitle" />
           <textarea id="addNoteTxtArea" placeholder="Add a note" rows="6" cols="70" ref="createInput" />

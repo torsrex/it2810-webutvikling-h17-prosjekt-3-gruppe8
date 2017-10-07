@@ -45,7 +45,6 @@ export default class Notes extends Component {
     return(
       //Renders the header
         <div className="notes-wrapper">
-          <h1 className="centerText">Notes</h1>
           <div className="componentMainDiv">
             <CreateNote notes={this.state.notes} createTask={(i,j) => this.createTask(i,j)}/>
           </div>
