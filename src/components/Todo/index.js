@@ -39,20 +39,12 @@ export default class Todo extends Component {
   render() {
     return (
       <div>
-
-            <Row>
-            <Grid>
-              <h1>Todos</h1>
-
-            <CreateTodo todos={this.state.todos} createTask={(i) => this.createTask(i)}/>
-          </Grid>
-          </Row>
-          <Row>
-            <Grid>
-
-            <TodosList todos={this.state.todos} toggleTask={(i) => this.toggleTask(i)} saveTask={(i, v) => this.saveTask(i, v)} deleteTask={(i) => this.deleteTask(i)}/>
-          </Grid>
-          </Row>
+        <div className="componentMainDiv">
+          <CreateTodo todos={this.state.todos} createTask={(i) => this.createTask(i)}/>
+        </div>
+        <div className="componentMainDiv contentMainDiv">
+          <TodosList todos={this.state.todos} toggleTask={(i) => this.toggleTask(i)} saveTask={(i, v) => this.saveTask(i, v)} deleteTask={(i) => this.deleteTask(i)}/>
+        </div>
       </div>
     )
   }

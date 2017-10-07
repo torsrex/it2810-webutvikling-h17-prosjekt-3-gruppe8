@@ -5,20 +5,30 @@
 @import notes/_main
 @import calendar/_main
 
+//Some general styles
+.centerText
+  text-align: center
+.redText
+  color: red
+  font-weight: bold
+.fillWidth
+  width: 100%
+.flexColumn
+  display: flex
+  flex-direction: column
 ul
   padding: 0
   margin: 0
   list-style-type: none
-
 nav
   margin-bottom: 0 !important
-
 .App
   min-height: 100vh
   display: flex
   flex-direction: column
   justify-content: space-between
 
+//Some more specific styles
 .componentMainDiv
   width: 100%
   padding-top: 10px
@@ -27,4 +37,29 @@ nav
   width: 1300px
   max-width: 100%
   margin: auto
+
+.contentMainDiv
+  background-color: #F2F2F2
+.inputForm
+  margin: auto
+  margin-bottom: 15px
   display: flex
+  flex-direction: column
+  max-width: 97%
+  //Make textarea resizable, but stay within the div
+  textarea
+    max-width: 100%
+    min-height: 100px
+    min-width: 200px
+    width: 600px
+  input
+    text-align: center
+.staticForm
+  width: 600px
+  max-width: 95%
+  margin: auto
+
+
+.todoList
+  width: 800px
+  max-width: 95%

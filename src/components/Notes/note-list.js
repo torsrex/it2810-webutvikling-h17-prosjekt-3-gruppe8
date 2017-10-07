@@ -12,7 +12,7 @@ export default class NoteList extends Component {
   render() {
     return(
       //Renders the note LIST itself
-      <div className="componentWrapper noteListWrapper noteList ">
+      <div className="componentWrapper noteList ">
         {this.renderItems()}
       </div>
     )
