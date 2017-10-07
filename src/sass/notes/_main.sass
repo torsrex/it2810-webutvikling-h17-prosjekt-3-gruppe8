@@ -1,42 +1,37 @@
-
-
-.centerH
+//Some general styles
+.centerText
   text-align: center
-
-.alignCenter
-  display: flex
-  justify-content: center
-
+.redText
+  color: red
+  font-weight: bold
 .fillWidth
-  display: flex
-  flex-wrap: wrap
   width: 100%
-
-.notes-wrapper
-  max-width: 1500px
-  margin: auto
+.flexColumn
+  display: flex
+  flex-direction: column
 
 .noteForm
   margin: auto
-  margin-bottom: 25px
+  margin-bottom: 15px
   display: flex
   flex-direction: column
-  input, button, textarea
-
-
+  max-width: 97%
+  //Make textarea resizable, but within the div
+  textarea
+    max-width: 100%
+    min-height: 100px
+    min-width: 200px
 .noteList
   display: inline-flex
   flex-direction: row
   flex-wrap: wrap
-  //justify-content: center
-  //aligns notes to center
-  textarea
+  textarea, p
     height: 75%
     width: 100%
+    margin: 10px
 
 
-
-
+//individual notes
 .singleNote
   height: 230px
   width: 260px
@@ -47,7 +42,6 @@
   display: flex
   flex-wrap: wrap
   text-align: left
-
 .noteHeader
   width: 100%
   height: 30px
@@ -56,14 +50,22 @@
     margin: 0px
   input
     text-align: center
-
 .noteText
   max-width: 240px
   overflow-wrap: break-word
 
-.tinysize
-  padding: 0px
-  height: 20px
-  width: 25px
-  line-height: 0.6
-  font-weight: bold
+//generic wrapper divs
+.componentMainDiv
+  width: 100%
+  margin-bottom: 20px
+  padding-top: 10px
+  padding-bottom: 10px
+.componentWrapper
+  width: 1300px
+  max-width: 100%
+  margin: auto
+  display: flex
+
+//specific divs
+.noteListMainDiv
+  background-color: #eeeeee

@@ -12,8 +12,8 @@ export default class CreateNote extends Component{
   render() {
     return(
       //Renders the submit form for creating list items
-      <div className="createFormContainer">
-        <form onSubmit={this.handleCreate.bind(this)} className="noteForm alignCenter ">
+      <div className="componentWrapper flexColumn">
+        <form onSubmit={this.handleCreate.bind(this)} className="noteForm">
           <input id="addNoteTitleTxtArea" placeholder="Add title" ref="createTitle" />
           <textarea id="addNoteTxtArea" placeholder="Add a note" rows="6" cols="70" ref="createInput" />
           <button>Add note</button>
@@ -54,7 +54,7 @@ export default class CreateNote extends Component{
     if(!this.state.error){
       return null
     } else{
-      return <div>
+      return <div className="centerText redText">
       {this.state.error}
       </div>
     }

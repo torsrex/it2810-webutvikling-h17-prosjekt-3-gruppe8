@@ -38,7 +38,7 @@ export default class NoteListItem extends Component{
       <div className="singleNote alignCenter">
         <div className="noteHeader">
           <button onClick={ () => this.onEditClick() } className="glyphicon glyphicon-edit move"/>
-          <h4 className="alignCenter fillWidth">{this.state.noteTitle}</h4>
+          <h4 className="centerText fillWidth">{this.state.noteTitle}</h4>
 
           {/* deletes the state with title "noteTitle". deleteTask is defined in index.js */}
           <button onClick={ () => this.onDeleteClick() }className="glyphicon glyphicon-trash deleteTask"/>
