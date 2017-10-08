@@ -43,7 +43,7 @@ export default class Todo extends Component {
           <CreateTodo todos={this.state.todos} createTask={(i) => this.createTask(i)}/>
         </div>
         <div className="componentMainDiv contentMainDiv">
-          <h1 className="centerText">Todos</h1>
+          <h2 className="centerText">Todo List</h2>
           <hr/>
           <TodosList todos={this.state.todos} toggleTask={(i) => this.toggleTask(i)} saveTask={(i, v) => this.saveTask(i, v)} deleteTask={(i) => this.deleteTask(i)}/>
         </div>

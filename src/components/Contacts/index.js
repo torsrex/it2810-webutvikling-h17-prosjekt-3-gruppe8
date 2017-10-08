@@ -45,7 +45,7 @@ export default class Contacts extends Component {
           <CreateContact contacts={this.state.contacts} createContact={(i, j, k) => this.createContact(i, j, k)}/>
         </div>
         <div className="componentMainDiv contentMainDiv">
-          <h1 className="centerText">Contacts</h1>
+          <h2 className="centerText">Contact List</h2>
           <hr/>
           <ContactList contacts={this.state.contacts} saveContact={(i, j, k, l) => this.saveContact(i, j, k, l)} deleteContact={(i) => this.deleteContact(i)}/>
         </div>
