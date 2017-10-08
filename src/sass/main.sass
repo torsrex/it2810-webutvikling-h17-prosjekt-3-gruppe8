@@ -13,18 +13,25 @@ body html
 .centerText
   text-align: center
 .redText
-  color: red
-  font-weight: bold
+  color: white
+  text-shadow: 1px 1.2px #000
+  font-weight: 300
+  text-decoration: underline
+.whiteHeader
+  color: #ccc
+  font-weight: 300
+  font-family: 'Open Sans'
+
 .fillWidth
   width: 100%
 .flexColumn
   display: flex
   flex-direction: column
 hr
-  width: 50px
+  width: 70px
   margin-top: 15px
   border: 1px solid #F05F40
-h1
+h1, h2
   margin: 0px
 ul
   padding: 0
@@ -52,6 +59,7 @@ nav
       a
         color: #ccc !important
         font-weight: bold !important
+        font-family: 'Open Sans'
     .active
       a
         color: #F05F40 !important
@@ -84,20 +92,21 @@ body
   background-color: #fff
 .textAreaForm
   margin: auto
-  margin-bottom: 15px
   display: flex
   flex-direction: column
   max-width: 97%
+  opacity: 0.9
   //Make textarea resizable, but stay within the div
   textarea
     max-width: 100%
     min-height: 100px
     min-width: 200px
-    width: 600px
+    width: 500px
 .staticForm
-  width: 600px
+  width: 500px
   max-width: 95%
   margin: auto
+  opacity: 0.9
 
 .todoList
   width: 800px

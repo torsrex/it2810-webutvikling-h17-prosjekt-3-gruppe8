@@ -14,15 +14,17 @@ export default class CreateNote extends Component{
     return(
       //Renders the submit form for creating list items
       <div className="componentWrapper flexColumn">
+        <h4 className="centerText whiteHeader">Create a note</h4>
+
         <form className="textAreaForm" onSubmit={this.handleCreate.bind(this)}>
           <FormGroup>
             <FormControl type="input" placeholder="Note title" inputRef={(ref) => {
               this.inputTitle = ref
             }}/>
-            <FormControl componentClass="textarea" placeholder="Note text" rows="5" inputRef={(ref) => {
+            <FormControl componentClass="textarea" placeholder="Note text" rows="4" inputRef={(ref) => {
               this.inputText = ref
             }}/>
-            <Button block type="submit">Create note</Button>
+            <Button block type="submit">add</Button>
             {this.renderError()}
           </FormGroup>
         </form>
