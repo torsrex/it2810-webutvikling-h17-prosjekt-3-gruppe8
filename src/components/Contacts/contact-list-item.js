@@ -63,14 +63,10 @@ export default class ContactListItem extends Component {
       return (
         <div>
           <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Save todo</strong> < /Tooltip>}>
-            <Button bsStyle="success">
-              <span onClick={(i) => this.onSaveClick(i)} className="glyphicon glyphicon-ok"></span>
-            </Button>
+              <Button className="glyphicon glyphicon-ok move" onClick={(i) => this.onSaveClick(i)}/>
           </OverlayTrigger>
           <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Cancel edit</strong> < /Tooltip>}>
-            <Button bsStyle="danger">
-              <span onClick={(i) => this.onCancelClick(i)} className="glyphicon glyphicon-remove"></span>
-            </Button>
+              <Button className="glyphicon glyphicon-trash deleteTask" onClick={(i) => this.onCancelClick(i)}/>
           </OverlayTrigger>
         </div>
       )
@@ -78,14 +74,10 @@ export default class ContactListItem extends Component {
     return (
       <div>
         <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Edit</strong> < /Tooltip>}>
-          <Button bsStyle="info">
-            <span onClick={(i) => this.onEditClick(i)} className="glyphicon glyphicon-edit move"></span>
-          </Button>
+          <Button className="glyphicon glyphicon-edit move" onClick={(i) => this.onEditClick(i)}/>
         </OverlayTrigger>
         <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Delete</strong> < /Tooltip>}>
-          <Button bsStyle="danger">
-            <span onClick={(i) => this.props.deleteContact(this.props.id)} className="glyphicon glyphicon-trash deleteTask"></span>
-          </Button>
+          <Button className="glyphicon glyphicon-trash deleteTask" onClick={(i) => this.props.deleteContact(this.props.id)}/>
         </OverlayTrigger>
       </div>
     )
@@ -93,10 +85,10 @@ export default class ContactListItem extends Component {
   render() {
     return (
       <Row className="fillWidth">
-        <Col md={11} xs={10}>
+        <Col xs={11}>
           {this.renderContactSection()}
         </Col>
-        <Col>
+        <Col xs={1}>
           {this.renderActionsSection()}
         </Col>
       </Row>

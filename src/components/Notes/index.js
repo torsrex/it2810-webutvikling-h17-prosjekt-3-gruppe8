@@ -56,6 +56,8 @@ export default class Notes extends Component {
           <CreateNote notes={this.state.notes} createTask={(i,j) => this.createTask(i,j)}/>
         </div>
         <div className="componentMainDiv contentMainDiv">
+          <h1 className="centerText">Notes</h1>
+          <hr/>
           <NoteList notes={this.state.notes} deleteTask={(i) => this.deleteTask(i)} saveNote={(id,state) => this.saveNote(id,state)}/>
         </div>
       </div>

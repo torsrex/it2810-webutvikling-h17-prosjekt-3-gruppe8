@@ -31,14 +31,14 @@ const App = () => (
               Notes
             </NavItem>
           </LinkContainer>
-          <LinkContainer to="/calendar">
-            <NavItem eventKey={4}>
-              Calendar
-            </NavItem>
-          </LinkContainer>
           <LinkContainer to="/contacts">
             <NavItem eventKey={4}>
               Contacts
+            </NavItem>
+          </LinkContainer>
+          <LinkContainer to="/calendar">
+            <NavItem eventKey={4}>
+              Calendar
             </NavItem>
           </LinkContainer>
         </Nav>
@@ -50,11 +50,6 @@ const App = () => (
       <Route path="/calendar" component={Calendar}/>
       <Route path="/contacts" component={Contacts}/>
 
-      <Grid>
-        <footer>
-          Best personal manager
-        </footer>
-      </Grid>
     </div>
   </Router>
 )
