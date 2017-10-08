@@ -64,23 +64,21 @@ export default class CreateEvent extends Component {
     const {closeCreateEvent} = this.props
     const {content, from, to, color} = event
     const colors = ["red", "orange", "green", "blue", "brown", "purple"].map(color =>
-      <Picker.Item key={color} label={color} className={color} value={color}/>
-        )
-
-        return(
-        <View className="create-event">
-          <Button title="&times;" onPress={() => closeCreateEvent()} className="close-create-event close" aria-label="Close"/>
-          <TextInput className="form-control" placeholder="Description..." value={content} type="text" onChange={(e, type) => this.handleInputChange(e, "content")}/>
-          <View className="create-event-dates">
-            {/* <TextInput value={parseDate(from)} type="date" onChange={(e, type) => this.handleInputChange(e, "from")}/>
-            <TextInput value={parseDate(to)} type="date" onChange={(e, type) => this.handleInputChange(e, "to")}/> */}
-          </View>
-          <Picker className="create-event-color-select" selectedValue={color} onValueChange={(itemValue, itemIndex) => this.handleColorPick(itemValue)}>
+      <Picker.Item key={color} label={color} value={color}/>)
+    return(
+      <View>
+        <Button title="&times;" onPress={() => closeCreateEvent()}/>
+        <TextInput placeholder="Description..." value={content} type="text" onChange={(e, type) => this.handleInputChange(e, "content")}/>
+        <View >
+          <TextInput value={parseDate(from)} type="date" onChange={(e, type) => this.handleInputChange(e, "from")}/>
+          <TextInput value={parseDate(to)} type="date" onChange={(e, type) => this.handleInputChange(e, "to")}/>
+        </View>
+        <Picker selectedValue={color} onValueChange={(itemValue, itemIndex) => this.handleColorPick(itemValue)}>
           {colors}
         </Picker>
         <View>
-          <Button title="Add event" className="btn btn-primary btn-sm" onPress={e => this.handleClick(e)}/>
-          <Button title="Empty localStorage" className="btn btn-danger btn-sm" onPress={() => localStorage.setItem('events', '{}')}/>
+          <Button title="Add event" onPress={e => this.handleClick(e)}/>
+          <Button title="Empty localStorage" onPress={() => localStorage.setItem('events', '{}')}/>
         </View>
       </View>
     )
