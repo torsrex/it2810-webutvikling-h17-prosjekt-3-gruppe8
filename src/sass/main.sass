@@ -30,6 +30,7 @@ body html
 hr
   width: 70px
   margin-top: 15px
+  margin-bottom: 30px
   border: 1px solid #F05F40
 h1, h2
   margin: 0px
@@ -69,36 +70,39 @@ nav
 //Top div (header image div)
 body
   .componentMainDiv:first-child
-    background-color: #555
     background-image: url("components/Notes/header.jpg")
     padding-top: 140px
     padding-bottom: 80px
     position: relative
     top: -50px
-    margin-bottom: -20px
-
+    margin-bottom: -30px
+    @media screen and (min-width: 1921px)
+      background-image: none
+.miniMainDiv
+  padding-top: 0px !important
+  padding-bottom: 50px !important
 
 .componentMainDiv
   width: 100%
-
   padding-bottom: 30px
   background-color: #F05F40
 .componentWrapper
   width: 1200px
   max-width: 100%
   margin: auto
-
 .contentMainDiv
   background-color: #fff
+
+//Text area stylingz
 .textAreaForm
   margin: auto
   display: flex
   flex-direction: column
   max-width: 97%
   opacity: 0.9
-  //Make textarea resizable, but stay within the div
   textarea
     max-width: 100%
+    max-height: 250px
     min-height: 100px
     min-width: 200px
     width: 500px
@@ -107,7 +111,10 @@ body
   max-width: 95%
   margin: auto
   opacity: 0.9
-
+//Todo specific CSS
 .todoList
   width: 800px
   max-width: 95%
+
+//Homepage specific CSS
+.todoPagePreview
