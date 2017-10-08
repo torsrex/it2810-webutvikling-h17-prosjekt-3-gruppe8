@@ -6,6 +6,7 @@ import Todo from './components/Todo'
 import Notes from './components/Notes'
 import Welcome from './components/Welcome'
 import Calendar from './components/Calendar'
+import Expo from 'expo'
 
 //Creates main screen navigation bar
 const MainScreenNavigator = TabNavigator({
@@ -28,6 +29,14 @@ const PersonalManager = StackNavigator({
 
 //Creates main app
 export default class App extends React.Component {
+
+  async componentWillMount() {
+    await Expo.Font.loadAsync({
+      'Roboto': require('native-base/Fonts/Roboto.ttf'),
+      'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
+    })
+  }
+
   render() {
     return <PersonalManager />;
   }
