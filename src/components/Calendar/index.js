@@ -23,7 +23,7 @@ export default class Calendar extends Component {
 
   toggleCreateEvent(){
     this.setState(prevState => ({createEventVisible: !prevState.createEventVisible}))}
-    
+
   openBigDay(dayData) {
     const {date, dayEvents} = dayData
     if (Object.keys(dayEvents).length !== 0) {
@@ -90,6 +90,8 @@ export default class Calendar extends Component {
   render() {
     const {bigDay: {isBigDay, date, bigDayEvents}, events, createEventVisible} = this.state
     return (
+      <div>
+      <div className="componentMainDiv miniMainDiv"/>
       <div id="calendar-wrapper">
         {createEventVisible ?
           <CreateEvent
@@ -110,6 +112,7 @@ export default class Calendar extends Component {
             deleteEvent={eventKey => this.deleteEvent(eventKey)}
           />
         }
+      </div>
       </div>
     )
   }
