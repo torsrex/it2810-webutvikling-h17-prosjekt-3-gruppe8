@@ -19,7 +19,6 @@ export default class CreateContact extends Component {
   render() {
     return (
       <div className="componentWrapper flexColumn">
-        <h1 className="centerText">Contacts</h1>
         <form className="staticForm" onSubmit={(i) => this.handleCreate(i)}>
           <FormGroup>
             <FormControl type="text" placeholder="Name" inputRef={(ref) => {
@@ -31,7 +30,7 @@ export default class CreateContact extends Component {
             <FormControl type="text" placeholder="Phone number" inputRef={(ref) => {
                 this.inputNumber = ref
             }}/>
-            <Button block type="submit">Create</Button>
+            <Button block type="submit">Create contact</Button>
             {this.renderError()}
           </FormGroup>
         </form>

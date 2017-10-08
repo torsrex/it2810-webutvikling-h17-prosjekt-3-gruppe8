@@ -19,13 +19,12 @@ export default class CreateTodo extends Component {
   render() {
     return (
       <div className="componentWrapper flexColumn">
-        <h1 className="centerText">Todos</h1>
         <form className="staticForm" onSubmit={(i) => this.handleCreate(i)}>
           <FormGroup>
             <FormControl type="text" placeholder="What do I need to do" inputRef={(ref) => {
               this.input = ref
             }}/>
-            <Button block type="submit">Create</Button>
+            <Button block type="submit">Create todo</Button>
             {this.renderError()}
           </FormGroup>
         </form>

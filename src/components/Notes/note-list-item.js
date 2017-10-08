@@ -23,9 +23,8 @@ export default class NoteListItem extends Component{
       return (
         <div className="singleNote alignCenter">
           <div className="noteHeader">
-            <button onClick={ () => this.onSaveClick() } className="glyphicon glyphicon-check move"/>
+            <button onClick={ () => this.onSaveClick() } className="glyphicon glyphicon-ok move"/>
             <input value={this.state.noteTitle} onChange={ (e) => this.changeTitle(e) }  className="alignCenter fillWidth"></input>
-
             <button onClick={ () => this.onDeleteClick() } className="glyphicon glyphicon-trash deleteTask"/>
           </div>
 
