@@ -7,6 +7,8 @@
 
 *
   box-sizing: border-box
+body html
+  padding: 0px
 //Some general styles
 .centerText
   text-align: center
@@ -37,6 +39,7 @@ nav
   justify-content: space-between
 
 //Some more specific styles
+//Navbar style overriding (bootstrap styling sucks)
 @media screen and (min-width: 768px)
   .navbar
     position: relative
@@ -55,15 +58,16 @@ nav
         background-color: transparent !important
         background-image: none !important
         box-shadow: none !important
-
+//Top div (header image div)
 body
   .componentMainDiv:first-child
     background-color: #555
     background-image: url("components/Notes/header.jpg")
     padding-top: 140px
-    padding-bottom: 90px
+    padding-bottom: 80px
     position: relative
     top: -50px
+    margin-bottom: -20px
 
 
 .componentMainDiv
