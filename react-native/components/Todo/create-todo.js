@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React from 'react';
-import {StyleSheet, View, TouchableOpacity, Keyboard} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, Keyboard, Animated} from 'react-native';
 import {
   Button,
   Text,
@@ -21,7 +21,6 @@ export default class CreateTodo extends React.Component {
     }
 
   }
-
   render() {
     return (
       <View style={{
@@ -34,10 +33,11 @@ export default class CreateTodo extends React.Component {
           <Label>Input text to add to todo</Label>
           <Input value={this.state.tempTodo} onChangeText={(text) => this.setState({tempTodo: text})} onSubmitEditing={(e) => this.handleCreate()}/>
         </Item>
+
         <Button block onPress= {() => this.handleCreate()}>
           <Text>Submit</Text>
         </Button>
-        <Text style={styles.errorStyle}>{this.state.error}</Text>
+        <Animated.Text style={styles.errorStyle}>{this.state.error}</Animated.Text>
       </View>
     )
   }
