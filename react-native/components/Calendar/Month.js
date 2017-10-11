@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import Day from './Day'
-import Header from './Header'
-import {week, parseDate} from '../../utils'
-import {StyleSheet, FlatList, Text, View, Button, PixelRatio, ScrollView } from 'react-native'
-
+import {week, parseDate, months} from '../../utils'
+import {StyleSheet, FlatList, View, PixelRatio, ScrollView } from 'react-native'
+import {Button, Icon, Text} from 'native-base'
+import 'datejs'
 
 const fullDate = new Date()
 const year = fullDate.getFullYear()
@@ -12,22 +12,51 @@ const month = fullDate.getMonth()
 const initialState = {
   date: {
     fullDate, year, month,
-    daysInMonth: new Date(year,month,-1).getDate()
+    daysInMonth: Date.getDaysInMonth(year, month)
   },
   today: new Date()
 }
-const Days = ({days}) => {
-  return <FlatList horizontal
-    data={days}
-    renderItem={({item}) => <View>{item}</View>}
-    />
-}
+const Days = ({days}) => (
+  <View
+    style={{
+      flexDirection: "row",
+      justifyContent: "space-around"
+    }}
+  >
+    {days.map(day => (
+      <View
+        key={Math.random()}
+        style={{
+          flexBasis: 0,
+          flexGrow: 1
+        }}
+      >{day}</View>
+    ))}
+  </View>
+)
+
 
 const Weekdays = () => (
-  <FlatList horizontal
-    data={week}
-    renderItem={({item}) => <Text style={styles.day}>{item.key}</Text>}
-  />
+  <View
+    style={{
+      flexDirection: "row"
+    }}
+  >
+    {week.map(day => (
+      <Text
+        key={day}
+        style={{
+          flexBasis: 0,
+          flexGrow: 1,
+          backgroundColor: (day === "Sa" || day === "Su") ? "red" : "black",
+          paddingTop: 20,
+          paddingBottom: 20,
+          textAlign: "center",
+          color: "#fff"
+        }}
+      >{day}
+      </Text>))}
+  </View>
 )
 
 export default class Month extends Component {
@@ -36,7 +65,7 @@ export default class Month extends Component {
     this.state = initialState
   }
 
-  changeDate(direction){
+  changeDate(direction) {
     const {date} = this.state
     let {fullDate, year} = date
     let month = (date.month + direction) % 12
@@ -48,7 +77,7 @@ export default class Month extends Component {
       this.setState({
         date: {
           fullDate, year, month,
-          daysInMonth: new Date(year,month,0).getDate()
+          daysInMonth: Date.getDaysInMonth(year, month)
         }
       })
       return
@@ -65,26 +94,10 @@ export default class Month extends Component {
       this.setState({
         date:{
           fullDate, year, month,
-          daysInMonth: new Date(year, month+1, 0).getDate()
+          daysInMonth: Date.getDaysInMonth(year, month)
         }
       })
 
-    }
-  }
-
-  handleKeyUp(e){
-    switch (e.keyCode) {
-      case 37:
-        this.changeDate(-1)
-        break
-      case 39:
-        this.changeDate(1)
-        break
-      case 77:
-        this.changeDate(0)
-        break
-      default:
-        return
     }
   }
 
@@ -98,16 +111,15 @@ export default class Month extends Component {
     for (let i = new Date(year, month, 1).getUTCDay(); i > 0 ; i--) {
       days.push(
         <Day
-          style={styles.day}
           key={i+100}
           day={new Date(year, month, -i+1).getDate()}
           isPlaceholder
-          openBigDay={openBigDay}
         />
       )
     }
     const placeholderLengthBefore = days.length
     // Generating the month.
+    console.log(daysInMonth);
     for (let i = 1; i <= daysInMonth; i++) {
       const isToday = i === today.getDate() && today.toDateString() === fullDate.toDateString()
       let dayEvents = {}
@@ -130,44 +142,32 @@ export default class Month extends Component {
           }
         }
       })
-
-      days.push(<Day style={styles.day} {...{key: i, day: i, isToday, month, openBigDay, dayEvents}}/>)
+      days.push(<Day {...{key: i, day: i, isToday, month, openBigDay, dayEvents}}/>)
     }
 
     // Pushing the next months' first days to the end of the months so it is always 42 days on the page.
     for (var i = days.length; i < 42; i++) {
-      days.push(
-        <Day style={styles.day} key={i+200} day={i-daysInMonth-placeholderLengthBefore+1}
-          {...{openBigDay}}
-          isPlaceholder
-        />
-      )
+      days.push(<Day key={i+200} day={i-daysInMonth-placeholderLengthBefore+1} isPlaceholder/>)
     }
     return (
       <ScrollView>
-        <Header
-          {...{
-            year,month
-          }}
-          changeDate={direction => this.changeDate(direction)}
-        />
+        <View style={{
+          flexDirection: "row",
+          backgroundColor: "#000"
+        }}>
+          <Button onPress={() => this.changeDate(-1)}><Icon name="md-arrow-back"/></Button>
+          <Text style={{
+            padding: 14,
+            flexGrow: 2,
+            color: "#fff",
+            textAlign: "center"
+          }}>{year} {months[month]}</Text>
+          <Button style={{flexGrow:1}} onPress={() => this.changeDate(0)}><Text style={{textAlign: "center"}}>Today</Text></Button>
+          <Button onPress={() => this.changeDate(1)}><Icon name="md-arrow-forward"/></Button>
+        </View>
         <Weekdays/>
         {days.map( (e,i) => (i % 7 === 0) ? <Days key={i} days={days.slice(i, i + 7)}/> : null ).filter( (e) => e )}
       </ScrollView>
     )
   }
 }
-
-
-const styles = StyleSheet.create({
-  weekdays: {
-    display: "flex",
-    flexDirection: "row"
-  },
-  day: {
-    margin: PixelRatio.getPixelSizeForLayoutSize(5)
-  },
-  weekendDay: {
-    color: "red"
-  }
-})

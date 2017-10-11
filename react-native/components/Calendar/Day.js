@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { FlatList, Text, View, Button } from 'react-native'
+import { TouchableOpacity, Text} from 'react-native'
 
 export default class Day extends Component {
 
@@ -12,27 +12,22 @@ export default class Day extends Component {
   }
   render() {
     const {dayEvents, day, month , isPlaceholder, isToday, openBigDay} = this.props
-    let dayEventsList = []
-    let dayTitle = []
-    if (dayEvents) {
-      Object.entries(dayEvents).forEach(calendarEvent => {
-        const [key, value] = calendarEvent
-        const {content, from, to, color} = value
-        dayEventsList.push(
-          <View key={key} className={`day-event ${color} ${from && to ? "from-to" : from ? "from" : to && "to"}`}/>
-        )
-        dayTitle.push(content)
-      })
-    }
+    const hasEvent = dayEvents && Object.keys(dayEvents).length !== 0
     return (
-      <View>
-        {isPlaceholder
-          ?
-            <Text>{day}</Text>
-          :
-          <Button title={day.toString()} onPress={() => !isPlaceholder && this.handleClick()}/>
-        }
-      </View>
+      <TouchableOpacity
+        style={{
+          borderWidth: 0.5,
+          borderColor: "#eee",
+          paddingTop: 24,
+          paddingBottom: 24,
+          backgroundColor: isPlaceholder ? "#333" : isToday ? "#040" : hasEvent ? "#f00" : "#555"
+        }}
+        onPress={() => !isPlaceholder && hasEvent && this.handleClick()}>
+        <Text style={{
+          textAlign: "center",
+          color: isPlaceholder ? "#555" : "#ededed"
+        }}>{day}</Text>
+      </TouchableOpacity>
     )
   }
 }

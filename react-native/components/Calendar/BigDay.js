@@ -1,28 +1,47 @@
 import React, {Component} from 'react'
 import {months} from '../../utils'
-import {StyleSheet, FlatList, Text, View, Button, PixelRatio, ScrollView } from 'react-native'
-
+import {StyleSheet, FlatList, View, PixelRatio, ScrollView } from 'react-native'
+import {Icon, Text, Button} from 'native-base'
 export default class DayBig extends Component {
   render() {
     const {events, date:{month, day}, closeBigDay, deleteEvent} = this.props
   return (
-    <View className="big-day">
-      <View className="big-day-header">
-        <Text>{months[month]}</Text>
-        <Text>{day}</Text>
+    <View style={{backgroundColor: "#ccc", padding: 10}}>
+      <View style={{
+        flexDirection: "row",
+        marginBottom: 20,
+        justifyContent: "space-between"
+      }}>
+
+        <Text
+          style={{
+            textAlign: "center",
+            padding: 10
+          }}
+        >{months[month]} {day}</Text>
+        <Button onPress={() => closeBigDay()}>
+          <Icon name="md-close"/>
+        </Button>
       </View>
-      <Button title="&times;" className="close-big-day close" onPress={() => closeBigDay()}/>
       <View>
         {Object.keys(events).map(key => {
           const {content, color} = events[key]
-          return(
-            <View className="big-day-event" key={key}>
+          return (
+            <View
+              key={key}
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+                alignItems: "center"
+              }}
+            >
               <Text>{content}</Text>
-              <Button title="Delete event" className="btn btn-danger btn-sm" data-key={key} onPress={e => deleteEvent(e)}/>
+              <Button onPress={key => deleteEvent(key)}>
+                <Icon name="md-remove"/>
+              </Button>
             </View>
           )
         })}
-
       </View>
     </View>
   )

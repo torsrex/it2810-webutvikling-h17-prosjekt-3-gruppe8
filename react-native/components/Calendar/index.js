@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, View, Button } from 'react-native'
+import { StyleSheet, Text, ScrollView, View } from 'react-native'
+import { Button, Icon, Fab } from 'native-base'
+
 
 import Month from './Month'
 import CreateEvent from './CreateEvent'
@@ -59,8 +61,10 @@ export default class Calendar extends Component {
   }
 
 
-  toggleCreateEvent(){
-    this.setState(prevState => ({createEventVisible: !prevState.createEventVisible}))}
+  toggleCreateEvent = () => {
+    console.log("yo")
+    this.setState(({createEventVisible}) => ({createEventVisible: !createEventVisible}))
+  }
 
   openBigDay(dayData) {
     const {date, dayEvents} = dayData
@@ -105,8 +109,7 @@ export default class Calendar extends Component {
     localStorage.setItem('events', stringifyObject(events))
   }
 
-  deleteEvent(e) {
-    const eventKey = e.target.getAttribute("data-key")
+  deleteEvent(eventKey) {
     const {events, bigDay: {bigDayEvents}} = this.state
     delete events[eventKey]
     if (bigDayEvents[eventKey]) {
@@ -118,28 +121,23 @@ export default class Calendar extends Component {
 
     if (Object.keys(events).length === 0) {
       this.setState({events: {}})
-      localStorage.setItem('events', stringifyObject({}))
+      // localStorage.setItem('events', stringifyObject({}))
     } else {
       this.setState({events})
-      localStorage.setItem('events', stringifyObject(events))
+      // localStorage.setItem('events', stringifyObject(events))
     }
   }
 
   render(){
     const {bigDay: {isBigDay, date, bigDayEvents}, events, createEventVisible} = this.state
     return (
-      <View id="calendar-wrapper">
-        {createEventVisible ?
+      <ScrollView>
+        {createEventVisible &&
           <CreateEvent
             closeCreateEvent={() => this.toggleCreateEvent()}
             createEvent={event => this.createEvent(event)}
           />
-        : <Button title="+" className="toggle-create-event-btn btn btn-primary" onPress={() => this.toggleCreateEvent()}/>}
-        <Month
-          openBigDay={day => this.openBigDay(day)}
-          events={events}
-        />
-        {isBigDay && console.log("isBigDay")}
+        }
         {isBigDay &&
           <BigDay
             closeBigDay={() => this.closeBigDay()}
@@ -148,7 +146,17 @@ export default class Calendar extends Component {
             deleteEvent={eventKey => this.deleteEvent(eventKey)}
           />
         }
-      </View>
+        <Month
+          openBigDay={day => this.openBigDay(day)}
+          events={events}
+        />
+        <Fab
+          position="bottomRight"
+          onPress={this.toggleCreateEvent}
+        >
+          <Icon name="add"/>
+        </Fab>
+      </ScrollView>
     )
   }
 }

@@ -28,4 +28,4 @@ export const months = [
 ]
 
 // Day names
-export const week = [{key:"M"},{key:"Tu"},{key:"W"},{key:"Th"},{key:"F"},{key:"Sa"},{key:"Su"}]
+export const week = ["M","Tu","W","Th","F","Sa","Su"]
