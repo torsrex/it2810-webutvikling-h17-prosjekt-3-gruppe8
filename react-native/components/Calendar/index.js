@@ -51,7 +51,7 @@ const bigDay = {
   bigDayEvents: {},
 }
 const initialState = {
-  events, bigDay, createEventVisible: false
+  events, bigDay, createEventVisible: true
 }
 
 export default class Calendar extends Component {
@@ -61,10 +61,7 @@ export default class Calendar extends Component {
   }
 
 
-  toggleCreateEvent = () => {
-    console.log("yo")
-    this.setState(({createEventVisible}) => ({createEventVisible: !createEventVisible}))
-  }
+  toggleCreateEvent = () => this.setState(({createEventVisible}) => ({createEventVisible: !createEventVisible}))
 
   openBigDay(dayData) {
     const {date, dayEvents} = dayData

@@ -1,9 +1,10 @@
 import React from 'react';
 import _ from 'lodash'
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 import CreateTodo from './create-todo'
 import TodosList from './todos-list'
 import uuid from 'uuid'
+import {Container} from 'native-base'
 
 
 //Default list of todos on first app load
@@ -19,7 +20,7 @@ const todos = [
   }
 ]
 
-
+//TODO: Add async storage instead of localStorage
 
 export default class Todo extends React.Component {
   constructor(props){
@@ -33,9 +34,9 @@ export default class Todo extends React.Component {
   render(){
     return(
       //Always return a view at the start and bottom
-      <View style={styles.mainContainer}>
+      <View>
         {/*Createtodo on top*/}
-      <CreateTodo todos={this.state.todos} createTask={(i) => this.createTask(i)} />
+      <CreateTodo createTask={(i) => this.createTask(i)} />
       {/*Todolist under createtod*/}
       <TodosList todos={this.state.todos} deleteTask={(i) => this.deleteTask(i)} saveTask={(i,v) => this.saveTask(i,v)} toggleTask={(i) => this.toggleTask(i)}/>
     </View>

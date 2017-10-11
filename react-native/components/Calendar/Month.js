@@ -69,7 +69,6 @@ export default class Month extends Component {
     const {date} = this.state
     let {fullDate, year} = date
     let month = (date.month + direction) % 12
-    fullDate.setFullYear(year + direction)
     if (!direction) {
       fullDate = new Date()
       year = fullDate.getFullYear()
@@ -119,7 +118,6 @@ export default class Month extends Component {
     }
     const placeholderLengthBefore = days.length
     // Generating the month.
-    console.log(daysInMonth);
     for (let i = 1; i <= daysInMonth; i++) {
       const isToday = i === today.getDate() && today.toDateString() === fullDate.toDateString()
       let dayEvents = {}

@@ -1,6 +1,16 @@
 import _ from 'lodash'
 import React from 'react';
-import {StyleSheet, Text, View, Button, TextInput, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, Keyboard, Animated} from 'react-native';
+import {
+  Button,
+  Text,
+  Input,
+  Container,
+  Form,
+  Item,
+  Label,
+  Toast
+} from 'native-base'
 import {StackNavigator, TabNavigator} from 'react-navigation';
 
 export default class CreateTodo extends React.Component {
@@ -11,20 +21,23 @@ export default class CreateTodo extends React.Component {
       tempTodo: ""
     }
 
-
   }
-
   render() {
     return (
-      <View>
+      <View style={{
+        margin: 10,
+        padding: 10,
+        elevation: 1.5,
+        borderRadius:5
+      }}>
+        <Item floatingLabel>
+          <Label>Input text to add to todo</Label>
+          <Input value={this.state.tempTodo} onChangeText={(text) => this.setState({tempTodo: text})} onSubmitEditing={(e) => this.handleCreate()}/>
+        </Item>
 
-        <TextInput style={styles.input} placeholder="Input text to add to todo" onChangeText={(text) => this.setState({tempTodo:text})} onSubmitEditing={(e) => this.handleCreate()}/>
-        <TouchableOpacity
-          style = {styles.submitButton}
-           onPress = {() => this.handleCreate()}>
-           <Text style = {styles.submitButtonText}> Submit </Text>
-        </TouchableOpacity>
-        <Text style={styles.errorStyle}>{this.state.error}</Text>
+        <Button block onPress= {() => this.handleCreate()}>
+          <Text>Submit</Text>
+        </Button>
       </View>
     )
   }
@@ -35,10 +48,17 @@ export default class CreateTodo extends React.Component {
     const validateInput = this.validateInput(task)
     if (validateInput) {
       this.setState({error: validateInput})
+      Toast.show({
+              text: this.state.error,
+              position: 'bottom',
+              duration: 1500,
+              type: 'warning'
+            })
       return
     }
-    this.setState({error: null})
     this.props.createTask(this.state.tempTodo)
+    this.setState({error: null, tempTodo: ""})
+    Keyboard.dismiss()
   }
 
   validateInput(task) {
@@ -53,33 +73,32 @@ export default class CreateTodo extends React.Component {
 
 }
 
-
 const styles = StyleSheet.create({
-   input: {
-      marginTop: 10,
-      marginBottom: 5,
-      marginLeft: 5,
-      marginRight: 5,
-      height: 40,
-      borderColor: '#303F9F',
-      borderWidth: 1,
-      textAlign: 'center'
-   },
-   submitButton: {
-      backgroundColor: '#303F9F',
-      marginLeft: 5,
-      marginRight: 5,
-      height: 40,
-   },
-   submitButtonText:{
-     marginTop:5,
-      color: 'white',
-      textAlign: 'center'
-   },
-   errorStyle:{
-     paddingTop:10,
-     textAlign: 'center',
-     color: 'red',
-     fontSize: 20
-   }
+  input: {
+    marginTop: 10,
+    marginBottom: 5,
+    marginLeft: 5,
+    marginRight: 5,
+    height: 40,
+    borderColor: '#303F9F',
+    borderWidth: 1,
+    textAlign: 'center'
+  },
+  submitButton: {
+    backgroundColor: '#303F9F',
+    marginLeft: 5,
+    marginRight: 5,
+    height: 40
+  },
+  submitButtonText: {
+    marginTop: 5,
+    color: 'white',
+    textAlign: 'center'
+  },
+  errorStyle: {
+    paddingTop: 10,
+    textAlign: 'center',
+    color: 'red',
+    fontSize: 20
+  }
 })
