@@ -119,7 +119,6 @@ export default class TodosListItem extends React.Component {
   }
 
   onSaveClick() {
-    console.log(this.state.tempTodo);
     const oldTaskId = this.props.id
     const newTask = this.state.tempTodo
     this.props.saveTask(oldTaskId, newTask)
