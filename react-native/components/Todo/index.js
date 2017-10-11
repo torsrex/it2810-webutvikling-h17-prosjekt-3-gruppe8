@@ -19,7 +19,7 @@ const todos = [
   }
 ]
 
-
+//TODO: Add async storage instead of localStorage
 
 export default class Todo extends React.Component {
   constructor(props){
