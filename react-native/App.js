@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { StackNavigator, TabNavigator } from 'react-navigation';
+import {Root} from 'native-base'
 
 import Todo from './components/Todo'
 import Notes from './components/Notes'
@@ -48,6 +49,9 @@ export default class App extends React.Component {
     if (!this.state.isReady) {
       return <Expo.AppLoading />;
     }
-    return <PersonalManager />;
+    return (
+      <Root>
+      <PersonalManager />
+    </Root>)
   }
 }
