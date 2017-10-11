@@ -7,7 +7,7 @@ import NoteList from './note-list'      //Import file
 import CreateNote from './create-note'  //Import file
 
 
-//Default content
+//Default notes, displayed if user has nothing saved locally
 const notes = [
   {
     id: uuid.v4(),
@@ -37,7 +37,7 @@ export default class Notes extends Component {
   constructor(props) {
     super(props);
     const cachedTasks = localStorage.getItem('notes')
-    if (cachedTasks) {
+    if (cachedTasks) { //checks if user has locally saved data
       this.state = {
         notes: parseObject(cachedTasks)
       }
@@ -50,15 +50,16 @@ export default class Notes extends Component {
 
   render() {
     return(
-      //Renders the header
       <div>
+        {/*renders the display image, along with the form for creating notes*/}
         <div className="componentMainDiv">
-          <CreateNote notes={this.state.notes} createTask={(i,j) => this.createTask(i,j)}/>
+          <CreateNote notes={this.state.notes} createTask={(title,text) => this.createTask(title,text)}/>
         </div>
+        {/*renders the list of notes*/}
         <div className="componentMainDiv contentMainDiv">
           <h2 className="centerText">Note List</h2>
           <hr/>
-          <NoteList notes={this.state.notes} deleteTask={(i) => this.deleteTask(i)} saveNote={(id,state) => this.saveNote(id,state)}/>
+          <NoteList notes={this.state.notes} deleteTask={(taskId) => this.deleteTask(taskId)} saveNote={(id,state) => this.saveNote(id,state)}/>
         </div>
       </div>
     )
@@ -66,7 +67,7 @@ export default class Notes extends Component {
   updateLocalStore() {
     localStorage.setItem('notes', stringifyObject(this.state.notes))
   }
-
+  //create new note
   createTask(noteTitle, noteTxt) {
     this.state.notes.push({'id': uuid.v4(), noteTitle, noteTxt})
     this.setState(({notes: this.state.notes}))
@@ -79,6 +80,7 @@ export default class Notes extends Component {
     this.setState({notes: this.state.notes})
     this.updateLocalStore()
   }
+  //save changes on an existing note
   saveNote(noteId, noteState){
     //Finds the right note, and updates the title & txt of that note.
     const foundNote = _.find(this.state.notes, note => note.id === noteId)
