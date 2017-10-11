@@ -24,15 +24,20 @@ export default class CreateTodo extends React.Component {
 
   render() {
     return (
-      <View>
-          <Item floatingLabel>
-            <Label>Input text to add to todo</Label>
-            <Input value={this.state.tempTodo} onChangeText={(text) => this.setState({tempTodo: text})} onSubmitEditing={(e) => this.handleCreate()}/>
-          </Item>
-          <Button onPress= {() => this.handleCreate()}>
-            <Text>Submit</Text>
-          </Button>
-          <Text style={styles.errorStyle}>{this.state.error}</Text>
+      <View style={{
+        margin: 10,
+        padding: 10,
+        elevation: 1.5,
+        borderRadius:5
+      }}>
+        <Item floatingLabel>
+          <Label>Input text to add to todo</Label>
+          <Input value={this.state.tempTodo} onChangeText={(text) => this.setState({tempTodo: text})} onSubmitEditing={(e) => this.handleCreate()}/>
+        </Item>
+        <Button block onPress= {() => this.handleCreate()}>
+          <Text>Submit</Text>
+        </Button>
+        <Text style={styles.errorStyle}>{this.state.error}</Text>
       </View>
     )
   }
@@ -46,7 +51,7 @@ export default class CreateTodo extends React.Component {
       return
     }
     this.props.createTask(this.state.tempTodo)
-    this.setState({error: null, tempTodo:""})
+    this.setState({error: null, tempTodo: ""})
     Keyboard.dismiss()
   }
 

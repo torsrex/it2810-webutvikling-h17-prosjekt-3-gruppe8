@@ -1,12 +1,10 @@
 import React from 'react';
 import {
   StyleSheet,
-  Text,
   View,
-  Button,
-  TouchableOpacity,
   TextInput
 } from 'react-native';
+import {Button, Label, Text, Card, CardItem, Body} from 'native-base'
 import {StackNavigator, TabNavigator} from 'react-navigation';
 
 export default class TodosListItem extends React.Component {
@@ -24,12 +22,15 @@ export default class TodosListItem extends React.Component {
       return (
         <View>
           {/*Renders text with tap handling*/}
-          <TextInput style={styles.input} placeholder={this.props.task} onChangeText={(text) => this.setState({tempTodo: text})} onSubmitEditing={(e) => this.onSaveClick(e)}/>
+          <TextInput placeholder={this.props.task} onChangeText={(text) => this.setState({tempTodo: text})} onSubmitEditing={(e) => this.onSaveClick(e)}/>
         </View>
       )
     }
     return (
-      <View style={styles.taskBox}>
+      <View>
+
+
+
         <Text style={{
           color: this.props.isComplete
             ? 'green'
@@ -47,34 +48,43 @@ export default class TodosListItem extends React.Component {
   renderActionsSection() {
     if (this.state.isEditing) {
       return (
-        <View style={styles.actionBox}>
-          <TouchableOpacity style={styles.submitButton} onPress= {() => this.onSaveClick()}>
-            <Text style={styles.submitButtonText}>
+        <View>
+          <Button onPress= {() => this.onSaveClick()}>
+            <Text>
               Submit
             </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.submitButton} onPress= {() => this.onCancelClick()}>
-            <Text style={styles.submitButtonText}>
+          </Button>
+          <Button onPress= {() => this.onCancelClick()}>
+            <Text >
               Cancel
             </Text>
-          </TouchableOpacity>
+          </Button>
 
         </View>
       )
     }
     return (
-      <View>
-        <Button title="Delete todo" color="red" onPress= {(i) => this.props.deleteTask(this.props.id)}/>
-        <Button title="Edit" color="green" onPress={() => this.onEditClick()}/>
+      <View style={{flexGrow:1, flexDirection:'row',justifyContent:'space-between'}}>
+        <Button info onPress={() => this.onEditClick()}>
+          <Text>Edit</Text>
+        </Button>
+        <Button danger onPress= {(i) => this.props.deleteTask(this.props.id)}>
+          <Text>Delete todo</Text>
+        </Button>
       </View>
     )
   }
   render() {
     return (
-      <View style={styles.actionBox}>
-        {this.renderTaskSection()}
-        {this.renderActionsSection()}
-      </View>
+      <Card style={{alignItems:'center'}}>
+        <CardItem>
+
+          {this.renderTaskSection()}
+        </CardItem>
+        <CardItem style={{flexDirection:'row'}}>
+          {this.renderActionsSection()}
+        </CardItem>
+      </Card>
     )
   }
 
@@ -95,39 +105,3 @@ export default class TodosListItem extends React.Component {
 
   }
 }
-//Custom styling
-const styles = StyleSheet.create({
-   input: {
-      marginTop: 10,
-      marginLeft: 5,
-      marginRight: 5,
-      height: 40,
-      borderColor: '#303F9F',
-      borderWidth: 1,
-      textAlign: 'center'
-   },
-   submitButton: {
-      backgroundColor: '#303F9F',
-      marginLeft: 5,
-      marginRight: 5,
-      marginBottom: 10,
-      height: 40,
-   },
-   submitButtonText:{
-     marginTop:5,
-      color: 'white',
-      textAlign: 'center'
-   },
-   errorStyle:{
-     paddingTop:10,
-     textAlign: 'center',
-     color: 'red',
-     fontSize: 20
-   },
-  taskBox: {
-    marginBottom: 10,
-  },
-  actionBox: {
-    marginBottom: 15
-  }
-})
