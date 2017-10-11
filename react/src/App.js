@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter as Router, Route, Link} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Link, HashRouter} from 'react-router-dom'
 import './main.css';
 
 
@@ -51,7 +51,7 @@ const App = () => (
   //   </div>
   // </Router>
 
-  <Router>
+  <HashRouter hashType="noslash">
     <div>
       <div id="hamburger" className="active">
         <span></span>
@@ -76,6 +76,6 @@ const App = () => (
     <Route path="/calendar" component={Calendar}/>
     <Route path="/contacts" component={Contacts}/>
     </div>
-  </Router>
+  </HashRouter>
 )
 export default App
