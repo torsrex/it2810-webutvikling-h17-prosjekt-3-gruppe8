@@ -69,7 +69,6 @@ export default class Month extends Component {
     const {date} = this.state
     let {fullDate, year} = date
     let month = (date.month + direction) % 12
-    fullDate.setFullYear(year + direction)
     if (!direction) {
       fullDate = new Date()
       year = fullDate.getFullYear()
