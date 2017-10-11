@@ -1,7 +1,7 @@
 import React from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import './main.css';
-import {NavItem, Nav, Navbar, Grid} from 'react-bootstrap';
+import {NavItem, Nav, Navbar} from 'react-bootstrap';
 import {LinkContainer} from 'react-router-bootstrap'
 import 'bootstrap/less/bootstrap.less'
 

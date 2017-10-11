@@ -9,7 +9,10 @@
   box-sizing: border-box
 body html
   padding: 0px
-//Some general styles
+body
+  background-color: #fff
+
+//Some general styles ---------------------------------------------------------
 .centerText
   text-align: center
 .redText
@@ -21,7 +24,11 @@ body html
   color: #ccc
   font-weight: 300
   font-family: 'Open Sans'
-
+  text-shadow: 0.5px 0.5px 0.5px #000
+.blackHeader
+  color: #000
+  font-weight: 300
+  font-family: 'Open Sans'
 .fillWidth
   width: 100%
 .flexColumn
@@ -32,8 +39,7 @@ hr
   margin-top: 15px
   margin-bottom: 30px
   border: 1px solid #F05F40
-h1, h2
-  margin: 0px
+
 ul
   padding: 0
   margin: 0
@@ -46,7 +52,7 @@ nav
   flex-direction: column
   justify-content: space-between
 
-//Some more specific styles
+//Some more specific styles ---------------------------------------------------
 //Navbar style overriding (bootstrap styling sucks)
 @media screen and (min-width: 768px)
   .navbar
@@ -71,13 +77,13 @@ nav
 body
   .componentMainDiv:first-child
     background-image: url("components/Notes/header.jpg")
-    padding-top: 140px
+    background-size: cover
+    background-repeat: no-repeat
+    padding-top: 120px
     padding-bottom: 80px
     position: relative
     top: -50px
-    margin-bottom: -30px
-    @media screen and (min-width: 1921px)
-      background-image: none
+    margin-bottom: -50px
 .miniMainDiv
   padding-top: 0px !important
   padding-bottom: 50px !important
@@ -116,5 +122,19 @@ body
   width: 800px
   max-width: 95%
 
-//Homepage specific CSS
-.todoPagePreview
+//CSS for Home
+.h1HorLine
+  margin-top: 20px
+  margin-bottom: 20px
+  width: 60px
+  border: 1px solid #F05F40
+
+//Homepage
+.homeMainDiv
+  min-height: 60vh
+  padding-top: 200px !important
+.footer
+  padding-top: 100px
+  padding-bottom: 100px
+  align-items: center
+  text-align: center

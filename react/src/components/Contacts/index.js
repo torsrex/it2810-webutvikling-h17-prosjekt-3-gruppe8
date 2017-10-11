@@ -3,7 +3,6 @@ import React, {Component} from 'react'
 import ContactList from './contact-list'
 import CreateContact from './create-contact'
 import {stringifyObject, parseObject} from '../../utils'
-import {Grid, Row} from 'react-bootstrap'
 import uuid from 'uuid'
 
 const contacts = [

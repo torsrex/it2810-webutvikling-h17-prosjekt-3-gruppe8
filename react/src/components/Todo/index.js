@@ -3,7 +3,7 @@ import React, {Component} from 'react'
 import TodosList from './todos-list'
 import CreateTodo from './create-todo'
 import {stringifyObject, parseObject} from '../../utils'
-import {Grid, Row} from 'react-bootstrap'
+
 import uuid from 'uuid'
 
 const todos = [
