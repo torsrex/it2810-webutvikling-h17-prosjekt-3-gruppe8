@@ -118,7 +118,6 @@ export default class Month extends Component {
     }
     const placeholderLengthBefore = days.length
     // Generating the month.
-    console.log(daysInMonth);
     for (let i = 1; i <= daysInMonth; i++) {
       const isToday = i === today.getDate() && today.toDateString() === fullDate.toDateString()
       let dayEvents = {}
