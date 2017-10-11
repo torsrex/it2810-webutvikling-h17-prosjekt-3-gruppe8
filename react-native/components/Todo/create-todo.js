@@ -8,7 +8,8 @@ import {
   Container,
   Form,
   Item,
-  Label
+  Label,
+  Toast
 } from 'native-base'
 import {StackNavigator, TabNavigator} from 'react-navigation';
 
@@ -37,7 +38,6 @@ export default class CreateTodo extends React.Component {
         <Button block onPress= {() => this.handleCreate()}>
           <Text>Submit</Text>
         </Button>
-        <Animated.Text style={styles.errorStyle}>{this.state.error}</Animated.Text>
       </View>
     )
   }
@@ -48,6 +48,12 @@ export default class CreateTodo extends React.Component {
     const validateInput = this.validateInput(task)
     if (validateInput) {
       this.setState({error: validateInput})
+      Toast.show({
+              text: this.state.error,
+              position: 'bottom',
+              duration: 1500,
+              type: 'warning'
+            })
       return
     }
     this.props.createTask(this.state.tempTodo)
