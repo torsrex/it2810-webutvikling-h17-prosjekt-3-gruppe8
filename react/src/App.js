@@ -16,7 +16,7 @@ const App = () => (
     <div>
       <Navbar inverse collapseOnSelect>
         <Nav>
-          <LinkContainer to="/welcome">
+          <LinkContainer exact to="/">
             <NavItem eventKey={2}>
               Home
             </NavItem>
@@ -44,7 +44,7 @@ const App = () => (
         </Nav>
       </Navbar>
 
-      <Route exact path="/welcome" component={Welcome}/>
+      <Route exact path="/" component={Welcome}/>
       <Route path="/todo" component={Todo}/>
       <Route path="/notes" component={Notes}/>
       <Route path="/calendar" component={Calendar}/>
