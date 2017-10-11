@@ -10,16 +10,15 @@ export default class NoteListItem extends Component{
     }
   }
 
-  //Used to update state when component receives new props, doesn't happen automatically
+  //Used to update state when component receives new props, as it doesn't happen automatically
   componentWillReceiveProps(nextProps) {
-  // You don't have to do this check first, but it can help prevent an unneeded
   this.setState({ noteTitle: nextProps.noteTitle });
   this.setState({ noteTxt: nextProps.noteTxt });
   }
 
   renderItems(){
     if(this.state.isEditing){
-      //renders editable note, replace "p" with "input", and add eventListener.------
+      //renders editable note, replace "p" field with "input", and add eventListener.------
       return (
         <div className="singleNote alignCenter">
           <div className="noteHeader">
@@ -27,7 +26,6 @@ export default class NoteListItem extends Component{
             <input value={this.state.noteTitle} onChange={ (e) => this.changeTitle(e) }  className="alignCenter fillWidth"></input>
             <button onClick={ () => this.onDeleteClick() } className="glyphicon glyphicon-trash deleteTask"/>
           </div>
-
           <textArea value={this.state.noteTxt} onChange={ (e) => this.changeTxt(e) } className="noteText" ></textArea>
         </div>
       )
@@ -39,7 +37,6 @@ export default class NoteListItem extends Component{
           <button onClick={ () => this.onEditClick() } className="glyphicon glyphicon-edit move"/>
           <span className="centerText fillWidth">{this.state.noteTitle}</span>
 
-          {/* deletes the state with title "noteTitle". deleteTask is defined in index.js */}
           <button onClick={ () => this.onDeleteClick() }className="glyphicon glyphicon-trash deleteTask"/>
         </div>
 
@@ -56,11 +53,11 @@ export default class NoteListItem extends Component{
   }
 
   //Change states when editing text fields
-  changeTitle(e){
-    this.setState({noteTitle: e.target.value})
+  changeTitle(event){
+    this.setState({noteTitle: event.target.value})
   }
-  changeTxt(e){
-    this.setState({noteTxt: e.target.value})
+  changeTxt(event){
+    this.setState({noteTxt: event.target.value})
   }
 
   onEditClick(){

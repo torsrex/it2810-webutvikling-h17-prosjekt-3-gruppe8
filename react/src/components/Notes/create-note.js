@@ -9,13 +9,11 @@ export default class CreateNote extends Component{
     }
   }
 
-  //Render the form. Create new note
+  //Render the form create note
   render() {
     return(
-      //Renders the submit form for creating list items
       <div className="componentWrapper flexColumn">
         <h4 className="centerText whiteHeader">Create a note</h4>
-
         <form className="textAreaForm" onSubmit={this.handleCreate.bind(this)}>
           <FormGroup>
             <FormControl type="input" placeholder="Note title" inputRef={(ref) => {
@@ -29,7 +27,6 @@ export default class CreateNote extends Component{
           </FormGroup>
         </form>
       </div>
-
     )
   }
   //From here on, all code is to create new notes
@@ -57,7 +54,6 @@ export default class CreateNote extends Component{
       return false
     }
   }
-
   //Renders the error message, if any.
   renderError(){
     if(!this.state.error){

@@ -2,15 +2,16 @@ import React, { Component } from 'react'
 import Day from './Day'
 import Header from './Header'
 import {week, parseDate} from '../../utils'
+import 'datejs'
 
-const fullDate = new Date()
+const fullDate = Date.today()
 const year = fullDate.getFullYear()
 const month = fullDate.getMonth()
 
 const initialState = {
   date: {
     fullDate, year, month,
-    daysInMonth: new Date(year,month,-1).getDate()
+    daysInMonth: Date.getDaysInMonth(year, month)
   },
   today: new Date()
 }
@@ -36,7 +37,6 @@ export default class Month extends Component {
     const {date} = this.state
     let {fullDate, year} = date
     let month = (date.month + direction) % 12
-    fullDate.setFullYear(year + direction)
     if (!direction) {
       fullDate = new Date()
       year = fullDate.getFullYear()
@@ -44,7 +44,7 @@ export default class Month extends Component {
       this.setState({
         date: {
           fullDate, year, month,
-          daysInMonth: new Date(year,month,0).getDate()
+          daysInMonth: Date.getDaysInMonth(year, month)
         }
       })
       return
@@ -56,12 +56,11 @@ export default class Month extends Component {
         month += 12
         year += direction
       }
-
       fullDate.setMonth(month)
       this.setState({
         date:{
           fullDate, year, month,
-          daysInMonth: new Date(year, month+1, 0).getDate()
+          daysInMonth: Date.getDaysInMonth(year, month)
         }
       })
 
