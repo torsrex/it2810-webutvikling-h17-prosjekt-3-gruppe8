@@ -28,7 +28,8 @@ export default class CreateTodo extends React.Component {
         margin: 10,
         padding: 10,
         elevation: 1.5,
-        borderRadius:5
+        borderRadius:5,
+        backgroundColor:"white"
       }}>
         <Item floatingLabel>
           <Label>Input text to add to todo</Label>
