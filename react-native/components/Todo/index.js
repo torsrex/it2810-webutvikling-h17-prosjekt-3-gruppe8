@@ -10,15 +10,7 @@ import {parseObject, stringifyObject} from '../../utils'
 
 //Default list of todos on first app load
 const todos = [
-  {
-    id: uuid.v4(),
-    task: 'First task is here',
-    isComplete: true
-  }, {
-    id: uuid.v4(),
-    task: 'Second task is here',
-    isComplete: false
-  }
+
 ]
 
 
@@ -33,7 +25,7 @@ export default class Todo extends React.Component {
   componentWillMount = () => {
     AsyncStorage.getItem("todos")
       .then(todos => todos && this.setState({todos: parseObject(todos)}))
-      .catch(e => console.log(e) && this.setState({todos:todos}))
+      .catch(e => console.log(e))
   }
 
   render(){
