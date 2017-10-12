@@ -49,13 +49,7 @@ export default class Calendar extends Component {
 
   componentWillMount = () => {
     AsyncStorage.getItem("events")
-      .then(events => {
-        if (events) {
-          this.setState({events: parseObject(events)})
-          console.log(events);
-        }
-
-      })
+      .then(events => events && this.setState({events: parseObject(events)}))
       .catch(e => console.log(e))
   }
 
