@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React from 'react';
-import {StyleSheet, View, TouchableOpacity, Keyboard, Animated} from 'react-native';
+import {View, TouchableOpacity, Keyboard, Animated} from 'react-native';
 import {
   Button,
   Text,
@@ -72,33 +72,3 @@ export default class CreateTodo extends React.Component {
   }
 
 }
-
-const styles = StyleSheet.create({
-  input: {
-    marginTop: 10,
-    marginBottom: 5,
-    marginLeft: 5,
-    marginRight: 5,
-    height: 40,
-    borderColor: '#303F9F',
-    borderWidth: 1,
-    textAlign: 'center'
-  },
-  submitButton: {
-    backgroundColor: '#303F9F',
-    marginLeft: 5,
-    marginRight: 5,
-    height: 40
-  },
-  submitButtonText: {
-    marginTop: 5,
-    color: 'white',
-    textAlign: 'center'
-  },
-  errorStyle: {
-    paddingTop: 10,
-    textAlign: 'center',
-    color: 'red',
-    fontSize: 20
-  }
-})

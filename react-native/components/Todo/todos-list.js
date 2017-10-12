@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, Button, ScrollView} from 'react-native';
+import {Text, View, Button, ScrollView} from 'react-native';
 import {StackNavigator, TabNavigator} from 'react-navigation';
 import TodosListItem from './todos-list-item'
 
