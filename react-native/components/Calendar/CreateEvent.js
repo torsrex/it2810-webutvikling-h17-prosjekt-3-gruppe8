@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import {parseDate, generateId} from "../../utils"
+import {parseDate, } from "../../utils"
 import { AsyncStorage } from 'react-native'
 import { Picker, Form, Item, Card, Text, View, Button, TextInput, Icon, Label, Input, Toast} from 'native-base'
 import Datepicker from 'react-native-datepicker'
 import 'datejs'
+import uuid from 'uuid'
 
 const today = new Date().getTime()
 const emptyEvent =  {
@@ -50,7 +51,7 @@ export default class CreateEvent extends Component {
 
   handleAddEventClick = () => {
     const {event} = this.state
-    const newEvent = {[generateId()]: event}
+    const newEvent = {[uuid.v4()]: event}
     if (event.content !== "") {
       this.props.createEvent(newEvent)
       this.setState({event: emptyEvent})
@@ -60,15 +61,11 @@ export default class CreateEvent extends Component {
   }
 
   emptyAsyncStorage = () => {
-    try {
-      AsyncStorage.setItem('@Events:key', '{}')
-      Toast.show({
-        "text": "Events deleted",
-        duration: 1500
-      })
-    } catch (error) {
-      console.log(error)
-    }
+    AsyncStorage.setItem('events', '{}')
+    Toast.show({
+      "text": "Events deleted",
+      duration: 1500
+    })
   }
 
   render() {

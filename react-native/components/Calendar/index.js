@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, ScrollView, View, AsyncStorage } from 'react-native'
-import { Button, Icon, Fab } from 'native-base'
+import { Button, Icon, Fab, Toast } from 'native-base'
 
 
 import Month from './Month'
@@ -8,24 +8,19 @@ import CreateEvent from './CreateEvent'
 import BigDay from './BigDay'
 import {parseObject, stringifyObject} from '../../utils'
 
-// const events = localStorage.getItem('events') ? parseObject(localStorage.getItem('events')) : {}
-let events = {}
-try {
-  events =  AsyncStorage.getItem('@Events:key');
-} catch (error) {
-  console.log("Error getting the data!");
-}
-
-
-
 const bigDay = {
   isBigDay: false,
   date: {},
   bigDayEvents: {},
 }
+
 const initialState = {
-  events, bigDay, createEventVisible: true
+  events: {},
+  bigDay,
+  createEventVisible: false
 }
+
+
 
 export default class Calendar extends Component {
   constructor(){
@@ -34,26 +29,36 @@ export default class Calendar extends Component {
   }
 
 
+
   toggleCreateEvent = () => this.setState(({createEventVisible}) => ({createEventVisible: !createEventVisible}))
 
   openBigDay(dayData) {
     const {date, dayEvents} = dayData
-    // if (Object.keys(dayEvents).length !== 0) {
-      this.setState(prevState => ({
-        bigDay: {
-          isBigDay: true,
-          date,
-          bigDayEvents: dayEvents
-        }
-      }))
-    // } else {
-      // this.closeBigDay()
-    // }
+    this.setState(prevState => ({
+      bigDay: {
+        isBigDay: true,
+        date,
+        bigDayEvents: dayEvents
+      }
+    }))
   }
 
   closeBigDay(){
     this.setState({bigDay})
   }
+
+  componentWillMount = () => {
+    AsyncStorage.getItem("events")
+      .then(events => {
+        if (events) {
+          this.setState({events: parseObject(events)})
+          console.log(events);
+        }
+
+      })
+      .catch(e => console.log(e))
+  }
+
 
   createEvent(newEvent) {
     const key = Object.keys(newEvent)[0]
@@ -76,12 +81,13 @@ export default class Calendar extends Component {
         })
       })
     }
-    console.log(stringifyObject(events));
-    try {
-      AsyncStorage.setItem('Events', stringifyObject(events))
-    } catch (e) {
-      console.log(e)
-    }
+
+    AsyncStorage.setItem('events', stringifyObject(events))
+    Toast.show({
+      "text": "Event added",
+      type: "success",
+      duration: 1500
+    })
   }
 
   deleteEvent(eventKey) {
@@ -93,13 +99,23 @@ export default class Calendar extends Component {
         this.setState({bigDay})
       }
     }
-
     if (Object.keys(events).length === 0) {
-      this.setState({events: {}})
-      // localStorage.setItem('events', stringifyObject({}))
+      AsyncStorage.setItem('events', '{}')
+      this.setState({events: {}}, () => {
+        Toast.show({
+          "text": "Event deleted",
+          duration: 1500
+        })
+      })
+
     } else {
-      this.setState({events})
-      // localStorage.setItem('events', stringifyObject(events))
+      this.setState({events}, () => {
+        AsyncStorage.setItem('events', stringifyObject(events))
+        Toast.show({
+          "text": "Event deleted",
+          duration: 1500
+        })
+      })
     }
   }
 
@@ -121,6 +137,7 @@ export default class Calendar extends Component {
             deleteEvent={eventKey => this.deleteEvent(eventKey)}
           />
         }
+
         <Month
           openBigDay={day => this.openBigDay(day)}
           events={events}
