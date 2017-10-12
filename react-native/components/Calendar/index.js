@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, ScrollView, View } from 'react-native'
+import { StyleSheet, Text, ScrollView, View, AsyncStorage } from 'react-native'
 import { Button, Icon, Fab } from 'native-base'
 
 
@@ -9,38 +9,11 @@ import BigDay from './BigDay'
 import {parseObject, stringifyObject} from '../../utils'
 
 // const events = localStorage.getItem('events') ? parseObject(localStorage.getItem('events')) : {}
-
-const events = {
-  "0.02h1p8qbflx5": {
-    "content": "It is an event",
-    "from": 1506643200000,
-    "to": 1506729600000,
-    "color": "orange"
-  },
-  "0.cr5uoi7dq4j": {
-    "content": "hæ",
-    "from": 1506384000000,
-    "to": 1506618757051,
-    "color": "green"
-  },
-  "0.ceeiifax1ql": {
-    "content": "ha",
-    "from": 1505692800000,
-    "to": 1506618757051,
-    "color": "brown"
-  },
-  "0.edz4756s8f8": {
-    "content": "ho",
-    "from": 1504742400000,
-    "to": 1505174400000,
-    "color": "red"
-  },
-  "0.8ly2do89rmb": {
-    "content": "hei",
-    "from": 1506384000000,
-    "to": 1506618757051,
-    "color": "blue"
-  }
+let events = {}
+try {
+  events =  AsyncStorage.getItem('@Events:key');
+} catch (error) {
+  console.log("Error getting the data!");
 }
 
 
@@ -103,7 +76,12 @@ export default class Calendar extends Component {
         })
       })
     }
-    localStorage.setItem('events', stringifyObject(events))
+    console.log(stringifyObject(events));
+    try {
+      AsyncStorage.setItem('Events', stringifyObject(events))
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   deleteEvent(eventKey) {
