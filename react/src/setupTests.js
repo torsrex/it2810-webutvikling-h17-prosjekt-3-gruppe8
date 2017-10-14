@@ -3,29 +3,29 @@
 import raf from './tempPolyfills'
 
 //Setting up enzyme
-import Enzyme from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
+import Enzyme from 'enzyme'
+import Adapter from 'enzyme-adapter-react-16'
 
 Enzyme.configure({ adapter: new Adapter() })
 
 //Needed for mocking localStorage
-var localStorageMock = (function() {
-    var store = {};
+const localStorageMock = (() => {
+    const store = {}
 
     return {
         getItem: function(key) {
-            return store[key] || null;
+            return store[key] || null
         },
         setItem: function(key, value) {
-            store[key] = value.toString();
+            store[key] = value.toString()
         },
         clear: function() {
-            store = {};
+            store = {}
         }
-    };
+    }
 
-})();
+})()
 
 Object.defineProperty(window, 'localStorage', {
      value: localStorageMock
-});
+})
