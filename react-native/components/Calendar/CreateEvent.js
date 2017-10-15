@@ -28,7 +28,12 @@ export default class CreateEvent extends Component {
       value = new Date(value).getTime()
     }
     if ((type === "to" && value <= from) || (type === "from" && value >= to)) {
-      alert("Event start time must be before event end time.")
+      Toast.show({
+        "text": "Event start time must be before event end time.",
+        type: "warning",
+        duration: 3000
+      })
+
     } else {
       this.setState(({event}) => ({
         event: {
@@ -48,23 +53,29 @@ export default class CreateEvent extends Component {
     }))
   }
 
-
   handleAddEventClick = () => {
     const {event} = this.state
-    const newEvent = {[uuid.v4()]: event}
     if (event.content !== "") {
-      this.props.createEvent(newEvent)
+      this.props.createEvent({[uuid.v4()]: event})
       this.setState({event: emptyEvent})
     } else {
-      alert("Empty content!")
+      Toast.show({
+        "text": "Event description cannot be empty.",
+        type: "warning",
+        duration: 3000
+      })
     }
   }
 
   emptyAsyncStorage = () => {
     AsyncStorage.setItem('events', '{}')
+      .then(() => {
+        this.props.reset()
+      })
     Toast.show({
-      "text": "Events deleted",
-      duration: 1500
+      "text": "All events were deleted.",
+      type: "danger",
+      duration: 3000
     })
   }
 

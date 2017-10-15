@@ -84,6 +84,12 @@ export default class Calendar extends Component {
     })
   }
 
+  reset = () => {
+    if (!Object.keys(this.state.events).length) {
+      this.setState(initialState)
+    }
+  }
+
   deleteEvent(eventKey) {
     const {events, bigDay: {bigDayEvents}} = this.state
     delete events[eventKey]
@@ -121,6 +127,7 @@ export default class Calendar extends Component {
           <CreateEvent
             closeCreateEvent={() => this.toggleCreateEvent()}
             createEvent={event => this.createEvent(event)}
+            reset={this.reset}
           />
         }
         {isBigDay &&
