@@ -1,20 +1,26 @@
-import React, {Component} from 'react'
+import React from 'react';
+import {View} from 'react-native';
 import {
-  Row,
-  Col,
-  FormGroup,
-  FormControl,
-  Well,
-  OverlayTrigger,
-  Tooltip,
-  Button
-} from 'react-bootstrap'
+  Button,
+  Label,
+  Text,
+  Card,
+  CardItem,
+  Body,
+  Input,
+  Item,
+  Form
+} from 'native-base'
+import {StackNavigator, TabNavigator} from 'react-navigation';
 
-export default class ContactListItem extends Component {
+export default class ContactListItem extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isEditing: false
+      isEditing: false,
+      tempName: "",
+      tempEmail: "",
+      tempNumber: ""
     }
   }
 
@@ -84,6 +90,19 @@ export default class ContactListItem extends Component {
   }
   render() {
     return (
+      <Card style={{
+        alignItems: 'center'
+      }}>
+        <CardItem>
+          {this.renderContactSection()}
+        </CardItem>
+        <CardItem style={{
+          flexDirection: 'row'
+        }}>
+          {this.renderActionsSection()}
+        </CardItem>
+      </Card>
+      /*
       <Row className="fillWidth">
         <Col xs={11}>
           {this.renderContactSection()}
@@ -91,7 +110,7 @@ export default class ContactListItem extends Component {
         <Col xs={1}>
           {this.renderActionsSection()}
         </Col>
-      </Row>
+      </Row>*/
     )
   }
   onEditClick() {

@@ -1,21 +1,18 @@
-import _ from 'lodash'
-import React, {Component} from 'react'
+import React from 'react';
+import {Text, View, Button, ScrollView} from 'react-native';
+import {StackNavigator, TabNavigator} from 'react-navigation';
 import ContactListItem from './contact-list-item'
-import {} from 'react-bootstrap'
 
-export default class ContactList extends Component {
+export default class ContactList extends React.Component {
 
-  renderItems() {
-    const props = _.omit(this.props, 'contacts');
-
-    return _.map(this.props.contacts, (contact, id) => <ContactListItem key={id} {...contact} {...props}/>)
-  }
 
   render() {
     return (
-      <div className="componentWrapper ">
-        {this.renderItems()}
-      </div>
+      <ScrollView>
+        {this.props.contacts.map((contact, index) => {
+          return <ContactListItem key={contact.id} name={contact.name} id={contact.id} deleteContact={(i) => this.props.deleteContact(i)} saveContact={(i, j, k, l) => this.props.saveContact(i, j, k, l)}/>
+        })}
+      </ScrollView>
     )
   }
 }

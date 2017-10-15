@@ -1,14 +1,29 @@
+import _ from 'lodash'
+import React from 'react'
+import {View, TouchableOpacity, Keyboard, Animated} from 'react-native';
+import {
+  Button,
+  Text,
+  Input,
+  Container,
+  Form,
+  Item,
+  Label,
+  Toast
+} from 'native-base'
+import {StackNavigator, TabNavigator} from 'react-navigation';
 
-import React, {Component} from 'react'
-import {FormGroup, FormControl, Button} from 'react-bootstrap'
-
-export default class CreateContact extends Component {
+export default class CreateContact extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      error: null
+      error: null,
+      tempName: "",
+      tempEmail: "",
+      tempNumber: ""
     }
   }
+  /*
   renderError() {
     if (!this.state.error) {
       return null
@@ -16,57 +31,73 @@ export default class CreateContact extends Component {
     return <div className="centerText redText">
       {this.state.error}</div>
   }
+  */
   render() {
     return (
-      <div className="componentWrapper flexColumn">
-        <h4 className="centerText whiteHeader">Create a contact</h4>
-        <form className="staticForm" onSubmit={(i) => this.handleCreate(i)}>
-          <FormGroup>
-            <FormControl type="text" placeholder="Name" inputRef={(ref) => {
-              this.inputName = ref
-            }}/>
-            <FormControl type="text" placeholder="E-mail" inputRef={(ref) => {
-                this.inputEmail = ref
-            }}/>
-            <FormControl type="text" placeholder="Phone number" inputRef={(ref) => {
-                this.inputNumber = ref
-            }}/>
-            <Button block type="submit">add</Button>
-            {this.renderError()}
-          </FormGroup>
-        </form>
-      </div>
+      <View style={{
+        margin: 10,
+        padding: 10,
+        elevation: 1.5,
+        borderRadius: 5,
+        backgroundColor: "white"
+      }}>
+        <Item floatingLabel>
+          <Label>Name</Label>
+          <Input value={this.state.tempName} onChangeText={(text) => this.setState({tempName: text})} onSubmitEditing={(e) => this.handleCreate()}/>
+        </Item>
+        <Item floatingLabel>
+          <Label>Email</Label>
+          <Input value={this.state.tempEmail} onChangeText={(text) => this.setState({tempEmail: text})} onSubmitEditing={(e) => this.handleCreate()}/>
+        </Item>
+        <Item floatingLabel>
+          <Label>Number</Label>
+          <Input value={this.state.tempNumber} onChangeText={(text) => this.setState({tempNumber: text})} onSubmitEditing={(e) => this.handleCreate()}/>
+        </Item>
+        <Button block onPress={() => this.handleCreate()}>
+          <Text>Submit</Text>
+        </Button>
+      </View>
     )
   }
 
-  handleCreate(event) {
-    event.preventDefault();
-
-    const createInputName = this.inputName;
-    const createInputEmail = this.inputEmail;
-    const createInputNumber = this.inputNumber;
-    const name = String.prototype.trim.call(createInputName.value);
-    const email = String.prototype.trim.call(createInputEmail.value);
-    const number = String.prototype.trim.call(createInputNumber.value);
+  handleCreate() {
+    const name = String.prototype.trim.call(this.state.tempName);
+    const email = String.prototype.trim.call(this.state.tempEmail);
+    const number = String.prototype.trim.call(this.state.tempNumber);
     const validateInputName = this.validateNumber(number);
     const validateInputEmail = this.validateEmail(email);
     const validateInputNumber = this.validateName(name);
     if (validateInputName) {
       this.setState({error: validateInputName});
+      Toast.show({
+        text: this.state.error,
+        position: 'bottom',
+        duration: 1500,
+        type: 'warning'
+      })
       return
     } else if (validateInputEmail) {
         this.setState({error: validateInputEmail});
+      Toast.show({
+        text: this.state.error,
+        position: 'bottom',
+        duration: 1500,
+        type: 'warning'
+      })
         return
     } else if (validateInputNumber) {
         this.setState({error: validateInputNumber});
+      Toast.show({
+        text: this.state.error,
+        position: 'bottom',
+        duration: 1500,
+        type: 'warning'
+      })
         return
     }
     //TODO: Fix not save on many whitespaces
-    this.setState({error: null});
+    this.setState({error: null, tempName: "", tempEmail: "", tempNumber: ""});
     this.props.createContact(name, email, number);
-    this.inputName.value = '';
-    this.inputEmail.value = '';
-    this.inputNumber.value = '';
   }
 
   validateName(name) {
