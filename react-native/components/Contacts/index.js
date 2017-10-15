@@ -1,7 +1,9 @@
+import React from 'react';
 import _ from 'lodash'
-import React, {Component} from 'react'
+import { Text, View, AsyncStorage } from 'react-native';
 import ContactList from './contact-list'
 import CreateContact from './create-contact'
+import {Container} from 'native-base'
 import {stringifyObject, parseObject} from '../../utils'
 import uuid from 'uuid'
 
@@ -19,40 +21,33 @@ const contacts = [
   }
 ];
 
-export default class Contacts extends Component {
+export default class Contacts extends React.Component {
 
   constructor(props) {
-    super(props);
-    const cachedContacts = localStorage.getItem('contacts');
-    if (cachedContacts) {
-      this.state = {
-        contacts: parseObject(cachedContacts)
-      }
-    } else {
-      this.state = {
-        contacts: contacts
-
-      }
+    super();
+    this.state = {
+      contacts: contacts
     }
+  }
 
+  componentWillMount = () => {
+    AsynchStorage.getItem("contacts")
+        .then(contacts => contacts && this.setState({contacts: parseObject(contacts)}))
+        .catch(e => console.log(e))
   }
 
   render() {
     return (
-      <div>
-        <div className="componentMainDiv">
-          <CreateContact contacts={this.state.contacts} createContact={(i, j, k) => this.createContact(i, j, k)}/>
-        </div>
-        <div className="componentMainDiv contentMainDiv">
-          <h2 className="centerText">Contact List</h2>
-          <hr/>
-          <ContactList contacts={this.state.contacts} saveContact={(i, j, k, l) => this.saveContact(i, j, k, l)} deleteContact={(i) => this.deleteContact(i)}/>
-        </div>
-      </div>
+      <View>
+        {/*CreateContact on top*/}
+        <CreateContact createContact={(i, j, k) => this.createContact(i, j, k)} />
+        {/*ContactList under CreateContact*/}
+        <ContactList contacts={this.state.contacts} deleteContact={(i) => this.deleteContact(i)} saveContact={(i, j, k, l) => this.saveContact(i, j, k, l)}/>
+      </View>
     )
   }
-  updateLocalStore() {
-    localStorage.setItem('contacts', stringifyObject(this.state.contacts))
+  updateAsynchStore() {
+    AsynchStorage.setItem('contacts', stringifyObject(this.state.contacts))
 
   }
 
@@ -60,7 +55,7 @@ export default class Contacts extends Component {
   createContact(name, email, number) {
     this.state.contacts.push({'id': uuid.v4(), name: name, email: email, number: number});
     this.setState(({contacts: this.state.contacts}));
-    this.updateLocalStore()
+    this.updateAsynchStore()
   }
 
   saveContact(oldContactId, newName, newEmail, newNumber) {
@@ -69,13 +64,13 @@ export default class Contacts extends Component {
     foundContact.email = newEmail;
     foundContact.number = newNumber;
     this.setState({contacts: this.state.contacts});
-    this.updateLocalStore()
+    this.updateAsynchStore()
   }
 
   deleteContact(contactToDeleteId) {
     _.remove(this.state.contacts, contact => contact.id === contactToDeleteId);
     this.setState({contacts: this.state.contacts});
-    this.updateLocalStore()
+    this.updateAsynchStore()
 
   }
 
