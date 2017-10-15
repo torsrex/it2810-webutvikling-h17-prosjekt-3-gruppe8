@@ -25,42 +25,50 @@ export default class ContactListItem extends React.Component {
   }
 
   renderContactSection() {
-
+/*
     const {name, email, number} = this.props;
 
     const contactStyle = {
 
     };
-
+*/
     if (this.state.isEditing) {
 
       return (
-        <div>
-          <form onSubmit={(i) => this.onSaveClick(i)}>
-            <FormGroup>
-              <FormControl type="text" defaultValue={name} inputRef={(ref) => {
-                this.inputName = ref
-              }}/>
-              <FormControl type="text" defaultValue={email} inputRef={(ref) => {
-                  this.inputEmail = ref
-              }}/>
-              <FormControl type="text" defaultValue={number} inputRef={(ref) => {
-                  this.inputNumber = ref
-              }}/>
-            </FormGroup>
-          </form>
-        </div>
+
+        <View style={{
+          flexGrow: 1,
+          flexDirection: 'row',
+          justifyContent: 'space-between'
+        }}>
+          <Item>
+            <Input style={{borderWidth:1, borderColor:'black', borderRadius:3}} autoFocus value={this.state.tempName} onFocus={() => this.setState({tempName: this.props.name})} onChangeText={(text) => this.setState({tempName: text})} onSubmitEditing={(e) => this.onSaveClick(e)}/>
+          </Item>
+          <Item>
+            <Input style={{borderWidth:1, borderColor:'black', borderRadius:3}} autoFocus value={this.state.tempEmail} onFocus={() => this.setState({tempEmail: this.props.email})} onChangeText={(text) => this.setState({tempEmail: text})} onSubmitEditing={(e) => this.onSaveClick(e)}/>
+          </Item>
+          <Item>
+            <Input style={{borderWidth:1, borderColor:'black', borderRadius:3}} autoFocus value={this.state.tempNumber} onFocus={() => this.setState({tempNumber: this.props.number})} onChangeText={(text) => this.setState({tempNumber: text})} onSubmitEditing={(e) => this.onSaveClick(e)}/>
+          </Item>
+        </View>
       )
     }
 
     return (
-      <div className="renderTaskSection" style={contactStyle}>
-        <Well bsSize="sm">
-          {name}<br />
-          {email}<br />
-          {number}
-        </Well>
-      </div>
+      <View>
+        <Text style={{
+          fontSize: 25,
+          textAlign: 'center'
+        }}>{this.props.name}</Text>
+        <Text style={{
+          fontSize: 25,
+          textAlign: 'center'
+        }}>{this.props.email}</Text>
+        <Text style={{
+          fontSize: 25,
+          textAlign: 'center'
+        }}>{this.props.number}</Text>
+      </View>
     )
   }
 
