@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import {parseDate, generateId} from "../../utils"
+import {parseDate, } from "../../utils"
 import { AsyncStorage } from 'react-native'
 import { Picker, Form, Item, Card, Text, View, Button, TextInput, Icon, Label, Input, Toast} from 'native-base'
 import Datepicker from 'react-native-datepicker'
 import 'datejs'
+import uuid from 'uuid'
 
 const today = new Date().getTime()
 const emptyEvent =  {
@@ -27,7 +28,12 @@ export default class CreateEvent extends Component {
       value = new Date(value).getTime()
     }
     if ((type === "to" && value <= from) || (type === "from" && value >= to)) {
-      alert("Event start time must be before event end time.")
+      Toast.show({
+        "text": "Event start time must be before event end time.",
+        type: "warning",
+        duration: 3000
+      })
+
     } else {
       this.setState(({event}) => ({
         event: {
@@ -47,28 +53,30 @@ export default class CreateEvent extends Component {
     }))
   }
 
-
   handleAddEventClick = () => {
     const {event} = this.state
-    const newEvent = {[generateId()]: event}
     if (event.content !== "") {
-      this.props.createEvent(newEvent)
+      this.props.createEvent({[uuid.v4()]: event})
       this.setState({event: emptyEvent})
     } else {
-      alert("Empty content!")
+      Toast.show({
+        "text": "Event description cannot be empty.",
+        type: "warning",
+        duration: 3000
+      })
     }
   }
 
   emptyAsyncStorage = () => {
-    try {
-      AsyncStorage.setItem('@Events:key', '{}')
-      Toast.show({
-        "text": "Events deleted",
-        duration: 1500
+    AsyncStorage.setItem('events', '{}')
+      .then(() => {
+        this.props.reset()
       })
-    } catch (error) {
-      console.log(error)
-    }
+    Toast.show({
+      "text": "All events were deleted.",
+      type: "danger",
+      duration: 3000
+    })
   }
 
   render() {

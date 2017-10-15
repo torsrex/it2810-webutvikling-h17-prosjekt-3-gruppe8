@@ -1,5 +1,14 @@
-{
-  "expo": {
-    "sdkVersion": "21.0.0"
-  }
-}
+ {
+   "expo": {
+    "name": "Personal manager",
+    "version": "1.0.0",
+    "slug": "manager",
+    "sdkVersion": "21.0.0",
+    "ios": {
+      "bundleIdentifier": "com.group8.manager"
+    },
+    "android": {
+      "package": "com.group8.manager"
+    }
+   }
+ }
