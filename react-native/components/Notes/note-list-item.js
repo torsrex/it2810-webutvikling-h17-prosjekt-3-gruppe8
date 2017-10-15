@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, View, Button, TextInput} from 'react-native';
+import {StyleSheet, Text, View, Button, TextInput, Image, TouchableHighlight} from 'react-native';
 
 export default class NoteListItem extends React.Component {
   constructor(props){
@@ -16,27 +16,44 @@ export default class NoteListItem extends React.Component {
   this.setState({ noteTxt: nextProps.noteTxt });
   }
 
+//<Button style={styles.imgBtn} onPress={ () => this.onSaveClick() } title="save"/>
   render(){
     if(this.state.isEditing){
       return(
         <View style={styles.noteView}>
-          <View style={styles.noteHeader}>
-            <Button style={styles.editButton} onPress={ () => this.onSaveClick() } title="save"/>
-            <TextInput style={styles.titleText} onChangeText={ (noteTitle) => this.setState({noteTitle}) } value={this.state.noteTitle}/>
-            <Button style={styles.deleteButton} onPress={ () => this.onDeleteClick() } title="delete"/>
+
+          <TouchableHighlight style={styles.alignVertical} onPress={ () => this.onSaveClick() }>
+            <Image style={styles.imgBtn} source={require('../.././images/check.png')}/>
+          </TouchableHighlight>
+
+          <View style={styles.noteContent}>
+            <View style={styles.noteHeader}>
+              <TextInput style={styles.titleText} onChangeText={ (noteTitle) => this.setState({noteTitle}) } value={this.state.noteTitle}/>
+            </View>
+            <TextInput multiline = {true} numberOfLines = {3} style={styles.noteText} onChangeText={ (noteTxt) => this.setState({noteTxt}) } value={this.state.noteTxt}/>
           </View>
-          <TextInput style={styles.noteText} onChangeText={ (noteTxt) => this.setState({noteTxt}) } value={this.state.noteTxt}/>
+
+          <TouchableHighlight style={styles.alignVertical} onPress={ () => this.onDeleteClick() }>
+            <Image style={styles.imgBtn} source={require('../.././images/trash.png')}/>
+          </TouchableHighlight>
+
         </View>
       )
     } else{
       return(
         <View style={styles.noteView}>
-          <View style={styles.noteHeader}>
-            <Button style={styles.editButton} onPress={ () => this.onEditClick() } title="edit"/>
-            <Text style={styles.titleText}>{this.state.noteTitle}</Text>
-            <Button style={styles.deleteButton} onPress={ () => this.onDeleteClick() } title="delete"/>
+
+          <View style={styles.noteContent}>
+            <View style={styles.noteHeader}>
+              <Text style={styles.titleText}>{this.state.noteTitle}</Text>
+            </View>
+            <Text style={styles.noteText}>{this.state.noteTxt}</Text>
           </View>
-          <Text style={styles.noteText}>{this.state.noteTxt}</Text>
+
+          <TouchableHighlight style={styles.alignVertical} onPress={ () => this.onEditClick() }>
+            <Image style={styles.imgBtn} source={require('../.././images/edit.png')}/>
+          </TouchableHighlight>
+
         </View>
       )
     }
@@ -58,30 +75,41 @@ export default class NoteListItem extends React.Component {
 
 const styles = StyleSheet.create({
   noteView: {
+    paddingTop: 5,
+    paddingBottom: 5,
+    backgroundColor: '#fff',
+    display: 'flex',
+    flexDirection: 'row',
+    borderColor: '#d6d7da',
+    borderBottomWidth: 1,
+  },
+  noteContent: {
+    flex: 6,
     padding: 10,
-    marginTop: 10,
-    backgroundColor: '#ddd',
+    paddingTop: 5,
+    paddingBottom: 5,
   },
   noteHeader: {
     display: 'flex',
     flexDirection: 'row',
-    paddingTop: 10,
-  },
-  editButton: {
-    flex: 1,
-    paddingLeft: 15,
-    paddingRight: 15,
   },
   titleText: {
     flex: 3,
     textAlign: 'center',
     fontSize: 20,
   },
-  deleteButton: {
-    flex: 1,
+  imgBtn: {
+    width: 30,
+    height: 30,
   },
   noteText: {
     alignSelf: 'stretch',
     textAlign: 'center',
-  }
+  },
+  alignVertical: {
+    flexDirection: 'column',
+    flex: 1,
+    alignItems:'center',
+    justifyContent: 'center',
+  },
 })

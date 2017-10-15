@@ -13,7 +13,8 @@
     "react-router-bootstrap": "^0.24.4",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.13",
-    "uuid": "^3.1.0"
+    "uuid": "^3.1.0",
+    "datejs": "1.0.0-rc3"
   },
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src/sass src/sass/main.sass src/main.css",
