@@ -33,7 +33,10 @@ export default class CreateTodo extends React.Component {
       }}>
         <Item floatingLabel>
           <Label>Input text to add to todo</Label>
-          <Input value={this.state.tempTodo} onChangeText={(text) => this.setState({tempTodo: text})} onSubmitEditing={(e) => this.handleCreate()}/>
+          <Input
+            value={this.state.tempTodo}
+            onChangeText={(text) => this.setState({tempTodo: text})}
+            onSubmitEditing={(e) => this.handleCreate()}/>
         </Item>
 
         <Button block onPress= {() => this.handleCreate()}>
@@ -51,7 +54,6 @@ export default class CreateTodo extends React.Component {
       this.setState({error: validateInput})
       Toast.show({
               text: this.state.error,
-              position: 'bottom',
               duration: 1500,
               type: 'warning'
             })
