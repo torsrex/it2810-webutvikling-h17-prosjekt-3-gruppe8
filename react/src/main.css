@@ -3,16 +3,16 @@
   flex-direction: column;
   align-items: center; }
 
-.noteList {
+.note-list {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap; }
-  .noteList textarea, .noteList p {
+  .note-list textarea, .note-list p {
     height: 75%;
     width: 100%;
     margin: 10px; }
 
-.singleNote {
+.single-note {
   height: 230px;
   width: 260px;
   background-color: #F0F0F0;
@@ -22,23 +22,23 @@
   flex-wrap: wrap;
   text-align: left; }
 
-.noteHeader {
+.note-header {
   display: flex;
   align-items: center;
   background-color: #D4D4D4;
   color: #F05F40;
   padding: 6px;
   width: 100%; }
-  .noteHeader input {
+  .note-header input {
     text-align: center;
     color: #000; }
-  .noteHeader button {
+  .note-header button {
     height: 30px;
     width: 30px;
     background-color: #D4D4D4;
     border: none; }
 
-.noteText {
+.note-text {
   overflow: auto;
   max-width: 240px;
   overflow-wrap: break-word; }
@@ -286,30 +286,30 @@ body html {
 body {
   background-color: #fff; }
 
-.centerText {
+.center-text {
   text-align: center; }
 
-.redText {
+.red-text {
   color: white;
   text-shadow: 1px 1.2px #000;
   font-weight: 300;
   text-decoration: underline; }
 
-.whiteHeader {
+.white-header {
   color: #fff;
   font-weight: 300;
   font-family: 'Open Sans';
   text-shadow: 0.5px 0.5px 0.3px #000; }
 
-.blackHeader {
+.black-header {
   color: #000;
   font-weight: 300;
   font-family: 'Open Sans'; }
 
-.fillWidth {
+.fill-width {
   width: 100%; }
 
-.flexColumn {
+.flex-column {
   display: flex;
   flex-direction: column; }
 
@@ -391,7 +391,7 @@ nav ul {
     margin-right: auto;
     z-index: 10 !important; } }
 
-body .componentMainDiv:first-child {
+body .component-main-div:first-child {
   background-image: url("components/Notes/header.jpg");
   background-size: cover;
   background-repeat: no-repeat;
@@ -399,57 +399,57 @@ body .componentMainDiv:first-child {
   padding-bottom: 80px;
   position: relative; }
   @media (orientation: landscape), (min-width: 768px) {
-    body .componentMainDiv:first-child {
+    body .component-main-div:first-child {
       top: -50px;
       margin-bottom: -50px; } }
 
-.miniMainDiv {
+.mini-main-div {
   padding-top: 0px !important;
   padding-bottom: 50px !important; }
 
-.componentMainDiv {
+.component-main-div {
   width: 100%;
   padding-bottom: 30px;
   background-color: #F05F40; }
 
-.componentWrapper {
+.component-wrapper {
   width: 1200px;
   max-width: 100%;
   margin: auto; }
 
-.contentMainDiv {
+.content-main-div {
   background-color: #fff; }
 
-.textAreaForm {
+.text-area-form {
   margin: auto;
   display: flex;
   flex-direction: column;
   max-width: 97%;
   opacity: 0.9; }
-  .textAreaForm textarea {
+  .text-area-form textarea {
     max-width: 100%;
     max-height: 250px;
     min-height: 100px;
     min-width: 200px;
     width: 500px; }
 
-.staticForm {
+.static-form {
   width: 500px;
   max-width: 95%;
   margin: auto;
   opacity: 0.9; }
 
-.todoList {
+.todo-list {
   width: 800px;
   max-width: 95%; }
 
-.h1HorLine {
+.h1-hor-line {
   margin-top: 20px;
   margin-bottom: 20px;
   width: 60px;
   border: 1px solid #F05F40; }
 
-.homeMainDiv {
+.home-main-div {
   min-height: 60vh;
   padding-top: 200px !important; }
 

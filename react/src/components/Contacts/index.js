@@ -5,7 +5,7 @@ import _ from 'lodash'
 import React, {Component} from 'react'
 import ContactList from './contact-list'
 import CreateContact from './create-contact'
-import {stringifyObject, parseObject} from '../../utils'
+import {parseObject, updateLocalStorage} from '../../utils'
 import uuid from 'uuid'
 
 //Content on the contacts page if user has no locally saved content.
@@ -41,41 +41,37 @@ export default class Contacts extends Component {
     })
   }
 
-  //Regular functions
-  updateLocalStore() {
-    localStorage.setItem('contacts', stringifyObject(this.state.contacts))
-  }
   //New contact (created from create-contact component)
   createContact(name, email, number) {
-    this.state.contacts.unshift({'id': uuid.v4(), name: name, email: email, number: number});
-    this.setState(({contacts: this.state.contacts}));
-    this.updateLocalStore()
+    const {contacts} = this.state
+    contacts.unshift({'id': uuid.v4(), name: name, email: email, number: number});
+    this.setState({contacts}, () => updateLocalStorage("contacts", contacts))
   }
   //Save changes in edited contact
   saveContact(oldContactId, newName, newEmail, newNumber) {
-    const foundContact = _.find(this.state.contacts, contact => contact.id === oldContactId);
+    const {contacts} = this.state
+    const foundContact = _.find(contacts, contact => contact.id === oldContactId);
     foundContact.name = newName;
     foundContact.email = newEmail;
     foundContact.number = newNumber;
-    this.setState({contacts: this.state.contacts});
-    this.updateLocalStore()
+    this.setState({contacts}, () => updateLocalStorage("contacts", contacts))
   }
   //Delete contact from list and view
   deleteContact(contactToDeleteId) {
-    _.remove(this.state.contacts, contact => contact.id === contactToDeleteId);
-    this.setState({contacts: this.state.contacts});
-    this.updateLocalStore()
+    const {contacts} = this.state
+    _.remove(contacts, contact => contact.id === contactToDeleteId);
+    this.setState({contacts}, () => updateLocalStorage("contacts", contacts))
   }
 
 
   render() {
     return (
       <div>
-        <div className="componentMainDiv">
+        <div className="component-main-div">
           <CreateContact contacts={this.state.contacts} createContact={(i, j, k) => this.createContact(i, j, k)}/>
         </div>
-        <div className="componentMainDiv contentMainDiv">
-          <h2 className="centerText">Contact List</h2>
+        <div className="component-main-div content-main-div">
+          <h2 className="center-text">Contact List</h2>
           <hr/>
           <ContactList contacts={this.state.contacts} saveContact={(i, j, k, l) => this.saveContact(i, j, k, l)} deleteContact={(i) => this.deleteContact(i)}/>
         </div>

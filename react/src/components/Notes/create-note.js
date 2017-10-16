@@ -55,9 +55,9 @@ export default class CreateNote extends Component{
   //Render the form create note
   render() {
     return(
-      <div className="componentWrapper flexColumn">
-        <h4 className="centerText whiteHeader">Create a note</h4>
-        <form className="textAreaForm" onSubmit={this.handleCreate.bind(this)}>
+      <div className="component-wrapper flex-column">
+        <h4 className="center-text white-header">Create a note</h4>
+        <form className="text-area-form" onSubmit={this.handleCreate.bind(this)}>
           <FormGroup>
             <FormControl type="input" placeholder="Note title" inputRef={(ref) => {
               this.inputTitle = ref

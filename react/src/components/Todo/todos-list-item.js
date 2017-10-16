@@ -79,7 +79,7 @@ export default class TodosListItem extends Component {
     }
     //Unless isEditing is true, return this
     return (
-      <div className="renderTaskSection" style={taskStyle} onClick={() => this.props.toggleTask(id)}>
+      <div className="render-task-section" style={taskStyle} onClick={() => this.props.toggleTask(id)}>
         <Well bsSize="sm">
           {task}
         </Well>
@@ -114,7 +114,7 @@ export default class TodosListItem extends Component {
 
   render() {
     return (
-      <Row className="fillWidth">
+      <Row className="fill-width">
         <Col md={10} xs={10}>
           {this.renderTaskSection()}
         </Col>

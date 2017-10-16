@@ -1,6 +1,6 @@
 /*
 Renders the list of all todos,
-and creates every single individual todo based on the list in index.js. 
+and creates every single individual todo based on the list in index.js.
 */
 
 import _ from 'lodash'
@@ -18,7 +18,7 @@ export default class TodosList extends Component {
 
   render() {
     return (
-      <div className="componentWrapper todoList">
+      <div className="component-wrapper todo-list">
         {this.renderItems()}
       </div>
     )
