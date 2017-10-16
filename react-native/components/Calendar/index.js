@@ -80,8 +80,14 @@ export default class Calendar extends Component {
     Toast.show({
       "text": "Event added",
       type: "success",
-      duration: 1500
+      duration: 3000
     })
+  }
+
+  reset = () => {
+    if (!Object.keys(this.state.events).length) {
+      this.setState(initialState)
+    }
   }
 
   deleteEvent(eventKey) {
@@ -98,7 +104,7 @@ export default class Calendar extends Component {
       this.setState({events: {}}, () => {
         Toast.show({
           "text": "Event deleted",
-          duration: 1500
+          duration: 3000
         })
       })
 
@@ -107,7 +113,7 @@ export default class Calendar extends Component {
         AsyncStorage.setItem('events', stringifyObject(events))
         Toast.show({
           "text": "Event deleted",
-          duration: 1500
+          duration: 3000
         })
       })
     }
@@ -121,6 +127,7 @@ export default class Calendar extends Component {
           <CreateEvent
             closeCreateEvent={() => this.toggleCreateEvent()}
             createEvent={event => this.createEvent(event)}
+            reset={this.reset}
           />
         }
         {isBigDay &&

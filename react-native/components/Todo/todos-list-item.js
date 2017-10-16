@@ -9,7 +9,8 @@ import {
   Body,
   Input,
   Item,
-  Form
+  Form,
+  CheckBox
 } from 'native-base'
 import {StackNavigator, TabNavigator} from 'react-navigation';
 
@@ -39,18 +40,33 @@ export default class TodosListItem extends React.Component {
         </View>
       )
     }
+    const {id, task,isComplete} = this.props
     return (
-      <View>
+      <View
+        style={{
+          paddingRight: 10,
+          paddingLeft: 10,
+          flexGrow: 1,
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "space-between"
+        }}
+      >
         <Text style={{
-          color: this.props.isComplete
-            ? 'green'
-            : 'red',
-          textDecorationLine: this.props.isComplete
-            ? 'line-through'
-            : 'none',
           fontSize: 25,
-          textAlign: 'center'
-        }} onPress= {() => this.props.toggleTask(this.props.id)}>{this.props.task}</Text>
+          textAlign: 'center',
+          textDecorationLine: isComplete
+            ? 'line-through'
+            : 'none'
+        }}
+          onPress={() => this.props.toggleTask(id)}
+
+        >{task}</Text>
+        <CheckBox
+          checked={isComplete}
+          color={isComplete ? "green" : "red"}
+          onPress={() => this.props.toggleTask(id)}
+        />
       </View>
     )
 
@@ -94,9 +110,7 @@ export default class TodosListItem extends React.Component {
   }
   render() {
     return (
-      <Card style={{
-        alignItems: 'center'
-      }}>
+      <Card>
         <CardItem>
 
           {this.renderTaskSection()}
