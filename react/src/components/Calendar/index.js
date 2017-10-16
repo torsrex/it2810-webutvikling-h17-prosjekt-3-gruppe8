@@ -42,7 +42,7 @@ export default class Calendar extends Component {
   closeBigDay(){
     this.setState({bigDay})
   }
-
+  //Creates new calendar event
   createEvent(newEvent) {
     const key = Object.keys(newEvent)[0]
     const value = newEvent[key]
@@ -66,7 +66,7 @@ export default class Calendar extends Component {
     }
     localStorage.setItem('events', stringifyObject(events))
   }
-
+  //Deletes calendar event
   deleteEvent(e) {
     const eventKey = e.target.getAttribute("data-key")
     const {events, bigDay: {bigDayEvents}} = this.state

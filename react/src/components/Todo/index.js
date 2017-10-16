@@ -1,13 +1,12 @@
+/* Main component for the todo page. Renders sub-components
+and contains functions for manipulating the page data (todo list items)*/
+
 import _ from 'lodash'
 import React, {Component} from 'react'
 import TodosList from './todos-list'
 import CreateTodo from './create-todo'
 import {parseObject, updateLocalStorage} from '../../utils'
-
-
 import uuid from 'uuid'
-
-
 export default class Todo extends Component {
 
   constructor(props) {
@@ -24,6 +23,8 @@ export default class Todo extends Component {
     })
   }
 
+  //Regular functions
+  //Toggle if a todo is completed or not
   toggleTask(id) {
     const {todos} = this.state
     const foundTodo = _.find(todos, todo => todo.id === id)
@@ -31,11 +32,13 @@ export default class Todo extends Component {
     this.setState({todos}, () => updateLocalStorage("todos", todos)
   )}
 
+  //Create new todo
   createTask(task) {
     const {todos} = this.state
-    todos.push({'id': uuid.v4(), task, isComplete: false})
+    todos.unshift({'id': uuid.v4(), task, isComplete: false})
     this.setState(({todos}), () => updateLocalStorage("todos", todos))}
 
+  //Save todo after changes have been made
   saveTask(id, newTask) {
     const {todos} = this.state
     const foundTodo = _.find(todos, todo => todo.id === id)
@@ -44,6 +47,7 @@ export default class Todo extends Component {
     updateLocalStorage("todos", todos)
   )}
 
+  //Delete todo
   deleteTask(id) {
     let {todos} = this.state
     todos = todos.filter(todo => todo.id !== id)
@@ -70,5 +74,4 @@ export default class Todo extends Component {
       </div>
     )
   }
-
 }

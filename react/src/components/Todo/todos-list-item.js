@@ -1,3 +1,8 @@
+/*
+A single todo.
+Contains functions for manipulating it, and deleting it.
+*/
+
 import React, {Component} from 'react'
 import {
   Row,
@@ -18,10 +23,36 @@ export default class TodosListItem extends Component {
     }
   }
 
-  renderTaskSection() {
+  //Regular functions ---------------------------------------------------------
+  onEditClick() {
+    this.setState({isEditing: true})
+  }
+  onCancelClick() {
+    this.setState({isEditing: false})
+  }
+  onSaveClick(event) {
+    const oldTaskId = this.props.id
+    const newTask = this.input.value
+    //only save changes if todo content isn't empty
+    if(this.notEmpty(newTask)){
+      this.props.saveTask(oldTaskId, newTask)
+      this.setState({isEditing: false})
+    }
+  }
 
+  //VALIDATION
+  //Checks if the note content is empty
+  notEmpty(newTask){
+    if(newTask){
+      return true
+    }else{
+      return false
+    }
+  }
+
+  //Render functions ----------------------------------------------------------
+  renderTaskSection() { //todo content + toggle finished state
     const {id, task, isComplete} = this.props
-
     const taskStyle = {
       color: isComplete
         ? 'green'
@@ -32,8 +63,7 @@ export default class TodosListItem extends Component {
       cursor: 'pointer'
     }
 
-    if (this.state.isEditing) {
-
+    if (this.state.isEditing) { //The todo content (title/txt)
       return (
         <div>
           <form onSubmit={(i) => this.onSaveClick(i)}>
@@ -47,7 +77,7 @@ export default class TodosListItem extends Component {
         </div>
       )
     }
-
+    //Unless isEditing is true, return this
     return (
       <div className="renderTaskSection" style={taskStyle} onClick={() => this.props.toggleTask(id)}>
         <Well bsSize="sm">
@@ -57,7 +87,7 @@ export default class TodosListItem extends Component {
     )
   }
 
-  renderActionsSection() {
+  renderActionsSection() { //buttons for modifying the todo content
     if (this.state.isEditing) {
       return (
         <div>
@@ -81,6 +111,7 @@ export default class TodosListItem extends Component {
       </div>
     )
   }
+
   render() {
     return (
       <Row className="fillWidth">
@@ -93,21 +124,4 @@ export default class TodosListItem extends Component {
       </Row>
     )
   }
-  onEditClick() {
-    this.setState({isEditing: true})
-  }
-  onCancelClick() {
-    this.setState({isEditing: false})
-  }
-  onSaveClick(event) {
-    event.preventDefault()
-
-    const oldTaskId = this.props.id
-    const newTask = this.input.value
-
-    this.props.saveTask(oldTaskId, newTask)
-    this.setState({isEditing: false})
-
-  }
-
 }
