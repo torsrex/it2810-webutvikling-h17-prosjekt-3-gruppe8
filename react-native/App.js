@@ -52,7 +52,7 @@ class PersonalManager extends Component {
               <Icon name="clipboard"/>
             </Button>
             <Button active={activeTab === "Contacts"} onPress={() => this.handleMenuClick("Contacts")}>
-              <Icon name="users"/>
+              <Icon name="md-contacts"/>
             </Button>
             <Button active={activeTab === "Calendar"} onPress={() => this.handleMenuClick("Calendar")}>
               <Icon name="calendar"/>

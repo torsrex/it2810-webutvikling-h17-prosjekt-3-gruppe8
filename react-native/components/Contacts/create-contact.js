@@ -23,15 +23,7 @@ export default class CreateContact extends React.Component {
       tempNumber: ""
     }
   }
-  /*
-  renderError() {
-    if (!this.state.error) {
-      return null
-    }
-    return <div className="centerText redText">
-      {this.state.error}</div>
-  }
-  */
+
   render() {
     return (
       <View style={{
@@ -95,7 +87,7 @@ export default class CreateContact extends React.Component {
       })
         return
     }
-    //TODO: Fix not save on many whitespaces
+
     this.setState({error: null, tempName: "", tempEmail: "", tempNumber: ""});
     this.props.createContact(name, email, number);
   }

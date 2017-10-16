@@ -25,20 +25,11 @@ export default class ContactListItem extends React.Component {
   }
 
   renderContactSection() {
-/*
-    const {name, email, number} = this.props;
-
-    const contactStyle = {
-
-    };
-*/
     if (this.state.isEditing) {
-
       return (
-
         <View style={{
           flexGrow: 1,
-          flexDirection: 'row',
+          flexDirection: 'column',
           justifyContent: 'space-between'
         }}>
           <Item>
@@ -93,6 +84,7 @@ export default class ContactListItem extends React.Component {
         </View>
       )
     }
+
     return (
       <View style={{
         flexGrow: 1,
@@ -112,6 +104,7 @@ export default class ContactListItem extends React.Component {
       </View>
     )
   }
+
   render() {
     return (
       <Card>
@@ -126,12 +119,15 @@ export default class ContactListItem extends React.Component {
       </Card>
     )
   }
+
   onEditClick() {
     this.setState({isEditing: true})
   }
+
   onCancelClick() {
     this.setState({isEditing: false})
   }
+
   onSaveClick() {
     const oldTaskId = this.props.id;
     const newName = this.state.tempName;
@@ -140,7 +136,6 @@ export default class ContactListItem extends React.Component {
 
     this.props.saveContact(oldTaskId, newName, newEmail, newNumber);
     this.setState({isEditing: false})
-
   }
 
 }

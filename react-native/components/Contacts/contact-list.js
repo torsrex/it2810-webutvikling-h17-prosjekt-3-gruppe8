@@ -10,7 +10,7 @@ export default class ContactList extends React.Component {
     return (
       <ScrollView>
         {this.props.contacts.map((contact, index) => {
-          return <ContactListItem key={contact.id} name={contact.name} id={contact.id} deleteContact={(i) => this.props.deleteContact(i)} saveContact={(i, j, k, l) => this.props.saveContact(i, j, k, l)}/>
+          return <ContactListItem key={contact.id} name={contact.name} email={contact.email} number={contact.number} id={contact.id} deleteContact={(i) => this.props.deleteContact(i)} saveContact={(i, j, k, l) => this.props.saveContact(i, j, k, l)}/>
         })}
       </ScrollView>
     )

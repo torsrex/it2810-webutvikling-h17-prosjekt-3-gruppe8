@@ -8,17 +8,7 @@ import {stringifyObject, parseObject} from '../../utils'
 import uuid from 'uuid'
 
 const contacts = [
-  {
-    id: uuid.v4(),
-    name: 'Markus',
-    email: 'example@mail.com',
-    number: '12345678',
-  }, {
-    id: uuid.v4(),
-    name: 'Martin',
-    email: 'example@mail.com',
-    number: '12345678',
-  }
+
 ];
 
 export default class Contacts extends React.Component {
@@ -31,7 +21,7 @@ export default class Contacts extends React.Component {
   }
 
   componentWillMount = () => {
-    AsynchStorage.getItem("contacts")
+    AsyncStorage.getItem("contacts")
         .then(contacts => contacts && this.setState({contacts: parseObject(contacts)}))
         .catch(e => console.log(e))
   }
@@ -46,16 +36,15 @@ export default class Contacts extends React.Component {
       </View>
     )
   }
-  updateAsynchStore() {
-    AsynchStorage.setItem('contacts', stringifyObject(this.state.contacts))
 
+  updateAsyncStore() {
+    AsyncStorage.setItem('contacts', stringifyObject(this.state.contacts))
   }
-
 
   createContact(name, email, number) {
     this.state.contacts.push({'id': uuid.v4(), name: name, email: email, number: number});
     this.setState(({contacts: this.state.contacts}));
-    this.updateAsynchStore()
+    this.updateAsyncStore()
   }
 
   saveContact(oldContactId, newName, newEmail, newNumber) {
@@ -64,14 +53,12 @@ export default class Contacts extends React.Component {
     foundContact.email = newEmail;
     foundContact.number = newNumber;
     this.setState({contacts: this.state.contacts});
-    this.updateAsynchStore()
+    this.updateAsyncStore()
   }
 
   deleteContact(contactToDeleteId) {
     _.remove(this.state.contacts, contact => contact.id === contactToDeleteId);
     this.setState({contacts: this.state.contacts});
-    this.updateAsynchStore()
-
+    this.updateAsyncStore()
   }
-
 }
