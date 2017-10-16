@@ -4,6 +4,12 @@ export const stringifyObject = o => JSON.stringify(o)
 // parse JSON String
 export const parseObject = o => JSON.parse(o)
 
+
+// wrapper method for localStorage updating
+export const updateLocalStorage = (location, data) => localStorage.setItem(location, stringifyObject(data))
+
+
+
 // Parse UNIX timestamp to format YYYY-MM-DD
 export const parseDate = (...date) => {
   // The try-catch check is for avoding impossible date inputs, like September 31.
