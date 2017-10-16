@@ -44,7 +44,7 @@ export default class DayBig extends Component {
                   borderRadius: 16
                 }}/>
                 <Text>{content}</Text>
-                <Button danger small onPress={key => deleteEvent(key)}>
+                <Button danger small onPress={() => deleteEvent(key)}>
                   <Icon name="md-remove"/>
                 </Button>
               </View>
