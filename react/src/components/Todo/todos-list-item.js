@@ -103,7 +103,7 @@ export default class TodosListItem extends Component {
     return (
       <div>
         <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Edit</strong> < /Tooltip>}>
-          <Button className="glyphicon glyphicon-edit move" onClick={(i) => this.onEditClick(i)}/>
+          <Button className="glyphicon glyphicon-edit move editClick" onClick={(i) => this.onEditClick(i)}/>
         </OverlayTrigger>
         <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Delete</strong> < /Tooltip>}>
           <Button className="glyphicon glyphicon-trash deleteTask" onClick={(i) => this.props.deleteTask(this.props.id)}/>
@@ -114,7 +114,8 @@ export default class TodosListItem extends Component {
 
   render() {
     return (
-      <Row className="fill-width">
+      <div>
+      <Row className="fillWidth">
         <Col md={10} xs={10}>
           {this.renderTaskSection()}
         </Col>
@@ -122,6 +123,7 @@ export default class TodosListItem extends Component {
           {this.renderActionsSection()}
         </Col>
       </Row>
+    </div>
     )
   }
 }
