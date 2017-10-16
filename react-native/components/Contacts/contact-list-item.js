@@ -75,32 +75,46 @@ export default class ContactListItem extends React.Component {
   renderActionsSection() {
     if (this.state.isEditing) {
       return (
-        <div>
-          <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Save todo</strong> < /Tooltip>}>
-              <Button className="glyphicon glyphicon-ok move" onClick={(i) => this.onSaveClick(i)}/>
-          </OverlayTrigger>
-          <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Cancel edit</strong> < /Tooltip>}>
-              <Button className="glyphicon glyphicon-trash deleteTask" onClick={(i) => this.onCancelClick(i)}/>
-          </OverlayTrigger>
-        </div>
+        <View style={{
+          flexGrow: 1,
+          flexDirection: 'row',
+          justifyContent: 'space-between'
+        }}>
+          <Button success onPress={() => this.onSaveClick()}>
+            <Text>
+              Submit
+            </Text>
+          </Button>
+          <Button info onPress={() => this.onCancelClick()}>
+            <Text>
+              Cancel
+            </Text>
+          </Button>
+        </View>
       )
     }
     return (
-      <div>
-        <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Edit</strong> < /Tooltip>}>
-          <Button className="glyphicon glyphicon-edit move" onClick={(i) => this.onEditClick(i)}/>
-        </OverlayTrigger>
-        <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Delete</strong> < /Tooltip>}>
-          <Button className="glyphicon glyphicon-trash deleteTask" onClick={(i) => this.props.deleteContact(this.props.id)}/>
-        </OverlayTrigger>
-      </div>
+      <View style={{
+        flexGrow: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+      }}>
+        <Button info onPress={() => this.onEditClick()}>
+          <Text>
+            Edit
+          </Text>
+        </Button>
+        <Button danger onPress={(i) => this.props.deleteContact(this.props.id)}>
+          <Text>
+            Delete
+          </Text>
+        </Button>
+      </View>
     )
   }
   render() {
     return (
-      <Card style={{
-        alignItems: 'center'
-      }}>
+      <Card>
         <CardItem>
           {this.renderContactSection()}
         </CardItem>
@@ -110,15 +124,6 @@ export default class ContactListItem extends React.Component {
           {this.renderActionsSection()}
         </CardItem>
       </Card>
-      /*
-      <Row className="fillWidth">
-        <Col xs={11}>
-          {this.renderContactSection()}
-        </Col>
-        <Col xs={1}>
-          {this.renderActionsSection()}
-        </Col>
-      </Row>*/
     )
   }
   onEditClick() {
@@ -127,13 +132,11 @@ export default class ContactListItem extends React.Component {
   onCancelClick() {
     this.setState({isEditing: false})
   }
-  onSaveClick(event) {
-    event.preventDefault();
-
+  onSaveClick() {
     const oldTaskId = this.props.id;
-    const newName = this.inputName.value;
-    const newEmail = this.inputEmail.value;
-    const newNumber = this.inputNumber.value;
+    const newName = this.state.tempName;
+    const newEmail = this.state.tempEmail;
+    const newNumber = this.state.tempNumber;
 
     this.props.saveContact(oldTaskId, newName, newEmail, newNumber);
     this.setState({isEditing: false})
