@@ -1,3 +1,8 @@
+/*
+Component that renders the form for creating new notes.
+Handles creation/validation of new notes.
+*/
+
 import React, {Component} from 'react'
 import {FormGroup, FormControl, Button} from 'react-bootstrap'
 
@@ -9,27 +14,8 @@ export default class CreateNote extends Component{
     }
   }
 
-  //Render the form create note
-  render() {
-    return(
-      <div className="componentWrapper flexColumn">
-        <h4 className="centerText whiteHeader">Create a note</h4>
-        <form className="textAreaForm" onSubmit={this.handleCreate.bind(this)}>
-          <FormGroup>
-            <FormControl type="input" placeholder="Note title" inputRef={(ref) => {
-              this.inputTitle = ref
-            }}/>
-            <FormControl componentClass="textarea" placeholder="Note text" rows="4" inputRef={(ref) => {
-              this.inputText = ref
-            }}/>
-            <Button block type="submit">add</Button>
-            {this.renderError()}
-          </FormGroup>
-        </form>
-      </div>
-    )
-  }
-  //From here on, all code is to create new notes
+
+  //Create note function
   handleCreate(event) {
     event.preventDefault()
     const createTitle = this.inputTitle //get values from the form fields
@@ -63,5 +49,27 @@ export default class CreateNote extends Component{
       {this.state.error}
       </div>
     }
+  }
+
+
+  //Render the form create note
+  render() {
+    return(
+      <div className="componentWrapper flexColumn">
+        <h4 className="centerText whiteHeader">Create a note</h4>
+        <form className="textAreaForm" onSubmit={this.handleCreate.bind(this)}>
+          <FormGroup>
+            <FormControl type="input" placeholder="Note title" inputRef={(ref) => {
+              this.inputTitle = ref
+            }}/>
+            <FormControl componentClass="textarea" placeholder="Note text" rows="4" inputRef={(ref) => {
+              this.inputText = ref
+            }}/>
+            <Button block type="submit">add</Button>
+            {this.renderError()}
+          </FormGroup>
+        </form>
+      </div>
+    )
   }
 }

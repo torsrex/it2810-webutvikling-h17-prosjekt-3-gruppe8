@@ -1,3 +1,8 @@
+/*
+Component that renders the form for creating new todos.
+Handles creation/validation of new todo items.
+*/
+
 import _ from 'lodash'
 import React, {Component} from 'react'
 import {FormGroup, FormControl, Button} from 'react-bootstrap'
@@ -9,6 +14,7 @@ export default class CreateTodo extends Component {
       error: null
     }
   }
+  //Render error message for todo creation
   renderError() {
     if (!this.state.error) {
       return null
@@ -32,7 +38,7 @@ export default class CreateTodo extends Component {
       </div>
     )
   }
-
+  //Create new todo with input from user
   handleCreate(event) {
     event.preventDefault()
 

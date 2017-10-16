@@ -1,3 +1,9 @@
+/*
+A single note.
+Content of note is saved as a state.
+Contains functions for manipulating it, and deleting it.
+*/
+
 import React, {Component} from 'react'
 
 export default class NoteListItem extends Component{
@@ -10,13 +16,43 @@ export default class NoteListItem extends Component{
     }
   }
 
-  //Used to update state when component receives new props, as it doesn't happen automatically
+  //Used to update state when component receives new props, as it unfortunately doesn't happen automatically
   componentWillReceiveProps(nextProps) {
   this.setState({ noteTitle: nextProps.noteTitle });
   this.setState({ noteTxt: nextProps.noteTxt });
   }
 
-  renderItems(){
+  //Change states when editing text fields
+  changeTitle(event){
+    this.setState({noteTitle: event.target.value})
+  }
+  changeTxt(event){
+    this.setState({noteTxt: event.target.value})
+  }
+  onEditClick(){
+    this.setState({isEditing: true})
+  }
+  onSaveClick(){
+    if(this.notEmpty(this.state.noteTitle, this.state.noteTxt)){ //Check if note content is empty before saving
+      this.props.saveNote(this.props.id, this.state)
+      this.setState({isEditing: false})
+    }
+  }
+  onDeleteClick(){
+    this.props.deleteTask(this.props.id)
+  }
+
+  //VALIDATION
+  //Checks if the note content is empty
+  notEmpty(noteTitle, noteTxt){
+    if(noteTitle && noteTxt){
+      return true
+    }else{
+      return false
+    }
+  }
+
+  renderItems(){ //Renders the note. Either with text fields, or with input fields (if editing is enabled)
     if(this.state.isEditing){
       //renders editable note, replace "p" field with "input", and add eventListener.------
       return (
@@ -45,30 +81,9 @@ export default class NoteListItem extends Component{
     )
   }
 
-
   render() {
     return(
       this.renderItems()
     )
-  }
-
-  //Change states when editing text fields
-  changeTitle(event){
-    this.setState({noteTitle: event.target.value})
-  }
-  changeTxt(event){
-    this.setState({noteTxt: event.target.value})
-  }
-
-  onEditClick(){
-    this.setState({isEditing: true})
-  }
-  onSaveClick(){
-    //ADD: update note list in index.js on save.
-    this.props.saveNote(this.props.id, this.state)
-    this.setState({isEditing: false})
-  }
-  onDeleteClick(){
-    this.props.deleteTask(this.props.id)
   }
 }
