@@ -41,6 +41,10 @@ export default class Contacts extends Component {
     })
   }
 
+  //Regular functions
+  updateLocalStore() {
+    localStorage.setItem('contacts', stringifyObject(this.state.contacts))
+  }
   //New contact (created from create-contact component)
   createContact(name, email, number) {
     const {contacts} = this.state

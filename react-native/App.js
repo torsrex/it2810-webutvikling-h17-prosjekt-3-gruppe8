@@ -6,6 +6,7 @@ import Todo from './components/Todo'
 import Notes from './components/Notes'
 import Welcome from './components/Welcome'
 import Calendar from './components/Calendar'
+import Contacts from './components/Contacts'
 import Expo from 'expo'
 
 //Creates main screen navigation bar
@@ -35,6 +36,7 @@ class PersonalManager extends Component {
             Welcome: <Welcome/>,
             Todo: <Todo/>,
             Notes: <Notes/>,
+            Contacts: <Contacts/>,
             Calendar: <Calendar/>
           }[activeTab]}
         </Content>
@@ -48,6 +50,9 @@ class PersonalManager extends Component {
             </Button>
             <Button active={activeTab === "Notes"} onPress={() => this.handleMenuClick("Notes")}>
               <Icon name="clipboard"/>
+            </Button>
+            <Button active={activeTab === "Contacts"} onPress={() => this.handleMenuClick("Contacts")}>
+              <Icon name="md-contacts"/>
             </Button>
             <Button active={activeTab === "Calendar"} onPress={() => this.handleMenuClick("Calendar")}>
               <Icon name="calendar"/>
