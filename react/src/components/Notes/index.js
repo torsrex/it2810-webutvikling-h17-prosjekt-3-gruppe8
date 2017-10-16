@@ -75,25 +75,6 @@ export default class Notes extends Component {
     this.setState({notes}, () => updateLocalStorage("notes", notes))
   }
 
-
-  render() {
-    return(
-      <div>
-        {/*renders the display image, along with the form for creating notes*/}
-        <div className="component-main-div">
-          <CreateNote notes={this.state.notes} createTask={(title,text) => this.createTask(title,text)}/>
-        </div>
-        {/*renders the list of notes*/}
-        <div className="component-main-div content-main-div">
-          <h2 className="center-text">Note List</h2>
-          <hr/>
-          <NoteList notes={this.state.notes} deleteTask={(taskId) => this.deleteTask(taskId)} saveNote={(id,state) => this.saveNote(id,state)}/>
-        </div>
-      </div>
-    )
-  }
-
-
   render() {
     return(
       <div>
