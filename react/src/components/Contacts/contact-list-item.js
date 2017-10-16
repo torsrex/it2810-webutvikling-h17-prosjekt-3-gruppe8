@@ -80,7 +80,7 @@ export default class ContactListItem extends Component {
     }
     //Render this otherwise
     return (
-      <div className="renderTaskSection" style={contactStyle}>
+      <div className="render-task-section" style={contactStyle}>
         <Well bsSize="sm">
           {name}<br />
           {email}<br />
@@ -116,7 +116,7 @@ export default class ContactListItem extends Component {
   }
   render() {
     return (
-      <Row className="fillWidth">
+      <Row className="fill-width">
         <Col xs={11}>
           {this.renderContactSection()}
         </Col>

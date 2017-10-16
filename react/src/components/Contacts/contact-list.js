@@ -1,6 +1,6 @@
 /*
 Renders the list of all contacts,
-and creates every single individual contact based on the list in index.js. 
+and creates every single individual contact based on the list in index.js.
 */
 
 import _ from 'lodash'
@@ -18,7 +18,7 @@ export default class ContactList extends Component {
 
   render() {
     return (
-      <div className="componentWrapper ">
+      <div className="component-wrapper ">
         {this.renderItems()}
       </div>
     )

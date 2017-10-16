@@ -59,11 +59,11 @@ export default class Todo extends Component {
     const {todos} = this.state
     return (
       <div>
-        <div className="componentMainDiv">
+        <div className="component-main-div">
           <CreateTodo todos={todos} createTask={i => this.createTask(i)}/>
         </div>
-        <div className="componentMainDiv contentMainDiv">
-          <h2 className="centerText">Todo List</h2>
+        <div className="component-main-div content-main-div">
+          <h2 className="center-text">Todo List</h2>
           <hr/>
           <TodosList
             todos={todos}

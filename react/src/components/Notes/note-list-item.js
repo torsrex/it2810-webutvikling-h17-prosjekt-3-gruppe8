@@ -56,27 +56,27 @@ export default class NoteListItem extends Component{
     if(this.state.isEditing){
       //renders editable note, replace "p" field with "input", and add eventListener.------
       return (
-        <div className="singleNote alignCenter">
-          <div className="noteHeader">
+        <div className="single-note align-center">
+          <div className="note-header">
             <button onClick={ () => this.onSaveClick() } className="glyphicon glyphicon-ok move"/>
-            <input value={this.state.noteTitle} onChange={ (e) => this.changeTitle(e) }  className="alignCenter fillWidth"></input>
+            <input value={this.state.noteTitle} onChange={ (e) => this.changeTitle(e) }  className="align-center fill-width"></input>
             <button onClick={ () => this.onDeleteClick() } className="glyphicon glyphicon-trash deleteTask"/>
           </div>
-          <textArea value={this.state.noteTxt} onChange={ (e) => this.changeTxt(e) } className="noteText" ></textArea>
+          <textArea value={this.state.noteTxt} onChange={ (e) => this.changeTxt(e) } className="note-text" ></textArea>
         </div>
       )
     }
     //Renders the static note, no dynamic changes. -----------------------------------
     return (
-      <div className="singleNote alignCenter">
-        <div className="noteHeader">
+      <div className="single-note align-center">
+        <div className="note-header">
           <button onClick={ () => this.onEditClick() } className="glyphicon glyphicon-edit move"/>
-          <span className="centerText fillWidth">{this.state.noteTitle}</span>
+          <span className="centerText fill-width">{this.state.noteTitle}</span>
 
           <button onClick={ () => this.onDeleteClick() }className="glyphicon glyphicon-trash deleteTask"/>
         </div>
 
-        <p className="noteText">{this.state.noteTxt}</p>
+        <p className="note-text">{this.state.noteTxt}</p>
       </div>
     )
   }

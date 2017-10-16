@@ -17,7 +17,7 @@ export default class CreateContact extends Component {
     if (!this.state.error) {
       return null
     }
-    return <div className="centerText redText">
+    return <div className="center-text red-text">
       {this.state.error}</div>
   }
 
@@ -86,9 +86,9 @@ export default class CreateContact extends Component {
 
   render() {
     return (
-      <div className="componentWrapper flexColumn">
-        <h4 className="centerText whiteHeader">Create a contact</h4>
-        <form className="staticForm" onSubmit={(i) => this.handleCreate(i)}>
+      <div className="component-wrapper flex-column">
+        <h4 className="center-text white-header">Create a contact</h4>
+        <form className="static-form" onSubmit={(i) => this.handleCreate(i)}>
           <FormGroup>
             <FormControl type="text" placeholder="Name" inputRef={(ref) => {
               this.inputName = ref

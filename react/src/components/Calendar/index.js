@@ -91,7 +91,7 @@ export default class Calendar extends Component {
     const {bigDay: {isBigDay, date, bigDayEvents}, events, createEventVisible} = this.state
     return (
       <div>
-      <div className="componentMainDiv miniMainDiv"/>
+      <div className="component-main-div mini-main-div"/>
       <div id="calendar-wrapper">
         {createEventVisible ?
           <CreateEvent

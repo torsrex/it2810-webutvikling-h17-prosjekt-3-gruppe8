@@ -18,7 +18,7 @@ export default class NoteList extends Component {
   render() {
     return(
       //Renders the note list itself, and puts all note list items in it
-      <div className="componentWrapper noteList ">
+      <div className="component-wrapper note-list ">
         {this.renderItems()}
       </div>
     )
