@@ -1,35 +1,81 @@
-import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import React, {Component} from 'react';
 import { StackNavigator, TabNavigator } from 'react-navigation';
-import {Root} from 'native-base'
+import {Root, Container, Header, Left, Body, Right, Title, Content, Footer, FooterTab, Button, Text, Icon } from 'native-base'
 
 import Todo from './components/Todo'
 import Notes from './components/Notes'
 import Welcome from './components/Welcome'
 import Calendar from './components/Calendar'
+import Contacts from './components/Contacts'
 import Expo from 'expo'
 
 //Creates main screen navigation bar
-const MainScreenNavigator = TabNavigator({
-  Welcome: {screen: Welcome}, //Each screen shows a separate component
-  Todo: {screen: Todo},
-  Notes: {screen: Notes},
-  Calendar: { screen: Calendar },
+class PersonalManager extends Component {
+  constructor() {
+    super()
+    this.state = {
+      activeTab: "Welcome"
+    }
+  }
 
-});
+  handleMenuClick(activeTab) {
+    this.setState({activeTab})
+  }
+
+  render() {
+    const {activeTab} = this.state
+    return (
+      <Container>
+        <Header style={{marginTop: 24}}>
+          <Body>
+            <Title>Personal Manager</Title>
+          </Body>
+        </Header>
+        <Content>
+          {{
+            Welcome: <Welcome/>,
+            Todo: <Todo/>,
+            Notes: <Notes/>,
+            Contacts: <Contacts/>,
+            Calendar: <Calendar/>
+          }[activeTab]}
+        </Content>
+        <Footer>
+          <FooterTab>
+            <Button active={activeTab === "Welcome"} onPress={() => this.handleMenuClick("Welcome")}>
+              <Icon name="home"/>
+            </Button>
+            <Button active={activeTab === "Todo"} onPress={() => this.handleMenuClick("Todo")}>
+              <Icon name="md-list"/>
+            </Button>
+            <Button active={activeTab === "Notes"} onPress={() => this.handleMenuClick("Notes")}>
+              <Icon name="clipboard"/>
+            </Button>
+            <Button active={activeTab === "Contacts"} onPress={() => this.handleMenuClick("Contacts")}>
+              <Icon name="md-contacts"/>
+            </Button>
+            <Button active={activeTab === "Calendar"} onPress={() => this.handleMenuClick("Calendar")}>
+              <Icon name="calendar"/>
+            </Button>
+          </FooterTab>
+        </Footer>
+      </Container>
+    )
+  }
+}
 
 //Creates main landing page with navigator at the top
-const PersonalManager = StackNavigator({
-  Home: {
-    screen: MainScreenNavigator, //Adds navigator to top
-    navigationOptions: {
-      title: 'My Personal manager', //Sets title of app
-    },
-  },
-});
+// const PersonalManager = StackNavigator({
+//   Home: {
+//     screen: MainScreenNavigator, //Adds navigator to top
+//     navigationOptions: {
+//       title: 'My Personal manager', //Sets title of app
+//     },
+//   },
+// });
 
 //Creates main app
-export default class App extends React.Component {
+export default class App extends Component {
   constructor() {
   super();
   this.state = {
@@ -51,7 +97,8 @@ export default class App extends React.Component {
     }
     return (
       <Root>
-      <PersonalManager />
-    </Root>)
+        <PersonalManager />
+      </Root>
+    )
   }
 }

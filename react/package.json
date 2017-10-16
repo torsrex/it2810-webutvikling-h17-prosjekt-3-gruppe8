@@ -19,6 +19,7 @@
     "react-scripts": "1.0.14",
     "react-test-renderer": "^16.0.0",
     "uuid": "^3.1.0"
+
   },
   "scripts": {
     "build-css": "node-sass-chokidar --include-path ./src/sass src/sass/main.sass src/main.css",

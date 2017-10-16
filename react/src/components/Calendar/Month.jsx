@@ -4,6 +4,9 @@ import Header from './Header'
 import {week, parseDate} from '../../utils'
 import 'datejs'
 
+
+
+// Initialize thing
 const fullDate = Date.today()
 const year = fullDate.getFullYear()
 const month = fullDate.getMonth()
@@ -15,10 +18,15 @@ const initialState = {
   },
   today: new Date()
 }
+
+
+
+// Simple statless component, returns a list of days.
 const Days = ({days}) => {
   return <ul className="days">{days}</ul>
 }
 
+// Simple statless component, returns the weekdays.
 const Weekdays = ({days}) => {
   return(
     <ul className="days-title">
@@ -27,12 +35,17 @@ const Weekdays = ({days}) => {
   )
 }
 
+
+// Month view for the events
 export default class Month extends Component {
   constructor(){
     super()
     this.state = initialState
   }
 
+
+  // Takes either -1, 0 or 1 as an input, and changes the month accordingly.
+  // 0 sets the month to today's month
   changeDate(direction){
     const {date} = this.state
     let {fullDate, year} = date
@@ -67,15 +80,20 @@ export default class Month extends Component {
     }
   }
 
+  // Some keyboard key event listeners
   handleKeyUp(e){
     switch (e.keyCode) {
       case 37:
+        // Left arrow changes to previous month
         this.changeDate(-1)
         break
       case 39:
+      // Right arrow changes to previous month
         this.changeDate(1)
         break
       case 77:
+
+      // M to changes this month
         this.changeDate(0)
         break
       default:
@@ -92,11 +110,14 @@ export default class Month extends Component {
   }
 
   render() {
+
+
+
     let days = []
     const {openBigDay, events} = this.props
     const {date, today} = this.state
     const {fullDate, year, month, daysInMonth} = date
-    // Pushing the first day in the month to appropriate place.
+    // Generate placeholder days before the shown month.
     for (let i = new Date(year, month, 1).getUTCDay(); i > 0 ; i--) {
       days.push(
         <Day
@@ -107,8 +128,10 @@ export default class Month extends Component {
         />
       )
     }
+
+
     const placeholderLengthBefore = days.length
-    // Generating the month.
+    // Generate the month.
     for (let i = 1; i <= daysInMonth; i++) {
       const isToday = i === today.getDate() && today.toDateString() === fullDate.toDateString()
       let dayEvents = {}
@@ -136,6 +159,7 @@ export default class Month extends Component {
     }
 
     // Pushing the next months' first days to the end of the months so it is always 42 days on the page.
+    // 42 to deal with unwanted jumping of the screen from different month lengths.
     for (var i = days.length; i < 42; i++) {
       days.push(
         <Day key={i+200} day={i-daysInMonth-placeholderLengthBefore+1}
@@ -147,12 +171,7 @@ export default class Month extends Component {
 
     return (
       <div id="month-wrapper">
-        <Header
-          {...{
-            year,month
-          }}
-          changeDate={direction => this.changeDate(direction)}
-        />
+        <Header {...{year,month}} changeDate={direction => this.changeDate(direction)}/>
         <Weekdays days={week}/>
         <Days days={days}/>
       </div>

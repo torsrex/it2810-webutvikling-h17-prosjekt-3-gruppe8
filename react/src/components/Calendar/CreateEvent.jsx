@@ -9,6 +9,12 @@ const emptyEvent =  {
   color: "red"
 }
 
+
+
+// Create an event
+// It may semanticly be wrong to define it here, but
+// this component also contains a button to delete all events from localStorage
+// Because esthetical reasons.
 export default class CreateEvent extends Component {
   constructor() {
     super()
@@ -17,6 +23,8 @@ export default class CreateEvent extends Component {
     }
   }
 
+  // Check for the input, do some very simple validation, and upgrade
+  // the state of this component.
   handleInputChange(e, type) {
     let {value} = e.target
     const {from, to} = this.state.event
@@ -26,9 +34,9 @@ export default class CreateEvent extends Component {
     if ((type === "to" && value <= from) || (type === "from" && value >= to)) {
       alert("Event start time must be before event end time.")
     } else {
-      this.setState(prevState => ({
+      this.setState(({event}) => ({
         event: {
-          ...prevState.event,
+          ...event,
           [type]: value
         }
       }))
@@ -36,6 +44,8 @@ export default class CreateEvent extends Component {
   }
 
 
+  // Try submitting the event. If it is successfull, the event will be sent
+  // up to the main component, which will take care of adding it to the localStorage.
   handleClick(e) {
     e.preventDefault()
     const {event} = this.state
@@ -50,7 +60,7 @@ export default class CreateEvent extends Component {
 
   render() {
     const {event} = this.state
-    const {closeCreateEvent} = this.props
+    const {closeCreateEvent, reset} = this.props
     const {content, from, to} = event
     const colors = ["red", "orange", "green", "blue", "brown", "purple"].map(color =>
       <option key={color} className={color} value={color}>{color}</option>
@@ -71,7 +81,7 @@ export default class CreateEvent extends Component {
         </select>
         <div>
           <button className="btn btn-primary btn-sm" onClick={e => this.handleClick(e)}>Add event</button>
-          <button className="btn btn-danger btn-sm" onClick={() => localStorage.setItem('events', '{}')}>Empty localStorage</button>
+          <button className="btn btn-danger btn-sm" onClick={reset}>Empty localStorage</button>
         </div>
       </div>
     )

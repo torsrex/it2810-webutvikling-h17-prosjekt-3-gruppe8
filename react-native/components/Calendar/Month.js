@@ -49,8 +49,8 @@ const Weekdays = () => (
           flexBasis: 0,
           flexGrow: 1,
           backgroundColor: (day === "Sa" || day === "Su") ? "red" : "black",
-          paddingTop: 20,
-          paddingBottom: 20,
+          paddingTop: 13,
+          paddingBottom: 13,
           textAlign: "center",
           color: "#fff"
         }}
@@ -153,15 +153,15 @@ export default class Month extends Component {
           flexDirection: "row",
           backgroundColor: "#000"
         }}>
-          <Button onPress={() => this.changeDate(-1)}><Icon name="md-arrow-back"/></Button>
+          <Button style={{backgroundColor: "#000"}} onPress={() => this.changeDate(-1)}><Icon name="md-arrow-back"/></Button>
           <Text style={{
             padding: 14,
             flexGrow: 2,
             color: "#fff",
             textAlign: "center"
           }}>{year} {months[month]}</Text>
-          <Button style={{flexGrow:1}} onPress={() => this.changeDate(0)}><Text style={{textAlign: "center"}}>Today</Text></Button>
-          <Button onPress={() => this.changeDate(1)}><Icon name="md-arrow-forward"/></Button>
+          <Button style={{flexGrow:1, backgroundColor:"#000"}} onPress={() => this.changeDate(0)}><Text style={{textAlign: "center"}}>Today</Text></Button>
+          <Button style={{backgroundColor: "#000"}} onPress={() => this.changeDate(1)}><Icon name="md-arrow-forward"/></Button>
         </View>
         <Weekdays/>
         {days.map( (e,i) => (i % 7 === 0) ? <Days key={i} days={days.slice(i, i + 7)}/> : null ).filter( (e) => e )}

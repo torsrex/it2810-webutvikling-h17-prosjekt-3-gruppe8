@@ -1,3 +1,7 @@
+/*
+Component that renders the form for creating new contacts.
+Handles creation/validation of new individual contacts.
+*/
 
 import React, {Component} from 'react'
 import {FormGroup, FormControl, Button} from 'react-bootstrap'
@@ -13,32 +17,11 @@ export default class CreateContact extends Component {
     if (!this.state.error) {
       return null
     }
-    return <div className="centerText redText">
+    return <div className="center-text red-text">
       {this.state.error}</div>
   }
-  render() {
-    return (
-      <div className="componentWrapper flexColumn">
-        <h4 className="centerText whiteHeader">Create a contact</h4>
-        <form className="staticForm" onSubmit={(i) => this.handleCreate(i)}>
-          <FormGroup>
-            <FormControl type="text" placeholder="Name" inputRef={(ref) => {
-              this.inputName = ref
-            }}/>
-            <FormControl type="text" placeholder="E-mail" inputRef={(ref) => {
-                this.inputEmail = ref
-            }}/>
-            <FormControl type="text" placeholder="Phone number" inputRef={(ref) => {
-                this.inputNumber = ref
-            }}/>
-            <Button block type="submit">add</Button>
-            {this.renderError()}
-          </FormGroup>
-        </form>
-      </div>
-    )
-  }
 
+  //Create new contact w/ validation.
   handleCreate(event) {
     event.preventDefault();
 
@@ -69,6 +52,7 @@ export default class CreateContact extends Component {
     this.inputNumber.value = '';
   }
 
+  //Validation
   validateName(name) {
     if (!name) {
       return 'Please enter a name'
@@ -80,22 +64,46 @@ export default class CreateContact extends Component {
   }
 
   validateEmail(task) {
-      if (!task) {
-          return 'Please enter an e-mail address'
-      } else if (/[^a-zA-Z0-9\-_.@]{1,}/.test(task)) {
-          return 'Invalid email'
-      } else {
-          return null
-      }
+    if (!task) {
+        return 'Please enter an e-mail address'
+    } else if (/[^a-zA-Z0-9\-_.@]{1,}/.test(task)) {
+        return 'Invalid email'
+    } else {
+        return null
+    }
   }
 
   validateNumber(task) {
-      if (!task) {
-          return 'Please enter a phone number'
-      } else if (/[^0-9+\-() ]{1,}/.test(task)) {
-          return 'Invalid phone number'
-      } else {
-          return null
-      }
+    if (!task) {
+        return 'Please enter a phone number'
+    } else if (/[^0-9+\-() ]{1,}/.test(task)) {
+        return 'Invalid phone number'
+    } else {
+        return null
+    }
+  }
+
+
+  render() {
+    return (
+      <div className="component-wrapper flex-column">
+        <h4 className="center-text white-header">Create a contact</h4>
+        <form className="static-form" onSubmit={(i) => this.handleCreate(i)}>
+          <FormGroup>
+            <FormControl type="text" placeholder="Name" inputRef={(ref) => {
+              this.inputName = ref
+            }}/>
+            <FormControl type="text" placeholder="E-mail" inputRef={(ref) => {
+                this.inputEmail = ref
+            }}/>
+            <FormControl type="text" placeholder="Phone number" inputRef={(ref) => {
+                this.inputNumber = ref
+            }}/>
+            <Button block type="submit">add</Button>
+            {this.renderError()}
+          </FormGroup>
+        </form>
+      </div>
+    )
   }
 }

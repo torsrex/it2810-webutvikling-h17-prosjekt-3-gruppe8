@@ -1,86 +1,77 @@
+/* Main component for the todo page. Renders sub-components
+and contains functions for manipulating the page data (todo list items)*/
+
 import _ from 'lodash'
 import React, {Component} from 'react'
 import TodosList from './todos-list'
 import CreateTodo from './create-todo'
-import {stringifyObject, parseObject} from '../../utils'
-
+import {parseObject, updateLocalStorage} from '../../utils'
 import uuid from 'uuid'
-
-const todos = [
-  {
-    id: uuid.v4(),
-    task: 'First task is here',
-    isComplete: true
-  }, {
-    id: uuid.v4(),
-    task: 'Second task is here',
-    isComplete: false
-  }
-]
-
 export default class Todo extends Component {
 
   constructor(props) {
     super(props)
-    const cachedTasks = localStorage.getItem('todos')
-    if (cachedTasks) {
-      this.state = {
-        todos: parseObject(cachedTasks)
-      }
-    } else {
-      this.state = {
-        todos: todos
-
-      }
+    this.state = {
+      todos: []
     }
-
   }
 
+  componentDidMount() {
+    const cachedTasks = localStorage.getItem('todos')
+    this.setState({
+      todos: cachedTasks ? parseObject(cachedTasks) : []
+    })
+  }
+
+  //Regular functions
+  //Toggle if a todo is completed or not
+  toggleTask(id) {
+    const {todos} = this.state
+    const foundTodo = _.find(todos, todo => todo.id === id)
+    foundTodo.isComplete = !foundTodo.isComplete
+    this.setState({todos}, () => updateLocalStorage("todos", todos)
+  )}
+
+  //Create new todo
+  createTask(task) {
+    const {todos} = this.state
+    todos.unshift({'id': uuid.v4(), task, isComplete: false})
+    this.setState(({todos}), () => updateLocalStorage("todos", todos))}
+
+  //Save todo after changes have been made
+  saveTask(id, newTask) {
+    const {todos} = this.state
+    const foundTodo = _.find(todos, todo => todo.id === id)
+    foundTodo.task = newTask
+    this.setState({todos}, () =>
+    updateLocalStorage("todos", todos)
+  )}
+
+  //Delete todo
+  deleteTask(id) {
+    let {todos} = this.state
+    todos = todos.filter(todo => todo.id !== id)
+    this.setState({todos}, () =>
+    updateLocalStorage("todos", todos)
+  )}
+
   render() {
+    const {todos} = this.state
     return (
       <div>
-        <div className="componentMainDiv">
-          <CreateTodo todos={this.state.todos} createTask={(i) => this.createTask(i)}/>
+        <div className="component-main-div">
+          <CreateTodo todos={todos} createTask={i => this.createTask(i)}/>
         </div>
-        <div className="componentMainDiv contentMainDiv">
-          <h2 className="centerText">Todo List</h2>
+        <div className="component-main-div content-main-div">
+          <h2 className="center-text">Todo List</h2>
           <hr/>
-          <TodosList todos={this.state.todos} toggleTask={(i) => this.toggleTask(i)} saveTask={(i, v) => this.saveTask(i, v)} deleteTask={(i) => this.deleteTask(i)}/>
+          <TodosList
+            todos={todos}
+            toggleTask={i => this.toggleTask(i)}
+            saveTask={(i, v) => this.saveTask(i, v)}
+            deleteTask={i => this.deleteTask(i)}/>
         </div>
       </div>
     )
   }
-  updateLocalStore() {
-    localStorage.setItem('todos', stringifyObject(this.state.todos))
-
-  }
-
-  toggleTask(id) {
-    const foundTodo = _.find(this.state.todos, todo => todo.id === id)
-    foundTodo.isComplete = !foundTodo.isComplete
-    this.setState({todos: this.state.todos})
-    this.updateLocalStore()
-
-  }
-
-  createTask(task) {
-    this.state.todos.push({'id': uuid.v4(), task, isComplete: false})
-    this.setState(({todos: this.state.todos}))
-    this.updateLocalStore()
-  }
-
-  saveTask(oldTaskId, newTask) {
-    const foundTodo = _.find(this.state.todos, todo => todo.id === oldTaskId)
-    foundTodo.task = newTask
-    this.setState({todos: this.state.todos})
-    this.updateLocalStore()
-  }
-
-  deleteTask(taskToDeleteId) {
-    _.remove(this.state.todos, todo => todo.id === taskToDeleteId)
-    this.setState({todos: this.state.todos})
-    this.updateLocalStore()
-
-  }
-
 }

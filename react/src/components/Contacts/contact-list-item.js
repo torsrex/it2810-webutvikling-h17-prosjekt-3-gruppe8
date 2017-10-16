@@ -1,3 +1,8 @@
+/*
+A single contact.
+Contains functions for manipulating it, and deleting it.
+*/
+
 import React, {Component} from 'react'
 import {
   Row,
@@ -17,15 +22,42 @@ export default class ContactListItem extends Component {
       isEditing: false
     }
   }
+  //Change edit state to true
+  onEditClick() {
+    this.setState({isEditing: true})
+  }
+  //Change edit state to false
+  onCancelClick() {
+    this.setState({isEditing: false})
+  }
+  //Save content of the edited contact-list-item.
+  onSaveClick(event) {
+    const oldTaskId = this.props.id;
+    const newName = this.inputName.value;
+    const newEmail = this.inputEmail.value;
+    const newNumber = this.inputNumber.value;
+    if(this.notEmpty(newName, newEmail, newNumber)){
+      this.props.saveContact(oldTaskId, newName, newEmail, newNumber);
+      this.setState({isEditing: false})
+    }
+  }
 
+  //VALIDATION
+  //Checks if the note content is empty
+  notEmpty(newName, newEmail, newNumber){
+    if(newName && newEmail && newNumber){
+      return true
+    }else{
+      return false
+    }
+  }
+
+  //Render function
   renderContactSection() {
-
     const {name, email, number} = this.props;
-
     const contactStyle = {
-
     };
-
+    //Render this if contact is being edited
     if (this.state.isEditing) {
 
       return (
@@ -46,9 +78,9 @@ export default class ContactListItem extends Component {
         </div>
       )
     }
-
+    //Render this otherwise
     return (
-      <div className="renderTaskSection" style={contactStyle}>
+      <div className="render-task-section" style={contactStyle}>
         <Well bsSize="sm">
           {name}<br />
           {email}<br />
@@ -57,7 +89,7 @@ export default class ContactListItem extends Component {
       </div>
     )
   }
-
+  //Render function for action buttons (Save/cancel/delete)
   renderActionsSection() {
     if (this.state.isEditing) {
       return (
@@ -84,7 +116,7 @@ export default class ContactListItem extends Component {
   }
   render() {
     return (
-      <Row className="fillWidth">
+      <Row className="fill-width">
         <Col xs={11}>
           {this.renderContactSection()}
         </Col>
@@ -94,23 +126,4 @@ export default class ContactListItem extends Component {
       </Row>
     )
   }
-  onEditClick() {
-    this.setState({isEditing: true})
-  }
-  onCancelClick() {
-    this.setState({isEditing: false})
-  }
-  onSaveClick(event) {
-    event.preventDefault();
-
-    const oldTaskId = this.props.id;
-    const newName = this.inputName.value;
-    const newEmail = this.inputEmail.value;
-    const newNumber = this.inputNumber.value;
-
-    this.props.saveContact(oldTaskId, newName, newEmail, newNumber);
-    this.setState({isEditing: false})
-
-  }
-
 }
