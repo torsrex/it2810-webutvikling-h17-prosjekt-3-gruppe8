@@ -2,6 +2,7 @@ import React from 'react'
 import {months} from '../../utils'
 import {Button} from 'react-bootstrap'
 
+// Header containing the buttons to change a month, and the year and month information.
 const Header = ({year, month, changeDate}) => {
 
   return (

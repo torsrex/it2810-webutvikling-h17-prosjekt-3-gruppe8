@@ -2,18 +2,25 @@ import React, { Component } from 'react'
 import Month from './Month'
 import CreateEvent from './CreateEvent'
 import BigDay from './BigDay'
-import {parseObject, stringifyObject} from '../../utils'
+import {parseObject, updateLocalStorage} from '../../utils'
 
-const events = localStorage.getItem('events') ? parseObject(localStorage.getItem('events')) : {}
+
+
+// Initialize thing
 const bigDay = {
   isBigDay: false,
   date: {},
   bigDayEvents: {},
 }
 const initialState = {
-  events, bigDay, createEventVisible: false
+  events: {},
+  bigDay,
+  createEventVisible: false
 }
 
+
+
+// Main Calendar component
 export default class Calendar extends Component {
   constructor(){
     super()
@@ -39,9 +46,21 @@ export default class Calendar extends Component {
     }
   }
 
+
+  // Fetch events from localStorage.
+  componentDidMount() {
+    const events = localStorage.getItem('events')
+    this.setState({
+      events: events ? parseObject(events) : {}
+    })
+  }
+
+
+  // Reset big day components content
   closeBigDay(){
     this.setState({bigDay})
   }
+
   //Creates new calendar event
   createEvent(newEvent) {
     const key = Object.keys(newEvent)[0]
@@ -50,8 +69,7 @@ export default class Calendar extends Component {
     events[key] = value
     this.setState({events})
     if (isBigDay) {
-      this.setState(prevState => {
-        const {bigDay} = prevState
+      this.setState(({bigDay}) => {
         const {bigDayEvents} = bigDay
         return ({
           bigDay: {
@@ -64,9 +82,18 @@ export default class Calendar extends Component {
         })
       })
     }
-    localStorage.setItem('events', stringifyObject(events))
+    updateLocalStorage('events', this.state.events)
   }
-  //Deletes calendar event
+
+  reset = () => {
+    console.log("yoo");
+    if (!Object.keys(this.state.events).length) {
+      this.setState(initialState)
+      updateLocalStorage('events', {})
+    }
+  }
+
+  //Delete a calendar event
   deleteEvent(e) {
     const eventKey = e.target.getAttribute("data-key")
     const {events, bigDay: {bigDayEvents}} = this.state
@@ -79,11 +106,9 @@ export default class Calendar extends Component {
     }
 
     if (Object.keys(events).length === 0) {
-      this.setState({events: {}})
-      localStorage.setItem('events', stringifyObject({}))
+      this.setState({events: {}}, () => updateLocalStorage('events', {}))
     } else {
-      this.setState({events})
-      localStorage.setItem('events', stringifyObject(events))
+      this.setState({events}, () => updateLocalStorage('events', events))
     }
   }
 
@@ -91,12 +116,13 @@ export default class Calendar extends Component {
     const {bigDay: {isBigDay, date, bigDayEvents}, events, createEventVisible} = this.state
     return (
       <div>
-      <div className="component-main-div mini-main-div"/>
-      <div id="calendar-wrapper">
-        {createEventVisible ?
-          <CreateEvent
-            closeCreateEvent={() => this.toggleCreateEvent()}
-            createEvent={event => this.createEvent(event)}
+        <div className="component-main-div mini-main-div"/>
+        <div id="calendar-wrapper">
+          {createEventVisible ?
+            <CreateEvent
+              reset={this.reset}
+              closeCreateEvent={() => this.toggleCreateEvent()}
+              createEvent={event => this.createEvent(event)}
           />
         : <button className="toggle-create-event-btn btn btn-primary" onClick={() => this.toggleCreateEvent()}>+</button>}
         <Month

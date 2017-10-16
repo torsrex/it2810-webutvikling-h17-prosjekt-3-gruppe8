@@ -1,6 +1,11 @@
 import React from 'react'
 import {months} from '../../utils'
 
+// Clicking on a Day compnent will show this component as a window, but only
+// If there are events to show. Otherwise DayBig won't be visible.
+// It renders the month and day that was chosen, and lists all the events on
+// that day, with the possibility to delete them.
+// Each event's color is shown on the left of the event's content, as a dot.
 const DayBig = ({events, date:{month, day}, closeBigDay, deleteEvent}) => {
 
   // Close big day on pressing ESC key.
@@ -26,7 +31,6 @@ const DayBig = ({events, date:{month, day}, closeBigDay, deleteEvent}) => {
             </li>
           )
         })}
-
       </ul>
     </div>
   )

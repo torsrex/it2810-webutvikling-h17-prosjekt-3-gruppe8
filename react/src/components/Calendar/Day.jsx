@@ -1,5 +1,15 @@
 import React from 'react'
 
+
+
+
+// A simple day on a calendar.
+// If a day is a placeholder, it will have a darker color, and no events are shown.
+// If a day is today, it is marked differently then the rest.
+
+// If a day has events, it will show the events in a list.
+// An event is spanning over different days. The first and last day of an event is marked by a rounded corner.
+// There are 6 possible colors supported by this calendar. They appear vertically under each other.
 const Day = ({dayEvents, day, month , isPlaceholder, isToday, openBigDay}) => {
   let dayEventsList = []
   let dayTitle = []
