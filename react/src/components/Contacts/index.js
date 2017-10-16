@@ -8,27 +8,12 @@ import CreateContact from './create-contact'
 import {parseObject, updateLocalStorage} from '../../utils'
 import uuid from 'uuid'
 
-//Content on the contacts page if user has no locally saved content.
-const contacts = [
-  {
-    id: uuid.v4(),
-    name: 'Name 1',
-    email: 'email1@mail.com',
-    number: '12345678',
-  }, {
-    id: uuid.v4(),
-    name: 'Name 2',
-    email: 'email2@mail.com',
-    number: '12345678',
-  }
-];
-
 export default class Contacts extends Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      contacts: contacts
+      contacts: []
     }
   }
 
@@ -37,14 +22,10 @@ export default class Contacts extends Component {
     //localStorage.clear()
     const cachedTasks = localStorage.getItem('contacts')
     this.setState({
-      contacts: cachedTasks ? parseObject(cachedTasks) : contacts
+      contacts: cachedTasks ? parseObject(cachedTasks) : []
     })
   }
 
-  //Regular functions
-  updateLocalStore() {
-    localStorage.setItem('contacts', stringifyObject(this.state.contacts))
-  }
   //New contact (created from create-contact component)
   createContact(name, email, number) {
     const {contacts} = this.state
