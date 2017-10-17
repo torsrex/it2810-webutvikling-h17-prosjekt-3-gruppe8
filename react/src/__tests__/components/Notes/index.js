@@ -7,3 +7,8 @@ it('Checks if Notes component loads', () => {
   const div = document.createElement('div');
   shallow(<Notes />)
 });
+
+test('create task updates localstorage', () => {
+  const wrapper = shallow(<Notes />);
+  wrapper.instance().createTask("title", 'note text');
+});

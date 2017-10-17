@@ -47,7 +47,7 @@ export default class CreateEvent extends Component {
   // Try submitting the event. If it is successfull, the event will be sent
   // up to the main component, which will take care of adding it to the localStorage.
   handleClick(e) {
-    e.preventDefault()
+    //e.preventDefault()
     const {event} = this.state
     const newEvent = {[generateId()]: event}
     if (event.content !== "") {

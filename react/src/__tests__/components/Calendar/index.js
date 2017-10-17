@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom'
 import Calendar from '../../../components/Calendar'
 import { shallow } from 'enzyme'
 
+
 const CalendarWrapper = shallow(<Calendar/>)
 const testEvent = {
   '1' : {
@@ -24,3 +25,12 @@ test('createEvent adds the event to localStorage', () => {
   CalendarWrapper.instance().createEvent(testEvent)
   expect(localStorage.getItem('events')).toBe(JSON.stringify(testEvent))
 })
+
+// Ref line 92, should be empty object
+test('Reset clears the content', () => {
+  CalendarWrapper.instance().createEvent(testEvent);
+  CalendarWrapper.instance().reset();
+  expect(localStorage.getItem('events')).toBe(JSON.stringify({}));
+})
+
+

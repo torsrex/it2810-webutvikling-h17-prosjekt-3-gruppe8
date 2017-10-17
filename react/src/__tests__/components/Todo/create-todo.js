@@ -10,7 +10,7 @@ it('Checks if CreateTodo component loads', () => {
 
 it('Renders create todo header', () => {
   const wrapper = mount(<CreateTodo />)
-  const createTodoHeader = <h4 className="centerText whiteHeader">Create a todo task</h4>
+  const createTodoHeader = <h4 className="center-text white-header">Create a todo task</h4>
   expect(wrapper.contains(createTodoHeader)).toEqual(true);
 })
 
