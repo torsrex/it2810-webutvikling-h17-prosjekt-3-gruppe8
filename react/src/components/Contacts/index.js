@@ -5,7 +5,7 @@ import _ from 'lodash'
 import React, {Component} from 'react'
 import ContactList from './contact-list'
 import CreateContact from './create-contact'
-import {parseObject, updateLocalStorage} from '../../utils'
+import {parseObject, updateLocalStorage, stringifyObject} from '../../utils'
 import uuid from 'uuid'
 
 //Content on the contacts page if user has no locally saved content.

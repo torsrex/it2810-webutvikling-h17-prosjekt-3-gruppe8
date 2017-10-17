@@ -12,7 +12,7 @@ it('Checks if Todo component loads', () => {
 
 it('Renders todo header', () => {
   const wrapper = mount(<Todo />)
-  const welcome = <h2 className="centerText">Todo List</h2>
+  const welcome = <h2 className="center-text">Todo List</h2>
   expect(wrapper.contains(welcome)).toEqual(true);
 })
 
