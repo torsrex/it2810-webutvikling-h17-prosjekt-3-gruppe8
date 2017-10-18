@@ -14,7 +14,7 @@ class PersonalManager extends Component {
   constructor() {
     super()
     this.state = {
-      activeTab: "Welcome"
+      activeTab: "Todo"
     }
   }
 
@@ -42,9 +42,6 @@ class PersonalManager extends Component {
         </Content>
         <Footer>
           <FooterTab>
-            <Button active={activeTab === "Welcome"} onPress={() => this.handleMenuClick("Welcome")}>
-              <Icon name="home"/>
-            </Button>
             <Button active={activeTab === "Todo"} onPress={() => this.handleMenuClick("Todo")}>
               <Icon name="md-list"/>
             </Button>

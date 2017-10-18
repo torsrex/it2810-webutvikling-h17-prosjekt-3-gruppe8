@@ -12,8 +12,6 @@ export default class NoteList extends React.Component {
           return <NoteListItem key={notes.id} id={notes.id} noteTitle={notes.noteTitle} noteTxt={notes.noteTxt} deleteTask={(taskId) => this.props.deleteTask(taskId)} saveNote={(id,state) => this.props.saveNote(id,state)}/>
         })}
       </ScrollView>
-
-
     )
   }
 

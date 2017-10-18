@@ -20,31 +20,8 @@ export default class CreateTodo extends React.Component {
       error: null,
       tempTodo: ""
     }
-
   }
-  render() {
-    return (
-      <View style={{
-        margin: 10,
-        padding: 10,
-        elevation: 1.5,
-        borderRadius:5,
-        backgroundColor:"white"
-      }}>
-        <Item floatingLabel>
-          <Label>Input text to add to todo</Label>
-          <Input
-            value={this.state.tempTodo}
-            onChangeText={(text) => this.setState({tempTodo: text})}
-            onSubmitEditing={(e) => this.handleCreate()}/>
-        </Item>
 
-        <Button block onPress= {() => this.handleCreate()}>
-          <Text>Submit</Text>
-        </Button>
-      </View>
-    )
-  }
 
   handleCreate() {
     //TODO: Needs error handling
@@ -74,4 +51,26 @@ export default class CreateTodo extends React.Component {
     }
   }
 
+
+  render() {
+    return (
+      <View style={{
+        elevation: 1.5,
+        borderBottomWidth: 1,
+        backgroundColor:"white"
+      }}>
+        <Item floatingLabel>
+          <Label>Input text to add to todo</Label>
+          <Input
+            value={this.state.tempTodo}
+            onChangeText={(text) => this.setState({tempTodo: text})}
+            onSubmitEditing={(e) => this.handleCreate()}/>
+        </Item>
+
+        <Button full onPress= {() => this.handleCreate()} style={{backgroundColor: '#333'}}>
+          <Text>Submit</Text>
+        </Button>
+      </View>
+    )
+  }
 }

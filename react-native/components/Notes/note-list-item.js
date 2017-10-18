@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, View, Button, TextInput, Image, TouchableHighlight} from 'react-native';
+import {StyleSheet, Text, View, TextInput, Image, TouchableHighlight} from 'react-native';
+import {Button} from 'native-base'
 
 export default class NoteListItem extends React.Component {
   constructor(props){
@@ -12,26 +13,36 @@ export default class NoteListItem extends React.Component {
   }
   //Used to update state when component receives new props, as it doesn't happen automatically
   componentWillReceiveProps(nextProps) {
-  this.setState({ noteTitle: nextProps.noteTitle });
-  this.setState({ noteTxt: nextProps.noteTxt });
+    this.setState({ noteTitle: nextProps.noteTitle });
+    this.setState({ noteTxt: nextProps.noteTxt });
   }
+    onEditClick(){
+      this.setState({isEditing: true})
+    }
+    onSaveClick(){
+      //ADD: update note list in index.js on save.
+      this.props.saveNote(this.props.id, this.state)
+      this.setState({isEditing: false})
+    }
+    onDeleteClick(){
+      this.props.deleteTask(this.props.id)
+    }
 
 //<Button style={styles.imgBtn} onPress={ () => this.onSaveClick() } title="save"/>
   render(){
     if(this.state.isEditing){
       return(
         <View style={styles.noteView}>
-
-          <TouchableHighlight style={styles.alignVertical} onPress={ () => this.onSaveClick() }>
-            <Image style={styles.imgBtn} source={require('../.././images/check.png')}/>
-          </TouchableHighlight>
-
           <View style={styles.noteContent}>
             <View style={styles.noteHeader}>
               <TextInput style={styles.titleText} onChangeText={ (noteTitle) => this.setState({noteTitle}) } value={this.state.noteTitle}/>
             </View>
             <TextInput multiline = {true} numberOfLines = {3} style={styles.noteText} onChangeText={ (noteTxt) => this.setState({noteTxt}) } value={this.state.noteTxt}/>
           </View>
+
+          <TouchableHighlight style={styles.alignVertical} onPress={ () => this.onSaveClick() }>
+            <Image style={styles.imgBtn} source={require('../.././images/check.png')}/>
+          </TouchableHighlight>
 
           <TouchableHighlight style={styles.alignVertical} onPress={ () => this.onDeleteClick() }>
             <Image style={styles.imgBtn} source={require('../.././images/trash.png')}/>
@@ -57,19 +68,6 @@ export default class NoteListItem extends React.Component {
         </View>
       )
     }
-  }
-
-
-  onEditClick(){
-    this.setState({isEditing: true})
-  }
-  onSaveClick(){
-    //ADD: update note list in index.js on save.
-    this.props.saveNote(this.props.id, this.state)
-    this.setState({isEditing: false})
-  }
-  onDeleteClick(){
-    this.props.deleteTask(this.props.id)
   }
 }
 

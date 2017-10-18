@@ -9,6 +9,7 @@ import {
   Body,
   Input,
   Item,
+  Icon,
   Form,
   CheckBox
 } from 'native-base'
@@ -24,119 +25,101 @@ export default class TodosListItem extends React.Component {
     }
   }
 
-  //Renders the task section (taskname)
-  renderTaskSection() {
-    if (this.state.isEditing) {
-      return (
-        <View style={{
-          flexGrow: 1,
-          flexDirection: 'row',
-          justifyContent: 'space-between'
-        }}>
-        <Item>
-          {/*Renders text with tap handling*/}
-          <Input style={{borderWidth:1, borderColor:"black", borderRadius:3}} autoFocus value={this.state.tempTodo} onFocus={() => this.setState({tempTodo:this.props.task})} onChangeText={(text) => this.setState({tempTodo: text})} onSubmitEditing={(e) => this.onSaveClick(e)}/>
-        </Item>
-        </View>
-      )
-    }
-    const {id, task,isComplete} = this.props
-    return (
-      <View
-        style={{
-          paddingRight: 10,
-          paddingLeft: 10,
-          flexGrow: 1,
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between"
-        }}
-      >
-        <Text style={{
-          fontSize: 25,
-          textAlign: 'center',
-          textDecorationLine: isComplete
-            ? 'line-through'
-            : 'none'
-        }}
-          onPress={() => this.props.toggleTask(id)}
-
-        >{task}</Text>
-        <CheckBox
-          checked={isComplete}
-          color={isComplete ? "green" : "red"}
-          onPress={() => this.props.toggleTask(id)}
-        />
-      </View>
-    )
-
-  }
-  renderActionsSection() {
-    if (this.state.isEditing) {
-      return (
-        <View style={{
-          flexGrow: 1,
-          flexDirection: 'row',
-          justifyContent: 'space-between'
-        }}>
-          <Button success onPress= {() => this.onSaveClick()}>
-            <Text>
-              Submit
-            </Text>
-          </Button>
-          <Button info onPress= {() => this.onCancelClick()}>
-            <Text >
-              Cancel
-            </Text>
-          </Button>
-
-        </View>
-      )
-    }
-    return (
-      <View style={{
-        flexGrow: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between'
-      }}>
-        <Button info onPress={() => this.onEditClick()}>
-          <Text>Edit</Text>
-        </Button>
-        <Button danger onPress= {(i) => this.props.deleteTask(this.props.id)}>
-          <Text>Delete todo</Text>
-        </Button>
-      </View>
-    )
-  }
-  render() {
-    return (
-      <Card>
-        <CardItem>
-
-          {this.renderTaskSection()}
-        </CardItem>
-        <CardItem style={{
-          flexDirection: 'row'
-        }}>
-          {this.renderActionsSection()}
-        </CardItem>
-      </Card>
-    )
-  }
-
   onEditClick() {
     this.setState({isEditing: true})
   }
-
   onCancelClick() {
     this.setState({isEditing: false})
   }
-
   onSaveClick() {
     const oldTaskId = this.props.id
     const newTask = this.state.tempTodo
     this.props.saveTask(oldTaskId, newTask)
     this.setState({isEditing: false})
+  }
 
+  //Renders the task section (taskname)
+  renderTaskSection() {
+    if (this.state.isEditing) { //renders edit field
+      return (
+        <CardItem style={{
+          flex: 8,
+          flexDirection: 'row',
+          padding: 0,
+          margin: 0,
+        }}>
+        <Item>
+          {/*Renders text with tap handling*/}
+          <Input style={{borderWidth:1, borderColor:"black", borderRadius:3}} value={this.state.tempTodo} autoFocus onFocus={() => this.setState({tempTodo:this.props.task})} onChangeText={(text) => this.setState({tempTodo: text})} onSubmitEditing={(e) => this.onSaveClick(e)}/>
+        </Item>
+        </CardItem>
+      )
+    }
+    const {id, task,isComplete} = this.props //Renders text and checkbox
+    return (
+      <CardItem
+        style={{
+          flex: 9,
+          flexDirection: "row",
+        }}
+      >
+        <CheckBox
+          checked={isComplete}
+          color={isComplete ? "green" : "red"}
+          onPress={() => this.props.toggleTask(id)}
+        />
+        <Text style={{
+          paddingLeft: 15,
+          fontSize: 15,
+          textAlign: 'left',
+          textDecorationLine: isComplete
+            ? 'line-through'
+            : 'none'
+        }}
+          onPress={() => this.props.toggleTask(id)}
+        >{task}</Text>
+      </CardItem>
+    )
+
+  }
+  //Render buttons for saving, deleting, and editing
+  renderActionsSection() {
+    if (this.state.isEditing) { //Editing mode. Render save and trash buttons
+      return (
+        <CardItem style={{
+          flex: 4,
+          flexDirection: 'row',
+        }}>
+          <Button icon transparent onPress= {() => this.onSaveClick()}>
+            <Icon name='ios-checkmark' />
+          </Button>
+          <Button icon transparent onPress= {(i) => this.props.deleteTask(this.props.id)}>
+            <Icon name='trash' />
+          </Button>
+
+        </CardItem>
+      )
+    }
+    return ( //Normal mode. Render edit button
+      <CardItem style={{
+        flex: 2,
+        flexDirection: 'row',
+      }}>
+      <Button icon transparent onPress= {() => this.onEditClick()}>
+        <Icon name='md-create' />
+      </Button>
+      </CardItem>
+    )
+  }
+  render() {
+    return (
+      <Card style={{
+        display: 'flex',
+        flexDirection: 'row',
+      }}>
+        {this.renderTaskSection()}
+        {this.renderActionsSection()}
+      </Card>
+    )
   }
 }
