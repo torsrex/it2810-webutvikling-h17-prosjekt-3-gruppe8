@@ -25,10 +25,8 @@ export default class CreateTodo extends React.Component {
   render() {
     return (
       <View style={{
-        margin: 10,
-        padding: 10,
         elevation: 1.5,
-        borderRadius:5,
+        borderBottomWidth: 1,
         backgroundColor:"white"
       }}>
         <Item floatingLabel>
@@ -39,7 +37,7 @@ export default class CreateTodo extends React.Component {
             onSubmitEditing={(e) => this.handleCreate()}/>
         </Item>
 
-        <Button block onPress= {() => this.handleCreate()}>
+        <Button block onPress= {() => this.handleCreate()} style={{backgroundColor: '#333'}}>
           <Text>Submit</Text>
         </Button>
       </View>

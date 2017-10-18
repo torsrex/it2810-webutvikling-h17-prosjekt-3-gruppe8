@@ -112,12 +112,10 @@ export default class TodosListItem extends React.Component {
     return (
       <Card>
         <CardItem>
-
           {this.renderTaskSection()}
         </CardItem>
-        <CardItem style={{
-          flexDirection: 'row'
-        }}>
+
+        <CardItem style={{ flexDirection: 'row' }}>
           {this.renderActionsSection()}
         </CardItem>
       </Card>

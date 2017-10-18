@@ -80,7 +80,7 @@ export default class CreateNote extends React.Component {
 const styles = StyleSheet.create({
   modal: {
     marginTop: 80,
-    height: 200,
+    height: 150,
     display: 'flex',
     justifyContent: 'space-between',
     backgroundColor: '#fff',

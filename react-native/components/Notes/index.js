@@ -1,10 +1,11 @@
 import React from 'react';
 import _ from 'lodash'
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, AsyncStorage } from 'react-native';
 
 import CreateNote from './create-note'  //Import file
 import NoteList from './note-list'      //Import file
 import uuid from 'uuid'
+import {parseObject, stringifyObject} from '../../utils'
 
 const notes = [
   {
@@ -19,14 +20,6 @@ const notes = [
     id: uuid.v4(),
     noteTitle: '3rd note:',
     noteTxt: 'Third note is hereeeeeeee'
-  },{
-    id: uuid.v4(),
-    noteTitle: '4th note:',
-    noteTxt: 'Fourth note is here Fourth note is here'
-  }, {
-    id: uuid.v4(),
-    noteTitle: '5thrd note:',
-    noteTxt: 'this is a note. this is a note. this is a note. this is a note. this is a note. this is a note. '
   }
 ]
 
@@ -36,6 +29,16 @@ export default class Notes extends React.Component {
     this.state = {
       notes: notes
     }
+  }
+
+  componentWillMount = () => {
+    AsyncStorage.getItem("notes")
+      .then(notes => notes && this.setState({notes: parseObject(notes)}))
+      .catch(e => console.log(e))
+  }
+
+  updateAsyncStore() {
+    AsyncStorage.setItem('notes', stringifyObject(this.state.notes))
   }
 
 
@@ -52,12 +55,14 @@ export default class Notes extends React.Component {
   createTask(noteTitle, noteTxt) {
     this.state.notes.push({'id': uuid.v4(), noteTitle, noteTxt})
     this.setState(({notes: this.state.notes}))
+    this.updateAsyncStore()
   }
 
   deleteTask(taskToDeleteId){
     //Removes the state with id "taskToDeleteId" from notes, then updates the state.
     _.remove(this.state.notes, note => note.id === taskToDeleteId)
     this.setState({notes: this.state.notes})
+    this.updateAsyncStore()
   }
   //save changes on an existing note
   saveNote(noteId, noteState){
@@ -66,5 +71,6 @@ export default class Notes extends React.Component {
     foundNote.noteTitle = noteState.noteTitle
     foundNote.noteTxt = noteState.noteTxt
     this.setState({notes: this.state.notes})
+    this.updateAsyncStore()
   }
 }

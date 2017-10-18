@@ -4,7 +4,7 @@ import { Text, View, AsyncStorage } from 'react-native';
 import CreateTodo from './create-todo'
 import TodosList from './todos-list'
 import uuid from 'uuid'
-import {Container} from 'native-base'
+import {Content,Container} from 'native-base'
 import {parseObject, stringifyObject} from '../../utils'
 
 
@@ -31,12 +31,12 @@ export default class Todo extends React.Component {
   render(){
     return(
       //Always return a view at the start and bottom
-      <View>
+      <Content>
         {/*Createtodo on top*/}
-      <CreateTodo createTask={(i) => this.createTask(i)} />
-      {/*Todolist under createtod*/}
-      <TodosList todos={this.state.todos} deleteTask={(i) => this.deleteTask(i)} saveTask={(i,v) => this.saveTask(i,v)} toggleTask={(i) => this.toggleTask(i)}/>
-    </View>
+        <CreateTodo createTask={(i) => this.createTask(i)} />
+        {/*Todolist under createtod*/}
+        <TodosList todos={this.state.todos} deleteTask={(i) => this.deleteTask(i)} saveTask={(i,v) => this.saveTask(i,v)} toggleTask={(i) => this.toggleTask(i)}/>
+      </Content>
     )
   }
 
