@@ -151,9 +151,9 @@ export default class Month extends Component {
       <ScrollView>
         <View style={{
           flexDirection: "row",
-          backgroundColor: "#000"
+          backgroundColor: "#727d8e"
         }}>
-          <Button style={{backgroundColor: "#000"}} onPress={() => this.changeDate(-1)}>
+          <Button style={{backgroundColor: "#7ec0ee"}} onPress={() => this.changeDate(-1)}>
             <Icon name="md-arrow-back"/>
           </Button>
           <Text style={{
@@ -162,11 +162,12 @@ export default class Month extends Component {
             color: "#fff",
             textAlign: "center"
           }}>{year} {months[month]}</Text>
-          <Button style={{flexGrow:1, backgroundColor:"#000"}} onPress={() => this.changeDate(0)}>
-            <Text style={{textAlign: "center"}}>Today</Text>
-          </Button>
-          <Button style={{backgroundColor: "#000"}} onPress={() => this.changeDate(1)}>
+          <Button style={{backgroundColor: "#7ec0ee"}} onPress={() => this.changeDate(1)}>
             <Icon name="md-arrow-forward"/>
+          </Button>
+          <Button style={{flexGrow:1, backgroundColor:"green"}} onPress={() => this.changeDate(0)}>
+            <Text style={{textAlign: "left"}}>Go to today</Text>
+            <Icon name="calendar"/>
           </Button>
         </View>
         <Weekdays/>

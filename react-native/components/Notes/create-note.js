@@ -54,7 +54,7 @@ export default class CreateNote extends React.Component {
         <Modal
           style={styles.modal}
           animationType="slide"
-          transparent={true}
+          transparent
           visible={this.state.modalVisible}
           onRequestClose={() => {this.setModalVisible(!this.state.modalVisible)
         }}>
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
   },
   inputForm: {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
   },
   inputTexts: {
     display: 'flex',
