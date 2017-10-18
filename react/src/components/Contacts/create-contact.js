@@ -38,13 +38,12 @@ export default class CreateContact extends Component {
       this.setState({error: validateInputName});
       return
     } else if (validateInputEmail) {
-        this.setState({error: validateInputEmail});
-        return
+      this.setState({error: validateInputEmail});
+      return
     } else if (validateInputNumber) {
-        this.setState({error: validateInputNumber});
-        return
+      this.setState({error: validateInputNumber});
+      return
     }
-    //TODO: Fix not save on many whitespaces
     this.setState({error: null});
     this.props.createContact(name, email, number);
     this.inputName.value = '';
@@ -57,32 +56,31 @@ export default class CreateContact extends Component {
     if (!name) {
       return 'Please enter a name'
     } else if (/\d/.test(name)) {
-        return 'Names can not contain numbers'
+      return 'Names can not contain numbers'
     } else {
       return null
     }
   }
 
-  validateEmail(task) {
-    if (!task) {
-        return 'Please enter an e-mail address'
-    } else if (/[^a-zA-Z0-9\-_.@]{1,}/.test(task)) {
-        return 'Invalid email'
+  validateEmail(email) {
+    if (!email) {
+      return 'Please enter an e-mail address'
+    } else if (/[^a-zA-Z0-9\-_.@]{1,}/.test(email)) {
+      return 'Invalid email'
     } else {
-        return null
+      return null
     }
   }
 
-  validateNumber(task) {
-    if (!task) {
-        return 'Please enter a phone number'
-    } else if (/[^0-9+\-() ]{1,}/.test(task)) {
-        return 'Invalid phone number'
+  validateNumber(number) {
+    if (!number) {
+      return 'Please enter a phone number'
+    } else if (/[^0-9+\-() ]{1,}/.test(number)) {
+      return 'Invalid phone number'
     } else {
-        return null
+      return null
     }
   }
-
 
   render() {
     return (
@@ -90,15 +88,15 @@ export default class CreateContact extends Component {
         <h4 className="center-text white-header">Create a contact</h4>
         <form className="static-form" onSubmit={(i) => this.handleCreate(i)}>
           <FormGroup>
-            <FormControl type="text" placeholder="Name" inputRef={(ref) => {
-              this.inputName = ref
-            }}/>
-            <FormControl type="text" placeholder="E-mail" inputRef={(ref) => {
-                this.inputEmail = ref
-            }}/>
-            <FormControl type="text" placeholder="Phone number" inputRef={(ref) => {
-                this.inputNumber = ref
-            }}/>
+            <FormControl type="text" placeholder="Name"
+              inputRef={(ref) => {this.inputName = ref}}
+            />
+            <FormControl type="text" placeholder="E-mail"
+              inputRef={(ref) => {this.inputEmail = ref}}
+            />
+            <FormControl type="text" placeholder="Phone number"
+              inputRef={(ref) => {this.inputNumber = ref}}
+            />
             <Button block type="submit">add</Button>
             {this.renderError()}
           </FormGroup>

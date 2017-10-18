@@ -13,7 +13,8 @@ export default class ContactList extends Component {
   renderItems() {
     const props = _.omit(this.props, 'contacts');
     //Generate list of all contacts (contact-list-items)
-    return _.map(this.props.contacts, (contact, id) => <ContactListItem key={id} {...contact} {...props}/>)
+    return _.map(this.props.contacts, (contact, id) =>
+      <ContactListItem key={id} {...contact} {...props}/>)
   }
 
   render() {

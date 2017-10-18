@@ -61,7 +61,11 @@ export default class Notes extends Component {
         <div className="component-main-div content-main-div">
           <h2 className="center-text">Note List</h2>
           <hr/>
-          <NoteList notes={this.state.notes} deleteTask={(taskId) => this.deleteTask(taskId)} saveNote={(id,state) => this.saveNote(id,state)}/>
+          <NoteList
+            notes={this.state.notes}
+            deleteTask={(taskId) => this.deleteTask(taskId)}
+            saveNote={(id,state) => this.saveNote(id,state)}
+          />
         </div>
       </div>
     )

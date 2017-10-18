@@ -9,7 +9,7 @@ import Todo from './components/Todo'
 import Contacts from './components/Contacts'
 
 const App = () => (
-
+  //Renders homepage with hashrouter to allow navigation
   <HashRouter hashType="noslash">
     <div>
       <div id="hamburger" className="active">

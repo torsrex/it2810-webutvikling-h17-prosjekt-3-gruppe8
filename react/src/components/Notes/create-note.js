@@ -6,14 +6,13 @@ Handles creation/validation of new notes.
 import React, {Component} from 'react'
 import {FormGroup, FormControl, Button} from 'react-bootstrap'
 
-export default class CreateNote extends Component{
-  constructor(props){
+export default class CreateNote extends Component {
+  constructor(props) {
     super(props)
     this.state = {
       error: null
     }
   }
-
 
   //Create note function
   handleCreate(event) {
@@ -23,48 +22,52 @@ export default class CreateNote extends Component{
     const noteTitle = String.prototype.trim.call(createTitle.value) //Strip to only text
     const noteTxt = String.prototype.trim.call(createInput.value)
     const notEmpty = this.notEmpty(noteTitle, noteTxt) //Input validation
-    if (notEmpty){
+    if (notEmpty) {
       this.props.createTask(noteTitle, noteTxt) //create the task
       this.setState({error: null})
       //Reset the input fields after successfull submit
       this.inputTitle.value = ''
       this.inputText.value = ''
-    } else{
+    } else {
       this.setState({error: "Please enter a title and a note text"})
     }
   }
-  notEmpty(noteTitle, noteTxt){
-    if(noteTitle && noteTxt){
+  notEmpty(noteTitle, noteTxt) {
+    if (noteTitle && noteTxt) {
       return true
-    }else{
+    } else {
       return false
     }
   }
   //Renders the error message, if any.
-  renderError(){
-    if(!this.state.error){
+  renderError() {
+    if (!this.state.error) {
       return null
-    } else{
+    } else {
       return <div className="centerText redText">
-      {this.state.error}
+        {this.state.error}
       </div>
     }
   }
 
-
   //Render the form create note
   render() {
-    return(
+    return (
       <div className="component-wrapper flex-column">
         <h4 className="center-text white-header">Create a note</h4>
         <form className="text-area-form" onSubmit={this.handleCreate.bind(this)}>
           <FormGroup>
-            <FormControl type="input" placeholder="Note title" inputRef={(ref) => {
-              this.inputTitle = ref
-            }}/>
-            <FormControl componentClass="textarea" placeholder="Note text" rows="4" inputRef={(ref) => {
-              this.inputText = ref
-            }}/>
+            <FormControl
+              type="input"
+              placeholder="Note title"
+              inputRef={(ref) => {this.inputTitle = ref}}
+            />
+            <FormControl
+              componentClass="textarea"
+              placeholder="Note text"
+              rows="4"
+              inputRef={(ref) => {this.inputText = ref}}
+            />
             <Button block type="submit">add</Button>
             {this.renderError()}
           </FormGroup>

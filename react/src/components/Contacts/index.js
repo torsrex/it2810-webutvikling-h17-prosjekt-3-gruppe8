@@ -22,7 +22,9 @@ export default class Contacts extends Component {
     //localStorage.clear()
     const cachedTasks = localStorage.getItem('contacts')
     this.setState({
-      contacts: cachedTasks ? parseObject(cachedTasks) : []
+      contacts: cachedTasks
+        ? parseObject(cachedTasks)
+        : []
     })
   }
 
@@ -30,7 +32,9 @@ export default class Contacts extends Component {
   createContact(name, email, number) {
     const {contacts} = this.state
     contacts.unshift({'id': uuid.v4(), name: name, email: email, number: number});
-    this.setState({contacts}, () => updateLocalStorage("contacts", contacts))
+    this.setState({
+      contacts
+    }, () => updateLocalStorage("contacts", contacts))
   }
   //Save changes in edited contact
   saveContact(oldContactId, newName, newEmail, newNumber) {
@@ -39,26 +43,33 @@ export default class Contacts extends Component {
     foundContact.name = newName;
     foundContact.email = newEmail;
     foundContact.number = newNumber;
-    this.setState({contacts}, () => updateLocalStorage("contacts", contacts))
+    this.setState({
+      contacts
+    }, () => updateLocalStorage("contacts", contacts))
   }
   //Delete contact from list and view
   deleteContact(contactToDeleteId) {
     const {contacts} = this.state
     _.remove(contacts, contact => contact.id === contactToDeleteId);
-    this.setState({contacts}, () => updateLocalStorage("contacts", contacts))
+    this.setState({
+      contacts
+    }, () => updateLocalStorage("contacts", contacts))
   }
-
 
   render() {
     return (
       <div>
         <div className="component-main-div">
-          <CreateContact contacts={this.state.contacts} createContact={(i, j, k) => this.createContact(i, j, k)}/>
+          <CreateContact createContact={(name, email, number) => this.createContact(name, email, number)}/>
         </div>
         <div className="component-main-div content-main-div">
           <h2 className="center-text">Contact List</h2>
           <hr/>
-          <ContactList contacts={this.state.contacts} saveContact={(i, j, k, l) => this.saveContact(i, j, k, l)} deleteContact={(i) => this.deleteContact(i)}/>
+          <ContactList
+            contacts={this.state.contacts}
+            deleteContact={(i) => this.deleteContact(i)}
+            saveContact={(oldContactId, newName, newEmail, newNumber) =>
+              this.saveContact(oldContactId, newName, newEmail, newNumber)}/>
         </div>
       </div>
     )

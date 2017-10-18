@@ -34,7 +34,7 @@ export default class TodosListItem extends Component {
     const oldTaskId = this.props.id
     const newTask = this.input.value
     //only save changes if todo content isn't empty
-    if(this.notEmpty(newTask)){
+    if (this.notEmpty(newTask)) {
       this.props.saveTask(oldTaskId, newTask)
       this.setState({isEditing: false})
     }
@@ -42,16 +42,17 @@ export default class TodosListItem extends Component {
 
   //VALIDATION
   //Checks if the note content is empty
-  notEmpty(newTask){
-    if(newTask){
+  notEmpty(newTask) {
+    if (newTask) {
       return true
-    }else{
+    } else {
       return false
     }
   }
 
   //Render functions ----------------------------------------------------------
-  renderTaskSection() { //todo content + toggle finished state
+  //todo content + toggle finished state
+  renderTaskSection() {
     const {id, task, isComplete} = this.props
     const taskStyle = {
       color: isComplete
@@ -63,14 +64,17 @@ export default class TodosListItem extends Component {
       cursor: 'pointer'
     }
 
-    if (this.state.isEditing) { //The todo content (title/txt)
+    //The todo content (title/txt)
+    if (this.state.isEditing) {
       return (
         <div>
-          <form onSubmit={(i) => this.onSaveClick(i)}>
+          <form onSubmit={() => this.onSaveClick()}>
             <FormGroup>
-              <FormControl type="text" defaultValue={task} inputRef={(ref) => {
-                this.input = ref
-              }}/>
+              <FormControl
+                type="text"
+                defaultValue={task}
+                inputRef={(ref) => {this.input = ref}}
+              />
 
             </FormGroup>
           </form>
@@ -79,7 +83,11 @@ export default class TodosListItem extends Component {
     }
     //Unless isEditing is true, return this
     return (
-      <div className="render-task-section" style={taskStyle} onClick={() => this.props.toggleTask(id)}>
+      <div
+        className="render-task-section"
+        style={taskStyle}
+        onClick={() => this.props.toggleTask(id)}
+        >
         <Well bsSize="sm">
           {task}
         </Well>
@@ -87,26 +95,54 @@ export default class TodosListItem extends Component {
     )
   }
 
-  renderActionsSection() { //buttons for modifying the todo content
+  //buttons for modifying the todo content
+  renderActionsSection() {
     if (this.state.isEditing) {
       return (
         <div>
-          <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Save todo</strong> < /Tooltip>}>
-            <Button className="glyphicon glyphicon-ok move" onClick={(i) => this.onSaveClick(i)}/>
+          <OverlayTrigger
+            placement="top"
+            overlay={< Tooltip id = "tooltip" >
+              <strong>Save todo</strong>
+              < /Tooltip>}>
+            <Button
+              className="glyphicon glyphicon-ok move"
+              onClick={() => this.onSaveClick()}
+            />
           </OverlayTrigger>
-          <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Cancel edit</strong> < /Tooltip>}>
-            <Button className="glyphicon glyphicon-trash deleteTask" onClick={(i) => this.onCancelClick(i)}/>
+          <OverlayTrigger
+            placement="top"
+            overlay={< Tooltip id = "tooltip" >
+              <strong>Cancel edit</strong>
+              < /Tooltip>}>
+            <Button
+              className="glyphicon glyphicon-trash deleteTask"
+              onClick={() => this.onCancelClick()}
+            />
           </OverlayTrigger>
         </div>
       )
     }
     return (
       <div>
-        <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Edit</strong> < /Tooltip>}>
-          <Button className="glyphicon glyphicon-edit move editClick" onClick={(i) => this.onEditClick(i)}/>
+        <OverlayTrigger
+          placement="top"
+          overlay={< Tooltip id = "tooltip" >
+            <strong>Edit</strong>
+            < /Tooltip>}>
+          <Button
+            className="glyphicon glyphicon-edit move editClick"
+            onClick={() => this.onEditClick()}
+          />
         </OverlayTrigger>
-        <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Delete</strong> < /Tooltip>}>
-          <Button className="glyphicon glyphicon-trash deleteTask" onClick={(i) => this.props.deleteTask(this.props.id)}/>
+        <OverlayTrigger
+          placement="top"
+          overlay={< Tooltip id = "tooltip" >
+            <strong>Delete</strong>
+            < /Tooltip>}>
+          <Button
+            className="glyphicon glyphicon-trash deleteTask"
+            onClick={() => this.props.deleteTask(this.props.id)}/>
         </OverlayTrigger>
       </div>
     )
@@ -115,15 +151,15 @@ export default class TodosListItem extends Component {
   render() {
     return (
       <div>
-      <Row className="fillWidth">
-        <Col md={10} xs={10}>
-          {this.renderTaskSection()}
-        </Col>
-        <Col>
-          {this.renderActionsSection()}
-        </Col>
-      </Row>
-    </div>
+        <Row className="fillWidth">
+          <Col md={10} xs={10}>
+            {this.renderTaskSection()}
+          </Col>
+          <Col>
+            {this.renderActionsSection()}
+          </Col>
+        </Row>
+      </div>
     )
   }
 }

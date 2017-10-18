@@ -48,7 +48,7 @@ export default class Contacts extends React.Component {
      return (
        <View>
         {/*CreateContact on top*/}
-        <CreateContact createContact={(i, j, k) => this.createContact(i, j, k)}/>
+        <CreateContact createContact={(name, email, number) => this.createContact(name, email, number)}/>
         {/*ContactList under CreateContact*/}
         <ContactList
           contacts={this.state.contacts}

@@ -63,7 +63,7 @@ export default class Todo extends React.Component {
       //Always return a view at the start and bottom
       <Content>
         {/*Createtodo on top*/}
-        <CreateTodo createTask={(i) => this.createTask(i)} />
+        <CreateTodo createTask={(task) => this.createTask(task)} />
         {/*Todolist under createtod*/}
         <TodosList
           todos={this.state.todos}
