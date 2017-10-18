@@ -5,7 +5,8 @@ import { shallow } from 'enzyme'
 import Month from '../../../components/Calendar/Month'
 import 'datejs';
 
-
+//NOTE: This throws error upon testing (Object.entries) because
+//Jest doesn't support babel polyfill anymore. 
 
 test('Month component has not changed visual', () => {
   const component = renderer.create(

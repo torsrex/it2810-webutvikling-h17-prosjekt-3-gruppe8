@@ -86,11 +86,8 @@ export default class Calendar extends Component {
   }
 
   reset = () => {
-    console.log("yoo");
-    if (!Object.keys(this.state.events).length) {
       this.setState(initialState)
       updateLocalStorage('events', {})
-    }
   }
 
   //Delete a calendar event
