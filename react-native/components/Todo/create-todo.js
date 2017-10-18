@@ -1,17 +1,14 @@
 import _ from 'lodash'
 import React from 'react';
-import {View, TouchableOpacity, Keyboard, Animated} from 'react-native';
+import {View, Keyboard} from 'react-native';
 import {
   Button,
   Text,
   Input,
-  Container,
-  Form,
   Item,
   Label,
   Toast
 } from 'native-base'
-import {StackNavigator, TabNavigator} from 'react-navigation';
 
 export default class CreateTodo extends React.Component {
   constructor(props) {
@@ -24,7 +21,6 @@ export default class CreateTodo extends React.Component {
 
 
   handleCreate() {
-    //TODO: Needs error handling
     const task = String.prototype.trim.call(this.state.tempTodo)
     const validateInput = this.validateInput(task)
     if (validateInput) {

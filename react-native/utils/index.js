@@ -8,24 +8,39 @@ export const parseObject = o => JSON.parse(o)
 export const parseDate = (...date) => {
   // The try-catch check is for avoding impossible date inputs, like September 31.
   try {
-    return new Date(...date).toISOString().slice(0,10)
+    return new Date(...date).toISOString().slice(0, 10)
   } catch (e) {
     // If impossible date occurs, return today instead.
-    return new Date().toISOString().slice(0,10)
+    return new Date().toISOString().slice(0, 10)
   }
 }
 
 // Generates a unique String ID
 export const generateId = () => Date.now().toString(36) + Math.random().toString(36)
 
-
 // Month names
 export const months = [
-  "January", "February", "March",
-  "April", "May", "June",
-  "July", "August", "September",
-  "October", "November", "December"
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December"
 ]
 
 // Day names
-export const week = ["M","Tu","W","Th","F","Sa","Su"]
+export const week = [
+  "M",
+  "Tu",
+  "W",
+  "Th",
+  "F",
+  "Sa",
+  "Su"
+]

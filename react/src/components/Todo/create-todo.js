@@ -26,7 +26,6 @@ export default class CreateTodo extends Component {
       this.setState({error: validateInput})
       return
     }
-    //TODO: Fix not save on many whitespaces
     this.setState({error: null})
     this.props.createTask(task)
     this.input.value = ''

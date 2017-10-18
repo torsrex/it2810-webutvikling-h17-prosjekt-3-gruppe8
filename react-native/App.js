@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
-import { StackNavigator, TabNavigator } from 'react-navigation';
-import {Root, Container, Header, Left, Body, Right, Title, Content, Footer, FooterTab, Button, Text, Icon } from 'native-base'
+import {Root, Container, Header, Body, Title, Content, Footer, FooterTab, Button, Icon } from 'native-base'
 
 import Todo from './components/Todo'
 import Notes from './components/Notes'
-import Welcome from './components/Welcome'
 import Calendar from './components/Calendar'
 import Contacts from './components/Contacts'
 import Expo from 'expo'
@@ -33,7 +31,6 @@ class PersonalManager extends Component {
         </Header>
         <Content>
           {{
-            Welcome: <Welcome/>,
             Todo: <Todo/>,
             Notes: <Notes/>,
             Contacts: <Contacts/>,
@@ -61,16 +58,6 @@ class PersonalManager extends Component {
   }
 }
 
-//Creates main landing page with navigator at the top
-// const PersonalManager = StackNavigator({
-//   Home: {
-//     screen: MainScreenNavigator, //Adds navigator to top
-//     navigationOptions: {
-//       title: 'My Personal manager', //Sets title of app
-//     },
-//   },
-// });
-
 //Creates main app
 export default class App extends Component {
   constructor() {
@@ -79,7 +66,7 @@ export default class App extends Component {
     isReady: false
   };
 }
-
+//Sets font to native-base font
   async componentWillMount() {
     await Expo.Font.loadAsync({
       'Roboto': require('native-base/Fonts/Roboto.ttf'),
@@ -87,7 +74,7 @@ export default class App extends Component {
     })
     this.setState({ isReady: true });
   }
-
+//Waits until font is ready to load app
   render() {
     if (!this.state.isReady) {
       return <Expo.AppLoading />;

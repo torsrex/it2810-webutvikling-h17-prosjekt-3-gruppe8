@@ -2,7 +2,6 @@ import React from 'react';
 import {Route, Link, HashRouter} from 'react-router-dom'
 import './main.css';
 
-
 import Welcome from './components/Welcome'
 import Calendar from './components/Calendar'
 import Notes from './components/Notes'
@@ -21,20 +20,30 @@ const App = () => (
       <div className="menu">
         <nav>
           <ul>
-            <li><Link to="/">Welcome</Link></li>
-            <li><Link to="/todo">Todo</Link></li>
-            <li><Link to="/notes">Notes</Link></li>
-            <li><Link to="/contacts">Contacts</Link></li>
-            <li><Link to="/calendar">Calendar</Link></li>
+            <li>
+              <Link to="/">Welcome</Link>
+            </li>
+            <li>
+              <Link to="/todo">Todo</Link>
+            </li>
+            <li>
+              <Link to="/notes">Notes</Link>
+            </li>
+            <li>
+              <Link to="/contacts">Contacts</Link>
+            </li>
+            <li>
+              <Link to="/calendar">Calendar</Link>
+            </li>
           </ul>
         </nav>
       </div>
 
-    <Route exact path="/" component={Welcome}/>
-    <Route path="/todo" component={Todo}/>
-    <Route path="/notes" component={Notes}/>
-    <Route path="/calendar" component={Calendar}/>
-    <Route path="/contacts" component={Contacts}/>
+      <Route exact path="/" component={Welcome}/>
+      <Route path="/todo" component={Todo}/>
+      <Route path="/notes" component={Notes}/>
+      <Route path="/calendar" component={Calendar}/>
+      <Route path="/contacts" component={Contacts}/>
     </div>
   </HashRouter>
 )
