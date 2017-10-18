@@ -1,12 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import Calendar from '../../../components/Calendar'
-import { shallow } from 'enzyme'
-
+import {shallow} from 'enzyme'
 
 const CalendarWrapper = shallow(<Calendar/>)
 const testEvent = {
-  '1' : {
+  '1': {
     color: "green",
     content: "Test text",
     from: Date.now(),
@@ -14,7 +13,9 @@ const testEvent = {
   }
 }
 
-test('Calendar component loads', () => {CalendarWrapper})
+test('Calendar component loads', () => {
+  CalendarWrapper
+})
 
 test('createEvent adds the event to this.state', () => {
   CalendarWrapper.instance().createEvent(testEvent)
@@ -32,5 +33,3 @@ test('Reset clears the content', () => {
   CalendarWrapper.instance().reset();
   expect(localStorage.getItem('events')).toBe(JSON.stringify({}));
 })
-
-

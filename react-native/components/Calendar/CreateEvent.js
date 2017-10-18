@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {parseDate, } from "../../utils"
 import { AsyncStorage } from 'react-native'
-import { Picker, Form, Item, Card, Text, View, Button, TextInput, Icon, Label, Input, Toast} from 'native-base'
+import { Picker, Item, Card, Text, View, Button, Icon, Label, Input, Toast} from 'native-base'
 import Datepicker from 'react-native-datepicker'
 import 'datejs'
 import uuid from 'uuid'
@@ -119,11 +119,11 @@ export default class CreateEvent extends Component {
           </Picker>
           <View style={{flexDirection:"row", justifyContent: "space-between"}}>
             <Button success onPress={this.handleAddEventClick}>
-              <Text>Add event</Text>
+              <Text>Add new event</Text>
 
             </Button>
             <Button danger iconRight onPress={this.emptyAsyncStorage}>
-              <Text>Empty calendar</Text>
+              <Text>Delete all events</Text>
               <Icon name="trash"/>
             </Button>
           </View>

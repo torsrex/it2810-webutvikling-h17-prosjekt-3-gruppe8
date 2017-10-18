@@ -1,28 +1,24 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import renderer from 'react-test-renderer'
-import { shallow } from 'enzyme'
+import {shallow} from 'enzyme'
 import Month from '../../../components/Calendar/Month'
 import 'datejs';
 
 //NOTE: This throws error upon testing (Object.entries) because
-//Jest doesn't support babel polyfill anymore. 
+//Jest doesn't support babel polyfill anymore.
 
 test('Month component has not changed visual', () => {
-  const component = renderer.create(
-    <Month openBigDay={day => null} events={{}}/>
-  );
+  const component = renderer.create(<Month openBigDay={day => null} events={{}}/>);
   let tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });
 
 test('Change date handles new year', () => {
-  const component = shallow(
-    <Month openBigDay={day => null} events={{}}/>
-  );
+  const component = shallow(<Month openBigDay={day => null} events={{}}/>);
   // Set state to know date in desember
   component.setState({
-    date:{
+    date: {
       fullDate: new Date('2017-12-10T17:14:29.927'),
       year: 2017,
       month: 11,

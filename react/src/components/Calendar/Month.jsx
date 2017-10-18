@@ -30,7 +30,10 @@ const Days = ({days}) => {
 const Weekdays = ({days}) => {
   return(
     <ul className="days-title">
-      {Array(days.length).fill().map((x,i) => <li key={i} className={`day-title ${(i === 5 || i === 6) && "weekend-title"}`}><span>{days[i]}</span></li>)}
+      {Array(days.length).fill().map((x,i) => <li key={i}
+        className={`day-title ${(i === 5 || i === 6) && "weekend-title"}`}>
+        <span>{days[i]}</span>
+      </li>)}
     </ul>
   )
 }

@@ -13,7 +13,8 @@ export default class TodosList extends Component {
   renderItems() {
     const props = _.omit(this.props, 'todos')
     //Creates a list of "todos-list-item" components
-    return _.map(this.props.todos, (todo, id) => <TodosListItem key={id} {...todo} {...props}/>)
+    return _.map(this.props.todos, (todo, id) =>
+      <TodosListItem key={id} {...todo} {...props}/>)
   }
 
   render() {

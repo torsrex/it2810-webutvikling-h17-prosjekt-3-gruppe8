@@ -2,18 +2,14 @@ import React from 'react';
 import {View} from 'react-native';
 import {
   Button,
-  Label,
   Text,
   Card,
   CardItem,
-  Body,
   Input,
   Item,
   Icon,
-  Form,
   CheckBox
 } from 'native-base'
-import {StackNavigator, TabNavigator} from 'react-navigation';
 
 export default class TodosListItem extends React.Component {
 
@@ -40,7 +36,8 @@ export default class TodosListItem extends React.Component {
 
   //Renders the task section (taskname)
   renderTaskSection() {
-    if (this.state.isEditing) { //renders edit field
+    //renders edit field
+    if (this.state.isEditing) {
       return (
         <CardItem style={{
           flex: 8,
@@ -50,12 +47,19 @@ export default class TodosListItem extends React.Component {
         }}>
         <Item>
           {/*Renders text with tap handling*/}
-          <Input style={{borderWidth:1, borderColor:"black", borderRadius:3}} value={this.state.tempTodo} autoFocus onFocus={() => this.setState({tempTodo:this.props.task})} onChangeText={(text) => this.setState({tempTodo: text})} onSubmitEditing={(e) => this.onSaveClick(e)}/>
+          <Input
+            style={{borderWidth:1, borderColor:"black", borderRadius:3}}
+            value={this.state.tempTodo}
+            autoFocus
+            onFocus={() => this.setState({tempTodo:this.props.task})}
+            onChangeText={(text) => this.setState({tempTodo: text})}
+            onSubmitEditing={() => this.onSaveClick()}/>
         </Item>
         </CardItem>
       )
     }
-    const {id, task,isComplete} = this.props //Renders text and checkbox
+    const {id, task,isComplete} = this.props
+    //Renders text and checkbox
     return (
       <CardItem
         style={{
@@ -84,7 +88,8 @@ export default class TodosListItem extends React.Component {
   }
   //Render buttons for saving, deleting, and editing
   renderActionsSection() {
-    if (this.state.isEditing) { //Editing mode. Render save and trash buttons
+    //Editing mode. Render save and trash buttons
+    if (this.state.isEditing) {
       return (
         <CardItem style={{
           flex: 4,
@@ -93,14 +98,15 @@ export default class TodosListItem extends React.Component {
           <Button icon transparent onPress= {() => this.onSaveClick()}>
             <Icon name='ios-checkmark' />
           </Button>
-          <Button icon transparent onPress= {(i) => this.props.deleteTask(this.props.id)}>
+          <Button icon transparent onPress= {() => this.props.deleteTask(this.props.id)}>
             <Icon name='trash' />
           </Button>
 
         </CardItem>
       )
     }
-    return ( //Normal mode. Render edit button
+    //Normal mode. Render edit button
+    return (
       <CardItem style={{
         flex: 2,
         flexDirection: 'row',

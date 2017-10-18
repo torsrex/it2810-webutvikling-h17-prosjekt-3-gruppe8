@@ -36,7 +36,7 @@ export default class ContactListItem extends Component {
     const newName = this.inputName.value;
     const newEmail = this.inputEmail.value;
     const newNumber = this.inputNumber.value;
-    if(this.notEmpty(newName, newEmail, newNumber)){
+    if (this.notEmpty(newName, newEmail, newNumber)) {
       this.props.saveContact(oldTaskId, newName, newEmail, newNumber);
       this.setState({isEditing: false})
     }
@@ -44,10 +44,10 @@ export default class ContactListItem extends Component {
 
   //VALIDATION
   //Checks if the note content is empty
-  notEmpty(newName, newEmail, newNumber){
-    if(newName && newEmail && newNumber){
+  notEmpty(newName, newEmail, newNumber) {
+    if (newName && newEmail && newNumber) {
       return true
-    }else{
+    } else {
       return false
     }
   }
@@ -55,24 +55,23 @@ export default class ContactListItem extends Component {
   //Render function
   renderContactSection() {
     const {name, email, number} = this.props;
-    const contactStyle = {
-    };
+    const contactStyle = {};
     //Render this if contact is being edited
     if (this.state.isEditing) {
 
       return (
         <div>
-          <form onSubmit={(i) => this.onSaveClick(i)}>
+          <form onSubmit={() => this.onSaveClick()}>
             <FormGroup>
-              <FormControl type="text" defaultValue={name} inputRef={(ref) => {
-                this.inputName = ref
-              }}/>
-              <FormControl type="text" defaultValue={email} inputRef={(ref) => {
-                  this.inputEmail = ref
-              }}/>
-              <FormControl type="text" defaultValue={number} inputRef={(ref) => {
-                  this.inputNumber = ref
-              }}/>
+              <FormControl type="text" defaultValue={name}
+                inputRef={(ref) => {this.inputName = ref}}
+            />
+              <FormControl type="text" defaultValue={email}
+                inputRef={(ref) => {this.inputEmail = ref}}
+            />
+              <FormControl type="text" defaultValue={number}
+                inputRef={(ref) => {this.inputNumber = ref}}
+            />
             </FormGroup>
           </form>
         </div>
@@ -82,9 +81,7 @@ export default class ContactListItem extends Component {
     return (
       <div className="render-task-section" style={contactStyle}>
         <Well bsSize="sm">
-          {name}<br />
-          {email}<br />
-          {number}
+          {name}<br/> {email}<br/> {number}
         </Well>
       </div>
     )
@@ -94,22 +91,42 @@ export default class ContactListItem extends Component {
     if (this.state.isEditing) {
       return (
         <div>
-          <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Save todo</strong> < /Tooltip>}>
-              <Button className="glyphicon glyphicon-ok move" onClick={(i) => this.onSaveClick(i)}/>
+          <OverlayTrigger
+            placement="top"
+            overlay={< Tooltip id = "tooltip" >
+              <strong>Save todo</strong>
+              < /Tooltip>}>
+            <Button className="glyphicon glyphicon-ok move"
+              onClick={() => this.onSaveClick()}/>
           </OverlayTrigger>
-          <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Cancel edit</strong> < /Tooltip>}>
-              <Button className="glyphicon glyphicon-trash deleteTask" onClick={(i) => this.onCancelClick(i)}/>
+          <OverlayTrigger
+            placement="top"
+            overlay={< Tooltip id = "tooltip" >
+              <strong>Cancel edit</strong>
+              < /Tooltip>}>
+            <Button className="glyphicon glyphicon-trash deleteTask"
+              onClick={() => this.onCancelClick()}/>
           </OverlayTrigger>
         </div>
       )
     }
     return (
       <div>
-        <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Edit</strong> < /Tooltip>}>
-          <Button className="glyphicon glyphicon-edit move" onClick={(i) => this.onEditClick(i)}/>
+        <OverlayTrigger
+          placement="top"
+          overlay={< Tooltip id = "tooltip" >
+            <strong>Edit</strong>
+            < /Tooltip>}>
+          <Button className="glyphicon glyphicon-edit move"
+            onClick={() => this.onEditClick()}/>
         </OverlayTrigger>
-        <OverlayTrigger placement="top" overlay={< Tooltip id = "tooltip" > <strong>Delete</strong> < /Tooltip>}>
-          <Button className="glyphicon glyphicon-trash deleteTask" onClick={(i) => this.props.deleteContact(this.props.id)}/>
+        <OverlayTrigger
+          placement="top"
+          overlay={< Tooltip id = "tooltip" >
+            <strong>Delete</strong>
+            < /Tooltip>}>
+          <Button className="glyphicon glyphicon-trash deleteTask"
+            onClick={() => this.props.deleteContact(this.props.id)}/>
         </OverlayTrigger>
       </div>
     )

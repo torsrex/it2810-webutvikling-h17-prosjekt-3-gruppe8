@@ -26,7 +26,6 @@ export default class CreateTodo extends Component {
       this.setState({error: validateInput})
       return
     }
-    //TODO: Fix not save on many whitespaces
     this.setState({error: null})
     this.props.createTask(task)
     this.input.value = ''
@@ -56,9 +55,11 @@ export default class CreateTodo extends Component {
         <h4 className="center-text white-header">Create a todo task</h4>
         <form className="static-form" onSubmit={(i) => this.handleCreate(i)}>
           <FormGroup>
-            <FormControl type="text" placeholder="What do I need to do" inputRef={(ref) => {
-              this.input = ref
-            }}/>
+            <FormControl
+              type="text"
+              placeholder="What do I need to do"
+              inputRef={(ref) => {this.input = ref}
+            }/>
             <Button block type="submit">add</Button>
             {this.renderError()}
           </FormGroup>

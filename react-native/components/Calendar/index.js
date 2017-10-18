@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { StyleSheet, Text, ScrollView, View, AsyncStorage } from 'react-native'
-import { Button, Icon, Fab, Toast } from 'native-base'
+import { ScrollView, AsyncStorage } from 'react-native'
+import { Icon, Fab, Toast } from 'native-base'
 
 
 import Month from './Month'

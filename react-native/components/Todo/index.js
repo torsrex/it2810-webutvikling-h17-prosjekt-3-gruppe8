@@ -4,7 +4,7 @@ import { Text, View, AsyncStorage } from 'react-native';
 import CreateTodo from './create-todo'
 import TodosList from './todos-list'
 import uuid from 'uuid'
-import {Content,Container} from 'native-base'
+import {Content} from 'native-base'
 import {parseObject, stringifyObject} from '../../utils'
 
 
@@ -21,7 +21,7 @@ export default class Todo extends React.Component {
       todos: todos
     }
   }
-
+  //Fetches notes from async storage
   componentWillMount = () => {
     AsyncStorage.getItem("todos")
       .then(todos => todos && this.setState({todos: parseObject(todos)}))
@@ -36,9 +36,9 @@ export default class Todo extends React.Component {
       this.setState(({todos: this.state.todos}))
       this.updateAsyncStore()
     }
-    deleteTask(taskToDeleteId){
+    deleteTask(id){
       //Finds todo with corresponding id and removes it
-      _.remove(this.state.todos, todo => todo.id === taskToDeleteId)
+      _.remove(this.state.todos, todo => todo.id === id)
       this.setState({todos: this.state.todos})
       this.updateAsyncStore()
     }
@@ -63,9 +63,13 @@ export default class Todo extends React.Component {
       //Always return a view at the start and bottom
       <Content>
         {/*Createtodo on top*/}
-        <CreateTodo createTask={(i) => this.createTask(i)} />
+        <CreateTodo createTask={(task) => this.createTask(task)} />
         {/*Todolist under createtod*/}
-        <TodosList todos={this.state.todos} deleteTask={(i) => this.deleteTask(i)} saveTask={(i,v) => this.saveTask(i,v)} toggleTask={(i) => this.toggleTask(i)}/>
+        <TodosList
+          todos={this.state.todos}
+          deleteTask={(id) => this.deleteTask(id)}
+          saveTask={(oldTaskId,newTask) => this.saveTask(oldTaskId,newTask)}
+          toggleTask={(id) => this.toggleTask(id)}/>
       </Content>
     )
   }

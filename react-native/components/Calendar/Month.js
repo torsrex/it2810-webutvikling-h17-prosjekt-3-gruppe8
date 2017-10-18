@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import Day from './Day'
 import {week, parseDate, months} from '../../utils'
-import {StyleSheet, FlatList, View, PixelRatio, ScrollView } from 'react-native'
+import {View, ScrollView } from 'react-native'
 import {Button, Icon, Text} from 'native-base'
 import 'datejs'
 
@@ -151,17 +151,24 @@ export default class Month extends Component {
       <ScrollView>
         <View style={{
           flexDirection: "row",
-          backgroundColor: "#000"
+          backgroundColor: "#727d8e"
         }}>
-          <Button style={{backgroundColor: "#000"}} onPress={() => this.changeDate(-1)}><Icon name="md-arrow-back"/></Button>
+          <Button style={{backgroundColor: "#7ec0ee"}} onPress={() => this.changeDate(-1)}>
+            <Icon name="md-arrow-back"/>
+          </Button>
           <Text style={{
             padding: 14,
             flexGrow: 2,
             color: "#fff",
             textAlign: "center"
           }}>{year} {months[month]}</Text>
-          <Button style={{flexGrow:1, backgroundColor:"#000"}} onPress={() => this.changeDate(0)}><Text style={{textAlign: "center"}}>Today</Text></Button>
-          <Button style={{backgroundColor: "#000"}} onPress={() => this.changeDate(1)}><Icon name="md-arrow-forward"/></Button>
+          <Button style={{backgroundColor: "#7ec0ee"}} onPress={() => this.changeDate(1)}>
+            <Icon name="md-arrow-forward"/>
+          </Button>
+          <Button style={{flexGrow:1, backgroundColor:"green"}} onPress={() => this.changeDate(0)}>
+            <Text style={{textAlign: "left"}}>Go to today</Text>
+            <Icon name="calendar"/>
+          </Button>
         </View>
         <Weekdays/>
         {days.map( (e,i) => (i % 7 === 0) ? <Days key={i} days={days.slice(i, i + 7)}/> : null ).filter( (e) => e )}

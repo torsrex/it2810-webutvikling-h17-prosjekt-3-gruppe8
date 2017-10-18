@@ -121,7 +121,10 @@ export default class Calendar extends Component {
               closeCreateEvent={() => this.toggleCreateEvent()}
               createEvent={event => this.createEvent(event)}
           />
-        : <button className="toggle-create-event-btn btn btn-primary" onClick={() => this.toggleCreateEvent()}>+</button>}
+        : <button className="toggle-create-event-btn btn btn-primary"
+            onClick={() => this.toggleCreateEvent()}>
+            +
+          </button>}
         <Month
           openBigDay={day => this.openBigDay(day)}
           events={events}

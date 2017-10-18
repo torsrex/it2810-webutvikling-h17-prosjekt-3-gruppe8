@@ -1,6 +1,5 @@
 import React from 'react';
 import {StyleSheet, Text, View, TextInput, Image, TouchableHighlight} from 'react-native';
-import {Button} from 'native-base'
 
 export default class NoteListItem extends React.Component {
   constructor(props){
@@ -28,16 +27,22 @@ export default class NoteListItem extends React.Component {
       this.props.deleteTask(this.props.id)
     }
 
-//<Button style={styles.imgBtn} onPress={ () => this.onSaveClick() } title="save"/>
   render(){
     if(this.state.isEditing){
       return(
         <View style={styles.noteView}>
           <View style={styles.noteContent}>
             <View style={styles.noteHeader}>
-              <TextInput style={styles.titleText} onChangeText={ (noteTitle) => this.setState({noteTitle}) } value={this.state.noteTitle}/>
+              <TextInput
+                style={styles.titleText}
+                onChangeText={ (noteTitle) => this.setState({noteTitle}) }
+                value={this.state.noteTitle}/>
             </View>
-            <TextInput multiline = {true} numberOfLines = {3} style={styles.noteText} onChangeText={ (noteTxt) => this.setState({noteTxt}) } value={this.state.noteTxt}/>
+            <TextInput
+              multiline numberOfLines = {3}
+              style={styles.noteText}
+              onChangeText={ (noteTxt) => this.setState({noteTxt}) }
+              value={this.state.noteTxt}/>
           </View>
 
           <TouchableHighlight style={styles.alignVertical} onPress={ () => this.onSaveClick() }>

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {months} from '../../utils'
-import {StyleSheet, FlatList, View, PixelRatio, ScrollView } from 'react-native'
+import {View} from 'react-native'
 import {Icon, Text, Button, Card} from 'native-base'
 export default class DayBig extends Component {
   render() {
