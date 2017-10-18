@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import React from 'react'
-import {View, TouchableOpacity, Keyboard, Animated} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, Keyboard, Animated, Modal} from 'react-native';
 import {
   Button,
   Text,
@@ -20,38 +20,15 @@ export default class CreateContact extends React.Component {
       error: null,
       tempName: "",
       tempEmail: "",
-      tempNumber: ""
+      tempNumber: "",
+      modalVisible: false,
     }
   }
 
-  render() {
-    return (
-      <View style={{
-        margin: 10,
-        padding: 10,
-        elevation: 1.5,
-        borderRadius: 5,
-        backgroundColor: "white"
-      }}>
-        <Item floatingLabel>
-          <Label>Name</Label>
-          <Input value={this.state.tempName} onChangeText={(text) => this.setState({tempName: text})} onSubmitEditing={(e) => this.handleCreate()}/>
-        </Item>
-        <Item floatingLabel>
-          <Label>Email</Label>
-          <Input value={this.state.tempEmail} onChangeText={(text) => this.setState({tempEmail: text})} onSubmitEditing={(e) => this.handleCreate()}/>
-        </Item>
-        <Item floatingLabel>
-          <Label>Number</Label>
-          <Input value={this.state.tempNumber} onChangeText={(text) => this.setState({tempNumber: text})} onSubmitEditing={(e) => this.handleCreate()}/>
-        </Item>
-        <Button block onPress={() => this.handleCreate()}>
-          <Text>Submit</Text>
-        </Button>
-      </View>
-    )
+  setModalVisible(visible) {
+    this.setState({modalVisible: visible});
   }
-
+  
   handleCreate() {
     const name = String.prototype.trim.call(this.state.tempName);
     const email = String.prototype.trim.call(this.state.tempEmail);
@@ -90,6 +67,7 @@ export default class CreateContact extends React.Component {
 
     this.setState({error: null, tempName: "", tempEmail: "", tempNumber: ""});
     this.props.createContact(name, email, number);
+    this.setModalVisible(!this.state.modalVisible)
   }
 
   validateName(name) {
@@ -121,4 +99,62 @@ export default class CreateContact extends React.Component {
           return null
       }
   }
+
+  render() {
+    return (
+      <View style={styles.inputForm}>
+        <Modal
+        style={styles.modal}
+        animationType="slide"
+        transparent={true}
+        visible={this.state.modalVisible}
+        onRequestClose={() => {this.setModalVisible(!this.state.modalVisible)}}
+        >
+        <View style={styles.modal}>
+          <Item floatingLabel>
+            <Label>Name</Label>
+            <Input value={this.state.tempName} onChangeText={(text) => this.setState({tempName: text})} onSubmitEditing={(e) => this.handleCreate()}/>
+          </Item>
+          <Item floatingLabel>
+            <Label>Email</Label>
+            <Input value={this.state.tempEmail} onChangeText={(text) => this.setState({tempEmail: text})} onSubmitEditing={(e) => this.handleCreate()}/>
+          </Item>
+          <Item floatingLabel>
+            <Label>Number</Label>
+            <Input value={this.state.tempNumber} onChangeText={(text) => this.setState({tempNumber: text})} onSubmitEditing={(e) => this.handleCreate()}/>
+          </Item>
+          <Button full style={{backgroundColor: '#333'}} onPress={() => this.handleCreate()}>
+            <Text style={styles.btnText}> SUBMIT</Text>
+          </Button>
+          </View>
+        </Modal>
+        <Button full style={styles.spanWidthBtn} onPress={() => this.setModalVisible(true)} title="Create new contact">
+          <Text style={styles.btnText}> CREATE CONTACT </Text>
+        </Button>
+      </View>
+    )
+  }
 }
+
+const styles = StyleSheet.create({
+  modal: {
+    height: 300,
+    marginTop: 80,
+    paddingTop: 15,
+    paddingBottom: 15,
+    display: 'flex',
+    justifyContent: 'space-between',
+    backgroundColor: '#fff',
+    borderColor: '#000',
+    borderTopWidth: 2,
+    borderTopWidth: 2,
+  },
+  spanWidthBtn: {
+    display: 'flex',
+    flex: 1,
+    height: 50,
+    backgroundColor: '#333',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+})

@@ -9,7 +9,8 @@ import {
   Body,
   Input,
   Item,
-  Form
+  Form,
+  Icon
 } from 'native-base'
 import {StackNavigator, TabNavigator} from 'react-navigation';
 
@@ -24,13 +25,29 @@ export default class ContactListItem extends React.Component {
     }
   }
 
+    onEditClick() {
+      this.setState({isEditing: true})
+    }
+    onCancelClick() {
+      this.setState({isEditing: false})
+    }
+    onSaveClick() {
+      const oldTaskId = this.props.id;
+      const newName = this.state.tempName;
+      const newEmail = this.state.tempEmail;
+      const newNumber = this.state.tempNumber;
+
+      this.props.saveContact(oldTaskId, newName, newEmail, newNumber);
+      this.setState({isEditing: false})
+    }
+
+
   renderContactSection() {
     if (this.state.isEditing) {
       return (
-        <View style={{
-          flexGrow: 1,
+        <CardItem style={{
+          flex: 3,
           flexDirection: 'column',
-          justifyContent: 'space-between'
         }}>
           <Item>
             <Input style={{borderWidth:1, borderColor:'black', borderRadius:3}} autoFocus value={this.state.tempName} onFocus={() => this.setState({tempName: this.props.name})} onChangeText={(text) => this.setState({tempName: text})} onSubmitEditing={(e) => this.onSaveClick(e)}/>
@@ -41,101 +58,77 @@ export default class ContactListItem extends React.Component {
           <Item>
             <Input style={{borderWidth:1, borderColor:'black', borderRadius:3}} autoFocus value={this.state.tempNumber} onFocus={() => this.setState({tempNumber: this.props.number})} onChangeText={(text) => this.setState({tempNumber: text})} onSubmitEditing={(e) => this.onSaveClick(e)}/>
           </Item>
-        </View>
+        </CardItem>
       )
     }
 
     return (
-      <View>
+      <CardItem style={{
+        flex: 4,
+        flexDirection: 'column',
+        alignContent: 'flex-start',
+        justifyContent: 'flex-start',
+      }}>
         <Text style={{
-          fontSize: 25,
-          textAlign: 'center'
-        }}>{this.props.name}</Text>
+          fontSize: 15,
+        }}>Name: {this.props.name}</Text>
         <Text style={{
-          fontSize: 25,
-          textAlign: 'center'
-        }}>{this.props.email}</Text>
+          fontSize: 15,
+        }}>eMail: {this.props.email}</Text>
         <Text style={{
-          fontSize: 25,
-          textAlign: 'center'
-        }}>{this.props.number}</Text>
-      </View>
+          fontSize: 15,
+        }}>tlf: {this.props.number}</Text>
+      </CardItem>
     )
   }
 
   renderActionsSection() {
     if (this.state.isEditing) {
       return (
-        <View style={{
-          flexGrow: 1,
-          flexDirection: 'row',
-          justifyContent: 'space-between'
+        <CardItem style={{
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'center',
         }}>
-          <Button success onPress={() => this.onSaveClick()}>
-            <Text>
-              Submit
-            </Text>
-          </Button>
-          <Button info onPress={() => this.onCancelClick()}>
-            <Text>
-              Cancel
-            </Text>
-          </Button>
-        </View>
+
+        <Button icon transparent onPress= {() => this.onSaveClick()}>
+          <Icon name='ios-checkmark' />
+        </Button>
+
+        <Button icon transparent onPress= {(i) => this.props.deleteContact(this.props.id)}>
+          <Icon name='trash' />
+        </Button>
+
+        </CardItem>
       )
     }
 
     return (
-      <View style={{
-        flexGrow: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between'
+      <CardItem style={{
+        display: 'flex',
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
       }}>
-        <Button info onPress={() => this.onEditClick()}>
-          <Text>
-            Edit
-          </Text>
+        <Button icon transparent onPress= {() => this.onEditClick()}>
+          <Icon name='md-create' />
         </Button>
-        <Button danger onPress={(i) => this.props.deleteContact(this.props.id)}>
-          <Text>
-            Delete
-          </Text>
-        </Button>
-      </View>
+      </CardItem>
     )
   }
 
   render() {
     return (
-      <Card>
-        <CardItem>
+      <Card style={{
+        display: 'flex',
+        flexDirection: 'row',
+        margin: 0,
+        padding: 0,
+      }}>
           {this.renderContactSection()}
-        </CardItem>
-        <CardItem style={{
-          flexDirection: 'row'
-        }}>
           {this.renderActionsSection()}
-        </CardItem>
       </Card>
     )
   }
-
-  onEditClick() {
-    this.setState({isEditing: true})
-  }
-
-  onCancelClick() {
-    this.setState({isEditing: false})
-  }
-
-  onSaveClick() {
-    const oldTaskId = this.props.id;
-    const newName = this.state.tempName;
-    const newEmail = this.state.tempEmail;
-    const newNumber = this.state.tempNumber;
-
-    this.props.saveContact(oldTaskId, newName, newEmail, newNumber);
-    this.setState({isEditing: false})
-  }
-
 }
